@@ -59,16 +59,18 @@ Las secciones puramente visuales solo tienen `ui/` + `content.ts`. No sobreingen
 
 Todos se corren en el contenedor: `docker compose run --rm app <comando>` (o `exec dev` si `dev` está levantado).
 
-| Comando | Qué hace |
-|---|---|
-| `pnpm dev` | Servidor de desarrollo (Turbopack) |
-| `pnpm build` / `pnpm start` | Build y servidor de producción |
-| `pnpm lint` | ESLint (incluye reglas de arquitectura) |
-| `pnpm typecheck` | Type-check estricto |
-| `pnpm test` | Vitest (unitarios, componentes, contract tests) |
-| `pnpm test:e2e` | Playwright e2e + axe |
-| `pnpm test:visual` | Regresión visual contra `reference/` (pixelmatch, umbral ≤ 0.5% por sección) |
-| `pnpm remotion:studio` / `pnpm remotion:render` | Studio de Remotion / render MP4 a `public/video/` |
+| Comando                                         | Qué hace                                                                     |
+| ----------------------------------------------- | ---------------------------------------------------------------------------- |
+| `pnpm dev`                                      | Servidor de desarrollo (Turbopack)                                           |
+| `pnpm build` / `pnpm start`                     | Build y servidor de producción                                               |
+| `pnpm lint`                                     | ESLint (incluye reglas de arquitectura)                                      |
+| `pnpm typecheck`                                | Type-check estricto                                                          |
+| `pnpm format` / `pnpm format:check`             | Prettier (con orden de clases de Tailwind)                                   |
+| `pnpm test`                                     | Vitest (unitarios, componentes, contract tests)                              |
+| `pnpm test:coverage`                            | Vitest con cobertura (umbral 90% en `domain/` y `application/`)              |
+| `pnpm test:e2e`                                 | Playwright e2e + axe                                                         |
+| `pnpm test:visual`                              | Regresión visual contra `reference/` (pixelmatch, umbral ≤ 0.5% por sección) |
+| `pnpm remotion:studio` / `pnpm remotion:render` | Studio de Remotion / render MP4 a `public/video/`                            |
 
 ## Skills del proyecto
 

@@ -1,0 +1,17 @@
+# Reference material and brief: kept byte-for-byte as delivered
+reference/
+PROMPT.md
+LEEME.md
+
+# Generated / installed
+.claude/
+skills-lock.json
+pnpm-lock.yaml
+.next/
+out/
+build/
+coverage/
+test-results/
+playwright-report/
+public/video/
+next-env.d.ts

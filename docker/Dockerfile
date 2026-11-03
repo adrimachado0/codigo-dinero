@@ -17,6 +17,10 @@ ENV PATH=$PNPM_HOME:$NPM_CONFIG_PREFIX/bin:$PATH
 USER ubuntu
 WORKDIR /app
 
+# Pre-create the named-volume mount points as ubuntu: Docker copies this ownership into
+# a fresh volume; otherwise the volume is root-owned and pnpm can't write its store.
+RUN mkdir -p /home/ubuntu/.pnpm-store /home/ubuntu/.cache
+
 RUN npm install -g pnpm@${PNPM_VERSION} agent-browser@${AGENT_BROWSER_VERSION} \
  && pnpm config set store-dir /home/ubuntu/.pnpm-store --global \
  && agent-browser --version

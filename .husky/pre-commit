@@ -1,0 +1,7 @@
+# Git hooks run on the host, which has no Node: delegate to the dev container.
+# Inside the image (CI_IMAGE is set by docker/Dockerfile) run the tool directly.
+if [ -n "$CI_IMAGE" ]; then
+  pnpm exec lint-staged
+else
+  docker compose run --rm -T app pnpm exec lint-staged
+fi
