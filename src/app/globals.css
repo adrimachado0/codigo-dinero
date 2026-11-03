@@ -1,1 +1,151 @@
-@import "tailwindcss";
+/*
+ * No Tailwind preflight: the reference relies on browser defaults (line-height: normal,
+ * content-box sizing, inline SVG/img). Only theme + utilities are imported, and the base
+ * layer below mirrors the reference's global <helmet> styles one to one.
+ */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@theme {
+  /* Colors — only the reference palette. */
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-canvas: #0f0f0f;
+  --color-ink: #111111;
+  --color-ink-soft: #1a1a1a;
+  --color-surface-100: #141414;
+  --color-surface-200: #161616;
+  --color-surface-300: #181818;
+  --color-surface-400: #1a1a1a;
+  --color-surface-500: #202020;
+  --color-surface-600: #222222;
+  --color-silhouette: #2a2a2a;
+  --color-silhouette-strong: #333333;
+  --color-fg-muted: #bdbdbd;
+  --color-fg-soft: #cfcfcf;
+  --color-fg-quote: #e6e6e6;
+  --color-fg-subtle: #9a9a9a;
+  --color-placeholder: #8a8a8a;
+  --color-accent: #ff2b2b;
+  --color-accent-hover: #ff8a8a;
+  --color-wine: #3a0c11;
+  --color-wine-circle: #4e1219;
+  --color-wine-fg: #ebcfd1;
+  --color-wine-silhouette: #1e0609;
+  --color-cream: #f4f4f0;
+
+  /* Font families (next/font variables, see src/shared/ui/fonts.ts). */
+  --font-*: initial;
+
+  /* Font sizes: px values from the reference, no bundled line-height (it stays `normal`). */
+  --text-*: initial;
+  --text-10: 10px;
+  --text-11: 11px;
+  --text-12: 12px;
+  --text-13: 13px;
+  --text-14: 14px;
+  --text-15: 15px;
+  --text-16: 16px;
+  --text-17: 17px;
+  --text-18: 18px;
+  --text-20: 20px;
+  --text-22: 22px;
+  --text-28: 28px;
+  --text-34: 34px;
+  --text-40: 40px;
+  --text-42: 42px;
+  --text-hero: clamp(40px, 5.6vw, 76px);
+  --text-about: clamp(30px, 3.4vw, 44px);
+  --text-section: clamp(30px, 3.2vw, 42px);
+  --text-cta: clamp(32px, 3.6vw, 48px);
+  --text-motto: clamp(30px, 5vw, 70px);
+
+  --leading-*: initial;
+  --leading-none: 1;
+  --leading-display: 1.04;
+  --leading-heading: 1.1;
+  --leading-subheading: 1.12;
+  --leading-tight: 1.2;
+  --leading-snug: 1.3;
+  --leading-caps: 1.35;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.6;
+  --leading-loose: 1.65;
+
+  --tracking-*: initial;
+  --tracking-tightest: -0.02em;
+  --tracking-tight: -0.01em;
+  --tracking-snug: 0.01em;
+  --tracking-logo: 0.02em;
+  --tracking-caps-sm: 0.04em;
+  --tracking-caps: 0.08em;
+  --tracking-caps-md: 0.1em;
+  --tracking-caps-lg: 0.14em;
+  --tracking-caps-xl: 0.16em;
+
+  /* Radii (999px and 50% map to `rounded-full`). */
+  --radius-*: initial;
+  --radius-tab: 8px;
+  --radius-tag: 12px;
+  --radius-tile: 22px;
+  --radius-card: 24px;
+  --radius-accordion: 26px;
+  --radius-card-lg: 28px;
+  --radius-nav: 32px;
+  --radius-panel: 36px;
+  --radius-hero-bottom: 80px;
+
+  /* Content widths. */
+  --container-*: initial;
+  --container-shell: 1400px;
+  --container-panel: 1240px;
+  --container-wide: 1200px;
+  --container-content: 1100px;
+  --container-nav: 1040px;
+  --container-narrow: 1000px;
+
+  --shadow-*: initial;
+  --shadow-glow: 0 0 140px rgba(255, 43, 43, 0.22);
+
+  --blur-*: initial;
+  --blur-blob: 110px;
+  --blur-blob-lg: 120px;
+}
+
+@theme inline {
+  --font-sans: var(--font-lexend), system-ui, sans-serif;
+  --font-display: var(--font-unbounded), sans-serif;
+}
+
+@layer base {
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-canvas);
+  }
+
+  a {
+    color: var(--color-accent);
+  }
+
+  a:hover {
+    color: var(--color-accent-hover);
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  input::placeholder {
+    color: var(--color-placeholder);
+  }
+}

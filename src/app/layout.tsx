@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+
+import { cn } from "@/shared/lib/cn";
+import { lexend, unbounded } from "@/shared/ui/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -10,8 +13,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es">
-      <body>{children}</body>
+    <html lang="es" className={cn(lexend.variable, unbounded.variable)}>
+      <body>
+        <div className="relative min-h-screen overflow-x-hidden bg-canvas font-sans text-white">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }

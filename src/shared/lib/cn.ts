@@ -1,5 +1,90 @@
 import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { extendTailwindMerge } from "tailwind-merge";
+
+// Mirrors the custom @theme in src/app/globals.css. Without it tailwind-merge can't tell
+// `text-15` (font size) from `text-ink` (color) and would drop one of them.
+const twMerge = extendTailwindMerge({
+  override: {
+    theme: {
+      color: [
+        "white",
+        "canvas",
+        "ink",
+        "ink-soft",
+        "surface-100",
+        "surface-200",
+        "surface-300",
+        "surface-400",
+        "surface-500",
+        "surface-600",
+        "silhouette",
+        "silhouette-strong",
+        "fg-muted",
+        "fg-soft",
+        "fg-quote",
+        "fg-subtle",
+        "placeholder",
+        "accent",
+        "accent-hover",
+        "wine",
+        "wine-circle",
+        "wine-fg",
+        "wine-silhouette",
+        "cream",
+      ],
+      font: ["sans", "display"],
+      text: [
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "20",
+        "22",
+        "28",
+        "34",
+        "40",
+        "42",
+        "hero",
+        "about",
+        "section",
+        "cta",
+        "motto",
+      ],
+      leading: [
+        "none",
+        "display",
+        "heading",
+        "subheading",
+        "tight",
+        "snug",
+        "caps",
+        "normal",
+        "relaxed",
+        "loose",
+      ],
+      tracking: [
+        "tightest",
+        "tight",
+        "snug",
+        "logo",
+        "caps-sm",
+        "caps",
+        "caps-md",
+        "caps-lg",
+        "caps-xl",
+      ],
+      radius: ["tab", "tag", "tile", "card", "accordion", "card-lg", "nav", "panel", "hero-bottom"],
+      container: ["shell", "panel", "wide", "content", "nav", "narrow"],
+      shadow: ["glow"],
+      blur: ["blob", "blob-lg"],
+    },
+  },
+});
 
 /** Joins conditional class names and resolves conflicting Tailwind utilities (last wins). */
 export function cn(...inputs: ClassValue[]): string {
