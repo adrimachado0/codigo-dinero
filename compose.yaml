@@ -1,0 +1,29 @@
+# Everything (pnpm, Next, Vitest, Playwright, Remotion, skills CLI) runs in this container.
+# Nothing is installed on the host.
+#
+#   docker compose run --rm app <cmd>    # one-off command, e.g. pnpm lint
+#   docker compose up dev                 # next dev on http://localhost:3000
+services:
+  app:
+    build:
+      context: docker
+    image: codigo-dinero-dev:latest
+    init: true
+    ipc: host # Chromium needs more than the default 64MB /dev/shm
+    working_dir: /app
+    volumes:
+      - .:/app
+      - pnpm-store:/home/ubuntu/.pnpm-store
+      - home-cache:/home/ubuntu/.cache
+
+  dev:
+    extends: app
+    command: pnpm dev --hostname 0.0.0.0 --port 3000
+    ports:
+      - "3000:3000" # next dev
+      - "3001:3001" # reference/ static server (visual tests)
+      - "3002:3002" # remotion studio
+
+volumes:
+  pnpm-store:
+  home-cache:

@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Código Dinero · Academia de trading</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;family=Unbounded:wght@600;800&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#0F0F0F}
+a{color:#FF2B2B}a:hover{color:#FF8A8A}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid #FF2B2B;outline-offset:3px}
+input::placeholder{color:#8A8A8A}
+@keyframes codTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes codPulse{0%,100%{opacity:1}50%{opacity:0.25}}
+@keyframes codSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes codFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@media (prefers-reduced-motion: reduce){.cod-anim{animation:none !important}}
+.cod-burger{display:none}
+@media (min-width: 768px){.cod-mobile-menu{display:none !important}}
+@media (max-width: 1023px){
+.cod-hero-row{flex-direction:column !important;align-items:stretch !important;gap:28px !important;margin-top:28px !important}
+.cod-hero-intro{flex:none !important;max-width:560px !important;padding-bottom:0 !important;margin:0 auto !important;text-align:center}
+.cod-hero-slash{display:none !important}
+.cod-hero-figure{flex:none !important;width:100% !important;height:480px !important}
+.cod-hero-circle{bottom:0 !important}
+.cod-hero-partner{flex:none !important;max-width:none !important;padding-bottom:64px !important;margin:8px auto 0 !important;text-align:center !important}
+.cod-hero-partner img{margin:14px auto 0 !important}
+.cod-stats{display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr));row-gap:28px !important}
+}
+@media (max-width: 767px){
+.cod-nav-side,.cod-nav-link{display:none !important}
+.cod-nav-right{flex:0 0 auto !important;gap:8px !important}
+.cod-burger{display:flex !important}
+.cod-deco-mark{display:none !important}
+.cod-deco-star{left:50% !important;top:-50px !important;width:40px !important;height:40px !important;margin-left:-20px}
+.cod-hero-figure{height:420px !important}
+.cod-hero-circle{width:380px !important;height:380px !important;margin-left:-190px !important}
+.cod-hero-person{width:270px !important;margin-left:-135px !important}
+.cod-hero-person span{top:50% !important}
+.cod-stat-num{font-size:28px !important}
+.cod-motto{flex-direction:column !important;gap:2px !important;font-size:42px !important}
+.cod-motto svg{width:22px;height:22px}
+.cod-tab{display:none !important}
+.cod-tm-off{display:none !important}
+.cod-video{height:260px !important}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #0F0F0F; color: #FFFFFF; font-family: 'Lexend', system-ui, sans-serif; overflow-x: hidden; position: relative">
+
+<section id="inicio" style="padding: 16px 16px 0">
+<div style="max-width: 1400px; margin: 0 auto; background: #3A0C11; color: #FFFFFF; border-radius: 28px 28px 80px 80px; padding: 22px clamp(16px, 3vw, 40px) 0; box-sizing: border-box; overflow: hidden; position: relative">
+<nav aria-label="Principal" style="max-width: 1040px; margin: 0 auto; background: #111111; border-radius: 32px; padding: 8px 10px 8px 26px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 18px">
+<div class="cod-nav-side" style="flex: 1 1 260px; display: flex; flex-wrap: wrap; gap: 4px 26px; font-size: 14px">
+<a href="#inicio" style="color: #FFFFFF; text-decoration: none; padding: 12px 0">Inicio</a>
+<a href="#" style="color: #FFFFFF; text-decoration: none; padding: 12px 0">Escuela</a>
+<a href="#" style="color: #FFFFFF; text-decoration: none; padding: 12px 0">Calendario</a>
+</div>
+<a href="#inicio" aria-label="Código Dinero, ir al inicio" style="flex: 0 0 auto; display: flex; align-items: center; gap: 8px; text-decoration: none; color: #FFFFFF">
+<svg class="cod-anim" width="26" height="26" viewBox="0 0 48 48" fill="none" stroke="{{accent}}" stroke-width="3" stroke-linecap="round" aria-hidden="true" style="animation: codSpin 24s linear infinite"><path d="M30 24L46 24M29.2 27L43.1 35M27 29.2L35 43.1M24 30L24 46M21 29.2L13 43.1M18.8 27L4.9 35M18 24L2 24M18.8 21L4.9 13M21 18.8L13 4.9M24 18L24 2M27 18.8L35 4.9M29.2 21L43.1 13"></path></svg>
+<span style="font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 0.02em">COD</span>
+</a>
+<div class="cod-nav-right" style="flex: 1 1 260px; display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 4px 26px; font-size: 14px">
+<a href="#" class="cod-nav-link" style="color: #FFFFFF; text-decoration: none; padding: 12px 0">Mercado</a>
+<a href="#" class="cod-nav-link" style="color: #FFFFFF; text-decoration: none; padding: 12px 0">Equipo</a>
+<a href="#" style="color: #111111; background: {{accent}}; text-decoration: none; padding: 12px 20px; border-radius: 999px; font-weight: 600">Empezar</a>
+<button type="button" class="cod-burger" onClick="{{menu.toggle}}" onKeyDown="{{menu.key}}" aria-expanded="{{menu.expanded}}" aria-controls="cod-mobile-menu" aria-label="{{menu.label}}" style="width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.28); background: transparent; color: #FFFFFF; align-items: center; justify-content: center; cursor: pointer; padding: 0">
+<sc-if value="{{menu.open}}" hint-placeholder-val="{{menu.open}}">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+</sc-if>
+<sc-if value="{{menu.closed}}" hint-placeholder-val="{{menu.closed}}">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+</sc-if>
+</button>
+</div>
+</nav>
+<sc-if value="{{menu.open}}" hint-placeholder-val="{{menu.open}}">
+<div id="cod-mobile-menu" class="cod-mobile-menu" onKeyDown="{{menu.key}}" style="max-width: 1040px; margin: 8px auto 0; background: #111111; border-radius: 24px; padding: 6px 22px; display: flex; flex-direction: column">
+<a href="#inicio" onClick="{{menu.close}}" style="color: #FFFFFF; text-decoration: none; font-size: 17px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.08)">Inicio</a>
+<a href="#" onClick="{{menu.close}}" style="color: #FFFFFF; text-decoration: none; font-size: 17px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.08)">Escuela</a>
+<a href="#" onClick="{{menu.close}}" style="color: #FFFFFF; text-decoration: none; font-size: 17px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.08)">Calendario</a>
+<a href="#" onClick="{{menu.close}}" style="color: #FFFFFF; text-decoration: none; font-size: 17px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.08)">Mercado</a>
+<a href="#" onClick="{{menu.close}}" style="color: #FFFFFF; text-decoration: none; font-size: 17px; padding: 14px 0">Equipo</a>
+</div>
+</sc-if>
+
+<div role="region" aria-label="Cotizaciones" style="max-width: 1040px; margin: 10px auto 0; background: #111111; border-radius: 999px; display: flex; align-items: stretch; overflow: hidden">
+<div style="flex: 0 0 auto; display: flex; align-items: center; gap: 8px; padding: 0 16px 0 20px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: {{accent}}">
+<span class="cod-anim" style="width: 7px; height: 7px; border-radius: 50%; background: {{accent}}; animation: codPulse 1.6s ease-in-out infinite"></span>
+<span>Mercados</span>
+</div>
+<div style="flex: 1 1 auto; min-width: 0; overflow: hidden">
+<div class="cod-anim" style="display: flex; width: max-content; animation: codTicker 44s linear infinite">
+<sc-for list="{{tickerLoop}}" as="q" hint-placeholder-count="14">
+<div style="display: flex; align-items: baseline; gap: 9px; padding: 11px 22px; white-space: nowrap; font-variant-numeric: tabular-nums; border-left: 1px solid rgba(255,255,255,0.08)">
+<span style="font-size: 13px; font-weight: 600; color: #FFFFFF">{{q.sym}}</span>
+<span style="font-size: 13px; color: #CFCFCF">{{q.price}}</span>
+<span style="font-size: 12px; font-weight: 500; color: {{q.color}}">{{q.arrow}} {{q.chg}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="flex: 0 0 auto; display: flex; align-items: center; padding: 0 20px 0 14px; font-size: 11px; color: #9A9A9A">Simulado</div>
+</div>
+
+<div style="position: relative; max-width: 1000px; margin: 56px auto 0; text-align: center">
+<svg class="cod-anim cod-deco-star" width="72" height="72" viewBox="0 0 48 48" fill="none" stroke="{{accent}}" stroke-width="2.6" stroke-linecap="round" aria-hidden="true" style="position: absolute; left: 0; top: -34px; animation: codSpin 30s linear infinite"><path d="M30 24L46 24M29.2 27L43.1 35M27 29.2L35 43.1M24 30L24 46M21 29.2L13 43.1M18.8 27L4.9 35M18 24L2 24M18.8 21L4.9 13M21 18.8L13 4.9M24 18L24 2M27 18.8L35 4.9M29.2 21L43.1 13"></path></svg>
+<h1 style="margin: 0; font-size: clamp(40px, 5.6vw, 76px); line-height: 1.04; font-weight: 600; letter-spacing: -0.02em; color: #FFFFFF">Te guiamos en<br>cada operación</h1>
+<svg class="cod-deco-mark" width="40" height="44" viewBox="0 0 40 44" fill="none" stroke="{{accent}}" stroke-width="3.2" stroke-linecap="round" aria-hidden="true" style="position: absolute; right: 8px; bottom: 2px"><path d="M34 6L8 20M10 28L34 38"></path></svg>
+</div>
+
+<div class="cod-hero-row" style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 24px; margin-top: 20px">
+<div class="cod-hero-intro" style="flex: 1 1 260px; max-width: 320px; padding-bottom: 120px">
+<svg class="cod-hero-slash" width="22" height="20" viewBox="0 0 22 20" fill="none" stroke="{{accent}}" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M3 3L9 16M13 2L16 13"></path></svg>
+<p style="margin: 10px 0 0; font-size: 15px; line-height: 1.6; color: #EBCFD1">Formación, análisis de mercado y una comunidad que opera con método. Te acompañamos desde tu primera operación hasta tu plan de trading.</p>
+<a href="#formacion" style="display: inline-flex; align-items: center; min-height: 44px; margin-top: 22px; padding: 0 22px; box-sizing: border-box; border: 1.5px solid rgba(255,255,255,0.55); border-radius: 999px; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500">Ver formación</a>
+</div>
+<div class="cod-hero-figure" style="flex: 1.6 1 380px; min-width: 0; position: relative; height: 500px">
+<div class="cod-hero-circle" style="position: absolute; left: 50%; bottom: -40px; width: 460px; height: 460px; margin-left: -230px; border-radius: 50%; background: #4E1219; box-shadow: 0 0 140px rgba(255,43,43,0.22)"></div>
+<canvas data-scene="hero" ref="{{heroRef}}" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: block"></canvas>
+<div class="cod-hero-person" style="position: absolute; left: 50%; bottom: 0; width: 310px; margin-left: -155px">
+<svg viewBox="0 0 300 340" aria-hidden="true" style="display: block; width: 100%; height: auto"><circle cx="150" cy="104" r="62" fill="#1E0609"></circle><path d="M18 340C28 238 88 200 150 200C212 200 272 238 282 340Z" fill="#1E0609"></path></svg>
+<span style="position: absolute; left: 50%; top: 66%; transform: translateX(-50%); white-space: nowrap; font-size: 12px; font-weight: 500; color: #111111; background: {{accent}}; padding: 6px 12px; border-radius: 999px">Foto</span>
+</div>
+<div style="position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); display: flex; gap: 6px; padding: 6px; border-radius: 999px; background: rgba(17,17,17,0.86); white-space: nowrap">
+<a href="#" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; background: {{accent}}; color: #111111; text-decoration: none; font-size: 14px; font-weight: 600">Empezar ahora</a>
+<a href="#" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.28); color: #FFFFFF; text-decoration: none; font-size: 14px">Abrir cuenta</a>
+</div>
+</div>
+<div class="cod-hero-partner" style="flex: 1 1 220px; max-width: 280px; padding-bottom: 160px; text-align: right; margin-left: auto">
+<span style="display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #111111; background: {{accent}}; padding: 6px 12px; border-radius: 999px">Partner oficial</span>
+<img src="/_blob/36ea0658d606a5d811def17a531cd130" alt="EC Markets" style="display: block; width: 230px; max-width: 100%; height: auto; margin: 14px 0 0 auto">
+<p style="margin: 8px 0 0; font-size: 14px; color: #EBCFD1">Broker multirregulado</p>
+</div>
+</div>
+</div>
+</section>
+
+<div aria-hidden="true" style="position: absolute; left: -160px; top: 980px; width: 420px; height: 420px; border-radius: 50%; background: {{accent}}; opacity: 0.08; filter: blur(110px); pointer-events: none"></div>
+<div aria-hidden="true" style="position: absolute; right: -180px; top: 1700px; width: 460px; height: 460px; border-radius: 50%; background: {{accent}}; opacity: 0.07; filter: blur(120px); pointer-events: none"></div>
+
+<section aria-label="EC MARKETS en números" style="padding: 64px 24px 0; position: relative">
+<div class="cod-stats" style="max-width: 1040px; margin: 0 auto; border: 1px solid rgba(255,255,255,0.18); border-radius: 28px; background: #161616; padding: 26px 16px; box-sizing: border-box; display: flex; flex-wrap: wrap; row-gap: 20px">
+<div style="flex: 1 1 200px; text-align: center">
+<p class="cod-stat-num" style="margin: 0; font-size: 34px; font-weight: 600">150<span style="color: {{accent}}">+</span></p>
+<p style="margin: 6px 0 0; font-size: 14px; color: #BDBDBD">Instrumentos en EC MARKETS</p>
+</div>
+<div style="flex: 1 1 200px; text-align: center">
+<p class="cod-stat-num" style="margin: 0; font-size: 34px; font-weight: 600">MT4<span style="color: {{accent}}">·</span>MT5</p>
+<p style="margin: 6px 0 0; font-size: 14px; color: #BDBDBD">Plataformas</p>
+</div>
+<div style="flex: 1 1 200px; text-align: center">
+<p class="cod-stat-num" style="margin: 0; font-size: 34px; font-weight: 600">24<span style="color: {{accent}}">/</span>5</p>
+<p style="margin: 6px 0 0; font-size: 14px; color: #BDBDBD">Soporte del broker</p>
+</div>
+<div style="flex: 1 1 200px; text-align: center">
+<p class="cod-stat-num" style="margin: 0; font-size: 34px; font-weight: 600">0<span style="color: {{accent}}">7</span></p>
+<p style="margin: 6px 0 0; font-size: 14px; color: #BDBDBD">Activos en el ticker</p>
+</div>
+</div>
+</section>
+
+<section id="que-es" style="padding: 110px 24px 0; position: relative">
+<div style="max-width: 1100px; margin: 0 auto">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px 48px">
+<div style="flex: 1 1 380px; max-width: 520px">
+<p style="margin: 0; font-size: 14px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: {{accent}}">¿Qué es Código Dinero?</p>
+<h2 style="margin: 14px 0 0; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.12; font-weight: 500; letter-spacing: -0.01em">Convertimos el ruido del mercado en un método</h2>
+</div>
+<p style="flex: 1 1 340px; max-width: 440px; margin: 0; font-size: 15px; line-height: 1.65; color: #BDBDBD">Una academia de trading que te acompaña desde tu primera operación. Aprendes a leer el mercado, a gestionar el riesgo y a operar con un plan, con clases claras, análisis de mercado y una comunidad que avanza contigo.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 18px; margin-top: 48px; align-items: flex-end">
+<div style="flex: 1.75 1 460px; min-width: 0; position: relative">
+<svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true" style="position: absolute; left: -14px; top: -16px; z-index: 2"><path d="M12 0C12.8 7 17 11.2 24 12C17 12.8 12.8 17 12 24C11.2 17 7 12.8 0 12C7 11.2 11.2 7 12 0Z" fill="{{accent}}"></path></svg>
+<div class="cod-video" style="position: relative; height: 380px; border-radius: 24px; overflow: hidden; background: #141414; border: 1px solid rgba(255,255,255,0.08)">
+<canvas data-scene="video" ref="{{videoRef}}" role="img" aria-label="Animación: esfera de partículas y gráfico de precio" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: block"></canvas>
+<button type="button" aria-label="Reproducir video de presentación (próximamente)" style="position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%); width: 70px; height: 70px; border-radius: 50%; border: 0; background: {{accent}}; color: #111111; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"></path></svg></button>
+<div style="position: absolute; left: 22px; bottom: 22px; right: 22px; display: flex; align-items: stretch; gap: 5px">
+<div style="background: {{accent}}; color: #111111; padding: 12px 22px 12px 26px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.35">Academia de trading<br>Video · Remotion</div>
+<div style="width: 9px; background: {{accent}}"></div>
+<div style="width: 5px; background: {{accent}}; opacity: 0.8"></div>
+<div style="width: 3px; background: {{accent}}; opacity: 0.6"></div>
+<div style="width: 2px; background: {{accent}}; opacity: 0.4"></div>
+</div>
+</div>
+</div>
+<div style="flex: 1 1 260px; min-width: 0; position: relative; height: 440px; border-radius: 24px; overflow: hidden; background: #222222">
+<svg viewBox="0 0 300 340" aria-hidden="true" style="position: absolute; left: 50%; bottom: 0; width: 82%; transform: translateX(-50%)"><circle cx="150" cy="104" r="62" fill="#333333"></circle><path d="M18 340C28 238 88 200 150 200C212 200 272 238 282 340Z" fill="#333333"></path></svg>
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="{{accent}}" stroke-width="2.4" stroke-linecap="round" aria-hidden="true" style="position: absolute; right: 26px; top: 26px"><path d="M14 18v8M14 46v6M32 10v10M32 40v12M50 22v6M50 44v8"></path><rect x="9" y="26" width="10" height="20" rx="2"></rect><rect x="27" y="20" width="10" height="20" rx="2"></rect><rect x="45" y="28" width="10" height="16" rx="2"></rect></svg>
+<span style="position: absolute; left: 22px; top: 26px; font-size: 12px; font-weight: 500; color: #111111; background: {{accent}}; padding: 6px 12px; border-radius: 999px">Foto del mentor</span>
+</div>
+</div>
+</div>
+</section>
+
+<section aria-label="Aprende, analiza, opera" style="padding: 110px 24px 0">
+<div style="max-width: 1200px; margin: 0 auto">
+<p class="cod-motto" style="margin: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px 28px; font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: clamp(30px, 5vw, 70px); line-height: 1.1; letter-spacing: 0.01em">
+<span>Aprende</span>
+<svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C12.8 7 17 11.2 24 12C17 12.8 12.8 17 12 24C11.2 17 7 12.8 0 12C7 11.2 11.2 7 12 0Z" fill="{{accent}}"></path></svg>
+<span>Analiza</span>
+<svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C12.8 7 17 11.2 24 12C17 12.8 12.8 17 12 24C11.2 17 7 12.8 0 12C7 11.2 11.2 7 12 0Z" fill="{{accent}}"></path></svg>
+<span>Opera</span>
+</p>
+<div style="display: flex; align-items: center; gap: 18px; margin-top: 40px">
+<span style="flex: 1 1 auto; height: 1px; background: rgba(255,255,255,0.3)"></span>
+<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C12.8 7 17 11.2 24 12C17 12.8 12.8 17 12 24C11.2 17 7 12.8 0 12C7 11.2 11.2 7 12 0Z" fill="#FFFFFF"></path></svg>
+<span style="flex: 1 1 auto; height: 1px; background: rgba(255,255,255,0.3)"></span>
+</div>
+</div>
+</section>
+
+<section id="formacion" style="padding: 100px 16px 0">
+<div style="max-width: 1240px; margin: 0 auto; position: relative; background: #181818; border: 1px solid rgba(255,255,255,0.06); border-radius: 36px; padding: clamp(28px, 4vw, 56px) clamp(20px, 4vw, 56px); box-sizing: border-box">
+<div class="cod-tab" style="position: absolute; left: 0; top: 56px; width: 30px; height: 150px; background: {{accent}}; border-radius: 0 8px 8px 0; display: flex; align-items: center; justify-content: center">
+<span style="transform: rotate(-90deg); white-space: nowrap; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #111111">Qué enseñamos</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: stretch">
+<div style="flex: 1 1 300px; min-width: 0; padding-left: 12px">
+<h2 style="margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: clamp(30px, 3.2vw, 42px); font-weight: 500"><span>Nuestra</span><span style="background: {{accent}}; color: #111111; padding: 2px 14px 4px; border-radius: 12px; transform: rotate(-2deg); display: inline-block">formación</span></h2>
+<p style="margin: 18px 0 0; max-width: 360px; font-size: 15px; line-height: 1.6; color: #BDBDBD">Clases gratuitas en YouTube para aprender a operar con criterio: desde los fundamentos hasta tu propio plan de trading.</p>
+<div style="display: flex; flex-direction: column; gap: 12px; margin-top: 28px; max-width: 380px">
+<a href="#" style="display: flex; align-items: center; gap: 16px; min-height: 54px; padding: 0 18px 0 22px; border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; color: #FFFFFF; text-decoration: none; font-size: 15px"><span style="font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 14px; color: {{accent}}">01</span><span style="flex: 1 1 auto">Fundamentos del trading</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a href="#" style="display: flex; align-items: center; gap: 16px; min-height: 54px; padding: 0 18px 0 22px; border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; color: #FFFFFF; text-decoration: none; font-size: 15px"><span style="font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 14px; color: {{accent}}">02</span><span style="flex: 1 1 auto">Análisis técnico</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a href="#" style="display: flex; align-items: center; gap: 16px; min-height: 54px; padding: 0 18px 0 22px; border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; color: #FFFFFF; text-decoration: none; font-size: 15px"><span style="font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 14px; color: {{accent}}">03</span><span style="flex: 1 1 auto">Gestión de riesgo</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a href="#" style="display: flex; align-items: center; gap: 16px; min-height: 54px; padding: 0 18px 0 22px; border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; color: #FFFFFF; text-decoration: none; font-size: 15px"><span style="font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 14px; color: {{accent}}">04</span><span style="flex: 1 1 auto">Psicología del trader</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+</div>
+</div>
+<a href="#" style="flex: 1.1 1 300px; min-width: 0; min-height: 420px; position: relative; display: block; border-radius: 28px; overflow: hidden; background: #0F0F0F; border: 1px solid rgba(255,255,255,0.08); color: #FFFFFF; text-decoration: none">
+<svg viewBox="0 0 400 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%">
+<path d="M0 70H400M0 140H400M0 210H400M0 280H400M0 350H400M80 0V420M160 0V420M240 0V420M320 0V420" stroke="#FFFFFF" stroke-opacity="0.05"></path>
+<g stroke-width="2">
+<line x1="50" y1="250" x2="50" y2="330" stroke="#FFFFFF" stroke-opacity="0.55"></line><rect x="41" y="268" width="18" height="45" fill="#FFFFFF" fill-opacity="0.55"></rect>
+<line x1="90" y1="235" x2="90" y2="300" stroke="{{accent}}"></line><rect x="81" y="245" width="18" height="42" fill="{{accent}}"></rect>
+<line x1="130" y1="205" x2="130" y2="280" stroke="{{accent}}"></line><rect x="121" y="215" width="18" height="52" fill="{{accent}}"></rect>
+<line x1="170" y1="215" x2="170" y2="285" stroke="#FFFFFF" stroke-opacity="0.55"></line><rect x="161" y="225" width="18" height="44" fill="#FFFFFF" fill-opacity="0.55"></rect>
+<line x1="210" y1="180" x2="210" y2="255" stroke="{{accent}}"></line><rect x="201" y="190" width="18" height="55" fill="{{accent}}"></rect>
+<line x1="250" y1="150" x2="250" y2="225" stroke="{{accent}}"></line><rect x="241" y="160" width="18" height="52" fill="{{accent}}"></rect>
+<line x1="290" y1="160" x2="290" y2="230" stroke="#FFFFFF" stroke-opacity="0.55"></line><rect x="281" y="168" width="18" height="45" fill="#FFFFFF" fill-opacity="0.55"></rect>
+<line x1="330" y1="120" x2="330" y2="195" stroke="{{accent}}"></line><rect x="321" y="130" width="18" height="55" fill="{{accent}}"></rect>
+<line x1="370" y1="95" x2="370" y2="165" stroke="{{accent}}"></line><rect x="361" y="103" width="18" height="52" fill="{{accent}}"></rect>
+</g>
+</svg>
+<div style="position: absolute; left: 50%; top: 42%; width: 190px; height: 190px; margin: -95px 0 0 -95px">
+<svg class="cod-anim" viewBox="0 0 200 200" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; animation: codSpin 20s linear infinite"><defs><path id="codCirclePath" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0"></path></defs><text fill="#FFFFFF" font-size="12" letter-spacing="3.4" font-family="Lexend, sans-serif"><textPath href="#codCirclePath">CÓDIGO DINERO ✦ CLASES EN YOUTUBE ✦ GRATIS ✦</textPath></text></svg>
+<span style="position: absolute; left: 50%; top: 50%; width: 76px; height: 76px; margin: -38px 0 0 -38px; border-radius: 50%; background: {{accent}}; color: #111111; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"></path></svg></span>
+</div>
+<div style="position: absolute; left: 22px; right: 22px; bottom: 22px">
+<p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: {{accent}}">Clase destacada</p>
+<h3 style="margin: 6px 0 0; font-size: 20px; font-weight: 500; line-height: 1.3">Cómo leer velas japonesas desde cero</h3>
+</div>
+</a>
+<div style="flex: 0.8 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<a href="#" style="flex: 1 1 auto; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; min-height: 190px; padding: 22px; border-radius: 22px; background: #222222; color: #FFFFFF; text-decoration: none">
+<span style="font-size: 14px; line-height: 1.5; color: #CFCFCF">¿No sabes por dónde empezar con el trading?</span>
+<span style="display: flex; justify-content: space-between; align-items: flex-end; gap: 12px"><span style="font-size: 18px; font-weight: 600; line-height: 1.2">Ver la ruta<br>de estudio</span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg></span>
+</a>
+<a href="#" style="flex: 1 1 auto; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; min-height: 190px; padding: 22px; border-radius: 22px; background: {{accent}}; color: #111111; text-decoration: none">
+<span style="font-size: 14px; line-height: 1.5; color: #1A1A1A">Todas las clases, gratis en nuestro canal.</span>
+<span style="display: flex; justify-content: space-between; align-items: flex-end; gap: 12px"><span style="font-size: 18px; font-weight: 600; line-height: 1.2">Ver en<br>YouTube</span><span style="width: 42px; height: 42px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg></span></span>
+</a>
+</div>
+</div>
+</div>
+</section>
+
+<section id="comunidad" style="padding: 110px 16px 0">
+<div style="max-width: 1240px; margin: 0 auto">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px; padding: 0 8px">
+<div style="flex: 1 1 380px">
+<h2 style="margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: clamp(30px, 3.2vw, 42px); font-weight: 500"><span>Lo que dice la</span><span style="background: {{accent}}; color: #111111; padding: 2px 14px 4px; border-radius: 12px; transform: rotate(-2deg); display: inline-block">comunidad</span></h2>
+<p style="margin: 16px 0 0; max-width: 460px; font-size: 15px; line-height: 1.6; color: #BDBDBD">Reseñas de alumnos que estudian y operan con Código Dinero.</p>
+</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<button type="button" onClick="{{tm.prev}}" aria-label="Reseña anterior" style="width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.32); background: transparent; color: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg></button>
+<button type="button" onClick="{{tm.next}}" aria-label="Reseña siguiente" style="width: 48px; height: 48px; border-radius: 50%; border: 0; background: {{accent}}; color: #111111; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+<a href="#" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; margin-left: 6px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.32); color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500">Quiero sumarme</a>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 18px; margin-top: 40px">
+<figure class="{{tm.c0}}" style="flex: 1 1 300px; margin: 0; background: #1A1A1A; border: 1px solid {{tm.b0}}; border-radius: 24px; padding: 26px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; opacity: {{tm.o0}}; transition: opacity 0.3s, border-color 0.3s">
+<figcaption style="display: flex; align-items: center; gap: 14px">
+<span style="flex: 0 0 48px; width: 48px; height: 48px; border-radius: 50%; background: {{accent}}; color: #111111; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"></circle><path d="M4.5 20.5c.9-3.9 3.9-6 7.5-6s6.6 2.1 7.5 6"></path></svg></span>
+<span style="flex: 1 1 auto"><span style="display: block; font-size: 15px; font-weight: 500">[Nombre del alumno]</span><span style="display: block; margin-top: 3px; font-size: 13px; color: #BDBDBD">[Ciudad] · Alumno</span></span>
+<svg width="28" height="28" viewBox="0 0 24 24" fill="{{accent}}" aria-hidden="true"><path d="M4 7h6v6c0 3.5-2 5.5-5 6.5l-.8-1.6c1.7-.8 2.6-2 2.8-3.9H4zM14 7h6v6c0 3.5-2 5.5-5 6.5l-.8-1.6c1.7-.8 2.6-2 2.8-3.9H14z"></path></svg>
+</figcaption>
+<blockquote style="margin: 0; font-size: 15px; line-height: 1.65; font-style: italic; color: #E6E6E6">[Reseña de un alumno: qué aprendió y cómo cambió su forma de operar.]</blockquote>
+</figure>
+<figure class="{{tm.c1}}" style="flex: 1 1 300px; margin: 0; background: #1A1A1A; border: 1px solid {{tm.b1}}; border-radius: 24px; padding: 26px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; opacity: {{tm.o1}}; transition: opacity 0.3s, border-color 0.3s">
+<figcaption style="display: flex; align-items: center; gap: 14px">
+<span style="flex: 0 0 48px; width: 48px; height: 48px; border-radius: 50%; background: {{accent}}; color: #111111; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"></circle><path d="M4.5 20.5c.9-3.9 3.9-6 7.5-6s6.6 2.1 7.5 6"></path></svg></span>
+<span style="flex: 1 1 auto"><span style="display: block; font-size: 15px; font-weight: 500">[Nombre del alumno]</span><span style="display: block; margin-top: 3px; font-size: 13px; color: #BDBDBD">[Ciudad] · Alumno</span></span>
+<svg width="28" height="28" viewBox="0 0 24 24" fill="{{accent}}" aria-hidden="true"><path d="M4 7h6v6c0 3.5-2 5.5-5 6.5l-.8-1.6c1.7-.8 2.6-2 2.8-3.9H4zM14 7h6v6c0 3.5-2 5.5-5 6.5l-.8-1.6c1.7-.8 2.6-2 2.8-3.9H14z"></path></svg>
+</figcaption>
+<blockquote style="margin: 0; font-size: 15px; line-height: 1.65; font-style: italic; color: #E6E6E6">[Reseña de un alumno: qué fue lo que más le sirvió de la formación o de la comunidad.]</blockquote>
+</figure>
+<figure class="{{tm.c2}}" style="flex: 1 1 300px; margin: 0; background: #1A1A1A; border: 1px solid {{tm.b2}}; border-radius: 24px; padding: 26px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; opacity: {{tm.o2}}; transition: opacity 0.3s, border-color 0.3s">
+<figcaption style="display: flex; align-items: center; gap: 14px">
+<span style="flex: 0 0 48px; width: 48px; height: 48px; border-radius: 50%; background: {{accent}}; color: #111111; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"></circle><path d="M4.5 20.5c.9-3.9 3.9-6 7.5-6s6.6 2.1 7.5 6"></path></svg></span>
+<span style="flex: 1 1 auto"><span style="display: block; font-size: 15px; font-weight: 500">[Nombre del alumno]</span><span style="display: block; margin-top: 3px; font-size: 13px; color: #BDBDBD">[Ciudad] · Alumno</span></span>
+<svg width="28" height="28" viewBox="0 0 24 24" fill="{{accent}}" aria-hidden="true"><path d="M4 7h6v6c0 3.5-2 5.5-5 6.5l-.8-1.6c1.7-.8 2.6-2 2.8-3.9H4zM14 7h6v6c0 3.5-2 5.5-5 6.5l-.8-1.6c1.7-.8 2.6-2 2.8-3.9H14z"></path></svg>
+</figcaption>
+<blockquote style="margin: 0; font-size: 15px; line-height: 1.65; font-style: italic; color: #E6E6E6">[Reseña de un alumno: cómo empezó y dónde está hoy con su operativa.]</blockquote>
+</figure>
+</div>
+<div style="display: flex; justify-content: center; gap: 8px; margin-top: 22px">
+<span style="width: {{tm.w0}}; height: 8px; border-radius: 999px; background: {{tm.d0}}; transition: width 0.3s"></span>
+<span style="width: {{tm.w1}}; height: 8px; border-radius: 999px; background: {{tm.d1}}; transition: width 0.3s"></span>
+<span style="width: {{tm.w2}}; height: 8px; border-radius: 999px; background: {{tm.d2}}; transition: width 0.3s"></span>
+</div>
+</div>
+</section>
+
+<section aria-label="Temas" style="position: relative; height: 220px; margin-top: 90px; overflow: hidden">
+<div style="position: absolute; left: -5%; width: 110%; top: 82px; transform: rotate(3deg); background: #F4F4F0; color: #111111; overflow: hidden; border-top: 1px solid #111111; border-bottom: 1px solid #111111">
+<div class="cod-anim" style="display: flex; width: max-content; animation: codTicker 60s linear infinite reverse; padding: 12px 0; font-size: 17px; font-weight: 500; white-space: nowrap">
+<span style="padding-right: 28px">Velas japonesas ✦ Soportes y resistencias ✦ Tamaño de posición ✦ Stop loss ✦ Plan de trading ✦ Diario de operaciones ✦ Sesiones de mercado ✦</span>
+<span style="padding-right: 28px">Velas japonesas ✦ Soportes y resistencias ✦ Tamaño de posición ✦ Stop loss ✦ Plan de trading ✦ Diario de operaciones ✦ Sesiones de mercado ✦</span>
+</div>
+</div>
+<div style="position: absolute; left: -5%; width: 110%; top: 80px; transform: rotate(-3deg); background: {{accent}}; color: #111111; overflow: hidden">
+<div class="cod-anim" style="display: flex; width: max-content; animation: codTicker 40s linear infinite; padding: 16px 0; font-family: 'Unbounded', sans-serif; font-size: 22px; font-weight: 800; white-space: nowrap">
+<span style="padding-right: 32px">XAUUSD ✦ FOREX ✦ CRIPTO ✦ ÍNDICES ✦ GESTIÓN DE RIESGO ✦ ANÁLISIS TÉCNICO ✦ CALENDARIO ECONÓMICO ✦</span>
+<span style="padding-right: 32px">XAUUSD ✦ FOREX ✦ CRIPTO ✦ ÍNDICES ✦ GESTIÓN DE RIESGO ✦ ANÁLISIS TÉCNICO ✦ CALENDARIO ECONÓMICO ✦</span>
+</div>
+</div>
+</section>
+
+<section id="faq" style="padding: 80px 16px 0">
+<div style="max-width: 1240px; margin: 0 auto; background: #181818; border: 1px solid rgba(255,255,255,0.06); border-radius: 36px; padding: clamp(28px, 4vw, 56px); box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 40px 56px; align-items: flex-start">
+<div style="flex: 1 1 280px; max-width: 380px">
+<h2 style="margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: clamp(30px, 3.2vw, 42px); font-weight: 500"><span>Preguntas</span><span style="background: {{accent}}; color: #111111; padding: 2px 14px 4px; border-radius: 12px; transform: rotate(-2deg); display: inline-block">frecuentes</span></h2>
+<p style="margin: 18px 0 0; font-size: 15px; line-height: 1.6; color: #BDBDBD">Lo que necesitas saber antes de empezar. Si tu duda no está aquí, escríbenos.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px">
+<span style="border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; padding: 8px 16px; font-size: 14px">Pagos</span>
+<span style="border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; padding: 8px 16px; font-size: 14px">Accesos</span>
+<span style="border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; padding: 8px 16px; font-size: 14px">Soporte</span>
+</div>
+</div>
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<div style="border: 1px solid {{faq.b0}}; border-radius: 26px; background: {{faq.bg0}}; transition: background 0.2s">
+<button type="button" onClick="{{faq.t0}}" aria-expanded="{{faq.e0}}" style="width: 100%; min-height: 60px; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 10px 10px 10px 24px; background: transparent; border: 0; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 500; text-align: left; cursor: pointer">
+<span style="display: flex; align-items: center; gap: 16px"><span style="font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 600; color: {{accent}}">01</span><span>¿Cuánto cuesta?</span></span>
+<span aria-hidden="true" style="flex: 0 0 40px; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; background: {{faq.ib0}}; color: {{faq.ic0}}">{{faq.s0}}</span>
+</button>
+<sc-if value="{{faq.o0}}" hint-placeholder-val="{{faq.o0}}">
+<p style="margin: 0; padding: 0 24px 22px 62px; font-size: 15px; line-height: 1.65; color: #CFCFCF">La membresía cuesta [PRECIO] [por mes / pago único]. Las clases de nuestro canal de YouTube son gratuitas.</p>
+</sc-if>
+</div>
+<div style="border: 1px solid {{faq.b1}}; border-radius: 26px; background: {{faq.bg1}}; transition: background 0.2s">
+<button type="button" onClick="{{faq.t1}}" aria-expanded="{{faq.e1}}" style="width: 100%; min-height: 60px; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 10px 10px 10px 24px; background: transparent; border: 0; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 500; text-align: left; cursor: pointer">
+<span style="display: flex; align-items: center; gap: 16px"><span style="font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 600; color: {{accent}}">02</span><span>¿Necesito experiencia previa?</span></span>
+<span aria-hidden="true" style="flex: 0 0 40px; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; background: {{faq.ib1}}; color: {{faq.ic1}}">{{faq.s1}}</span>
+</button>
+<sc-if value="{{faq.o1}}" hint-placeholder-val="{{faq.o1}}">
+<p style="margin: 0; padding: 0 24px 22px 62px; font-size: 15px; line-height: 1.65; color: #CFCFCF">No. La formación empieza desde cero: qué es un mercado, cómo funciona un broker y cómo leer un gráfico. Si ya operas, también encontrarás contenido de análisis y gestión de riesgo para ordenar tu operativa.</p>
+</sc-if>
+</div>
+<div style="border: 1px solid {{faq.b2}}; border-radius: 26px; background: {{faq.bg2}}; transition: background 0.2s">
+<button type="button" onClick="{{faq.t2}}" aria-expanded="{{faq.e2}}" style="width: 100%; min-height: 60px; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 10px 10px 10px 24px; background: transparent; border: 0; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 500; text-align: left; cursor: pointer">
+<span style="display: flex; align-items: center; gap: 16px"><span style="font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 600; color: {{accent}}">03</span><span>¿Cómo accedo a los videos?</span></span>
+<span aria-hidden="true" style="flex: 0 0 40px; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; background: {{faq.ib2}}; color: {{faq.ic2}}">{{faq.s2}}</span>
+</button>
+<sc-if value="{{faq.o2}}" hint-placeholder-val="{{faq.o2}}">
+<p style="margin: 0; padding: 0 24px 22px 62px; font-size: 15px; line-height: 1.65; color: #CFCFCF">Las clases abiertas están en nuestro canal de YouTube. El contenido de la Escuela se habilita en [PLATAFORMA] cuando se acredita tu pago.</p>
+</sc-if>
+</div>
+<div style="border: 1px solid {{faq.b3}}; border-radius: 26px; background: {{faq.bg3}}; transition: background 0.2s">
+<button type="button" onClick="{{faq.t3}}" aria-expanded="{{faq.e3}}" style="width: 100%; min-height: 60px; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 10px 10px 10px 24px; background: transparent; border: 0; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 500; text-align: left; cursor: pointer">
+<span style="display: flex; align-items: center; gap: 16px"><span style="font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 600; color: {{accent}}">04</span><span>¿Qué pasa si no se acredita mi pago?</span></span>
+<span aria-hidden="true" style="flex: 0 0 40px; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; background: {{faq.ib3}}; color: {{faq.ic3}}">{{faq.s3}}</span>
+</button>
+<sc-if value="{{faq.o3}}" hint-placeholder-val="{{faq.o3}}">
+<p style="margin: 0; padding: 0 24px 22px 62px; font-size: 15px; line-height: 1.65; color: #CFCFCF">Escríbenos a [CORREO o WHATSAPP DE SOPORTE] con el comprobante de pago y lo revisamos. Algunos medios de pago pueden tardar [PLAZO] en acreditarse.</p>
+</sc-if>
+</div>
+<div style="border: 1px solid {{faq.b4}}; border-radius: 26px; background: {{faq.bg4}}; transition: background 0.2s">
+<button type="button" onClick="{{faq.t4}}" aria-expanded="{{faq.e4}}" style="width: 100%; min-height: 60px; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 10px 10px 10px 24px; background: transparent; border: 0; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 500; text-align: left; cursor: pointer">
+<span style="display: flex; align-items: center; gap: 16px"><span style="font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 600; color: {{accent}}">05</span><span>¿Puedo cancelar cuando quiera?</span></span>
+<span aria-hidden="true" style="flex: 0 0 40px; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; background: {{faq.ib4}}; color: {{faq.ic4}}">{{faq.s4}}</span>
+</button>
+<sc-if value="{{faq.o4}}" hint-placeholder-val="{{faq.o4}}">
+<p style="margin: 0; padding: 0 24px 22px 62px; font-size: 15px; line-height: 1.65; color: #CFCFCF">[CONFIRMAR POLÍTICA] Sí. Puedes cancelar cuando quieras desde [DÓNDE SE CANCELA] y mantienes el acceso hasta el final del período ya pagado.</p>
+</sc-if>
+</div>
+<div style="border: 1px solid {{faq.b5}}; border-radius: 26px; background: {{faq.bg5}}; transition: background 0.2s">
+<button type="button" onClick="{{faq.t5}}" aria-expanded="{{faq.e5}}" style="width: 100%; min-height: 60px; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 10px 10px 10px 24px; background: transparent; border: 0; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 500; text-align: left; cursor: pointer">
+<span style="display: flex; align-items: center; gap: 16px"><span style="font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 600; color: {{accent}}">06</span><span>¿Las operaciones de la academia son recomendaciones?</span></span>
+<span aria-hidden="true" style="flex: 0 0 40px; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; background: {{faq.ib5}}; color: {{faq.ic5}}">{{faq.s5}}</span>
+</button>
+<sc-if value="{{faq.o5}}" hint-placeholder-val="{{faq.o5}}">
+<p style="margin: 0; padding: 0 24px 22px 62px; font-size: 15px; line-height: 1.65; color: #CFCFCF">No. Las operaciones y los análisis que compartimos tienen fines exclusivamente educativos y no constituyen asesoramiento financiero ni una recomendación de inversión. Cada persona decide y es responsable de sus operaciones. Operar CFDs, divisas y criptomonedas con apalancamiento conlleva un alto riesgo de perder dinero.</p>
+</sc-if>
+</div>
+</div>
+</div>
+</section>
+
+<section aria-label="Empezar" style="padding: 100px 24px 0">
+<div style="max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 32px">
+<div style="flex: 1 1 420px; max-width: 560px; padding-bottom: 60px">
+<h2 style="margin: 0; font-size: clamp(32px, 3.6vw, 48px); line-height: 1.1; font-weight: 500; letter-spacing: -0.01em">¿Listo para operar con método?</h2>
+<p style="margin: 18px 0 0; font-size: 15px; line-height: 1.6; color: #BDBDBD">Déjanos tu correo y te contamos cómo empezar en la Escuela y abrir tu cuenta en EC MARKETS.</p>
+<div style="margin-top: 26px; display: flex; align-items: center; gap: 6px; max-width: 460px; padding: 6px 6px 6px 22px; border: 1px solid rgba(255,255,255,0.3); border-radius: 999px; box-sizing: border-box">
+<label for="cod-email" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">Tu correo electrónico</label>
+<input id="cod-email" type="email" placeholder="Tu correo electrónico" style="flex: 1 1 auto; min-width: 0; height: 44px; background: transparent; border: 0; color: #FFFFFF; font-family: inherit; font-size: 15px; outline: none">
+<button type="button" style="flex: 0 0 auto; min-height: 44px; padding: 0 22px; border-radius: 999px; border: 0; background: {{accent}}; color: #111111; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer">Empezar</button>
+</div>
+</div>
+<div style="flex: 0 1 360px; min-width: 0; position: relative; height: 380px">
+<svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true" style="position: absolute; left: 10px; top: 30px"><path d="M12 0C12.8 7 17 11.2 24 12C17 12.8 12.8 17 12 24C11.2 17 7 12.8 0 12C7 11.2 11.2 7 12 0Z" fill="{{accent}}"></path></svg>
+<div style="position: absolute; left: 50%; bottom: 0; width: 300px; margin-left: -150px">
+<svg viewBox="0 0 300 340" aria-hidden="true" style="display: block; width: 100%; height: auto"><circle cx="150" cy="104" r="62" fill="#2A2A2A"></circle><path d="M18 340C28 238 88 200 150 200C212 200 272 238 282 340Z" fill="#2A2A2A"></path></svg>
+<span style="position: absolute; left: 50%; top: 66%; transform: translateX(-50%); white-space: nowrap; font-size: 12px; font-weight: 500; color: #111111; background: {{accent}}; padding: 6px 12px; border-radius: 999px">Foto</span>
+</div>
+</div>
+</div>
+</section>
+
+<footer style="padding: 0 16px 16px">
+<div style="max-width: 1400px; margin: 0 auto; background: {{accent}}; color: #111111; border-radius: 36px; padding: clamp(32px, 4vw, 56px) clamp(22px, 4vw, 56px) 28px; box-sizing: border-box">
+<div style="display: flex; flex-wrap: wrap; gap: 36px 48px">
+<div style="flex: 1 1 320px; max-width: 420px">
+<a href="#inicio" aria-label="Código Dinero, ir al inicio" style="display: inline-flex; align-items: center; gap: 12px; color: #111111; text-decoration: none">
+<svg width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#111111" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M30 24L46 24M29.2 27L43.1 35M27 29.2L35 43.1M24 30L24 46M21 29.2L13 43.1M18.8 27L4.9 35M18 24L2 24M18.8 21L4.9 13M21 18.8L13 4.9M24 18L24 2M27 18.8L35 4.9M29.2 21L43.1 13"></path></svg>
+<span style="font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 40px; line-height: 1">COD</span>
+</a>
+<p style="margin: 18px 0 0; font-size: 15px; line-height: 1.6; color: #1A1A1A">Código Dinero, academia de trading. Formación, análisis de mercado y comunidad para operar con método.</p>
+<div style="display: inline-flex; align-items: center; gap: 12px; margin-top: 20px; background: #111111; color: #FFFFFF; border-radius: 999px; padding: 10px 18px">
+<span style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: {{accent}}">Partner oficial</span>
+<span style="width: 1px; height: 16px; background: rgba(255,255,255,0.3)"></span>
+<img src="/_blob/36ea0658d606a5d811def17a531cd130" alt="EC Markets" style="display: block; height: 24px; width: auto">
+</div>
+</div>
+<nav aria-label="Navegación" style="flex: 1 1 140px">
+<h2 style="margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase">Navegación</h2>
+<div style="display: flex; flex-direction: column; margin-top: 14px; font-size: 15px">
+<a href="#inicio" style="color: #111111; text-decoration: none; padding: 5px 0">Inicio</a>
+<a href="#" style="color: #111111; text-decoration: none; padding: 5px 0">Escuela</a>
+<a href="#" style="color: #111111; text-decoration: none; padding: 5px 0">Calendario</a>
+<a href="#" style="color: #111111; text-decoration: none; padding: 5px 0">Mercado</a>
+<a href="#" style="color: #111111; text-decoration: none; padding: 5px 0">Equipo</a>
+<a href="#" style="color: #111111; text-decoration: none; padding: 5px 0">Empezar</a>
+</div>
+</nav>
+<nav aria-label="Academia" style="flex: 1 1 140px">
+<h2 style="margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase">Academia</h2>
+<div style="display: flex; flex-direction: column; margin-top: 14px; font-size: 15px">
+<a href="#que-es" style="color: #111111; text-decoration: none; padding: 5px 0">Qué es</a>
+<a href="#formacion" style="color: #111111; text-decoration: none; padding: 5px 0">Formación</a>
+<a href="#comunidad" style="color: #111111; text-decoration: none; padding: 5px 0">Comunidad</a>
+<a href="#faq" style="color: #111111; text-decoration: none; padding: 5px 0">Preguntas frecuentes</a>
+</div>
+</nav>
+<nav aria-label="Legal" style="flex: 1 1 140px">
+<h2 style="margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase">Legal</h2>
+<div style="display: flex; flex-direction: column; margin-top: 14px; font-size: 15px">
+<a href="#" style="color: #111111; text-decoration: none; padding: 5px 0">Términos y condiciones</a>
+<a href="#" style="color: #111111; text-decoration: none; padding: 5px 0">Política de privacidad</a>
+<a href="#" style="color: #111111; text-decoration: none; padding: 5px 0">Aviso de riesgo</a>
+</div>
+</nav>
+</div>
+<p style="margin: 36px 0 0; padding-top: 22px; border-top: 1px solid rgba(17,17,17,0.22); font-size: 13px; line-height: 1.65; color: #1A1A1A">Aviso de riesgo: los CFDs, las divisas y las criptomonedas son instrumentos complejos y conllevan un alto riesgo de perder dinero rápidamente debido al apalancamiento. Código Dinero es una academia de formación y partner de EC MARKETS; no es un broker ni presta asesoramiento financiero. El contenido es educativo y no constituye una recomendación de inversión. Los resultados pasados no garantizan resultados futuros.</p>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; margin-top: 22px">
+<p style="margin: 0; font-size: 13px; color: #1A1A1A">© 2026 Código Dinero. Todos los derechos reservados.</p>
+<div style="display: flex; gap: 8px">
+<a href="#" aria-label="YouTube" style="width: 44px; height: 44px; border-radius: 50%; background: #111111; color: {{accent}}; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"></rect><path d="M10 9.5v5l4.5-2.5z"></path></svg></a>
+<a href="#" aria-label="Instagram" style="width: 44px; height: 44px; border-radius: 50%; background: #111111; color: {{accent}}; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r="0.6"></circle></svg></a>
+<a href="#" aria-label="TikTok" style="width: 44px; height: 44px; border-radius: 50%; background: #111111; color: {{accent}}; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3.5v11a3.5 3.5 0 1 1-3.5-3.5"></path><path d="M14 3.5c.5 2.6 2.4 4.3 5 4.5"></path></svg></a>
+<a href="#" aria-label="Telegram" style="width: 44px; height: 44px; border-radius: 50%; background: #111111; color: {{accent}}; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.5 4L2.5 11.3l6.5 2.3 2.4 6.4 3.4-4.3 4.9 3.7z"></path><path d="M9 13.6L21.5 4"></path></svg></a>
+<a href="#" aria-label="X" style="width: 44px; height: 44px; border-radius: 50%; background: #111111; color: {{accent}}; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h4.5L20 20h-4.5z"></path><path d="M20 4l-6.6 7.3M10.6 12.7L4 20"></path></svg></a>
+</div>
+</div>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#FF2B2B","options":["#FF2B2B","#FF4545","#FF3D6E","#FF5A36"]},"$preview":{"width":1440,"height":5600}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    this.initPrices();
+    this._n = 0;
+    this._timer = setInterval(() => {
+      this._n += 1;
+      this.walkPrices();
+      this.setState({ now: Date.now() });
+    }, 2000);
+    this._scanT = setTimeout(() => this.scanCanvases(), 80);
+  }
+  componentDidUpdate() { this.scanCanvases(); }
+  componentWillUnmount() {
+    clearInterval(this._timer);
+    clearTimeout(this._scanT);
+    const sc = this._scenes || {};
+    Object.keys(sc).forEach((k) => { if (sc[k]) cancelAnimationFrame(sc[k].raf); });
+    this._scenes = {};
+  }
+
+  initPrices() {
+    if (this._q) return;
+    const seed = [
+      ['XAUUSD', 4025.4, 2, 0.00035],
+      ['XAGUSD', 53.08, 3, 0.0006],
+      ['BTCUSD', 80036.6, 1, 0.0007],
+      ['ETHUSD', 2320.82, 2, 0.0009],
+      ['EURUSD', 1.1642, 5, 0.00006],
+      ['GBPUSD', 1.3318, 5, 0.00007],
+      ['USDARS', 1465.5, 2, 0.0002]
+    ];
+    this._q = seed.map((s) => ({ sym: s[0], p: s[1], open: s[1] * (1 + (Math.random() - 0.5) * 0.008), dec: s[2], vol: s[3] }));
+  }
+  walkPrices() {
+    (this._q || []).forEach((q) => { q.p = q.p * (1 + (Math.random() - 0.5) * 2 * q.vol); });
+  }
+
+  scanCanvases() {
+    if (typeof document === 'undefined') return;
+    const els = document.querySelectorAll('canvas[data-scene]');
+    for (let i = 0; i < els.length; i++) this.attachScene(els[i].getAttribute('data-scene'), els[i]);
+  }
+  makeSphere(rings, maxPer) {
+    const pts = [];
+    for (let k = 0; k < rings; k++) {
+      const th = Math.PI * (k + 0.5) / rings;
+      const y = Math.cos(th), r = Math.sin(th);
+      const n = Math.max(6, Math.round(r * maxPer));
+      for (let j = 0; j < n; j++) {
+        const ph = (j / n) * Math.PI * 2 + k * 0.37;
+        pts.push({ x: Math.cos(ph) * r, y: y, z: Math.sin(ph) * r, s: Math.random(), s2: Math.random(), dust: Math.random() < 0.16 });
+      }
+    }
+    return pts;
+  }
+  makeDust(n) {
+    const out = [];
+    for (let i = 0; i < n; i++) out.push({ x: Math.random(), y: Math.random(), v: 0.2 + Math.random() * 0.8, a: Math.random(), hi: Math.random() < 0.55, sz: Math.random() });
+    return out;
+  }
+  attachScene(kind, el) {
+    if (!el || !kind) return;
+    this._scenes = this._scenes || {};
+    const cur = this._scenes[kind];
+    if (cur && cur.el === el) return;
+    if (cur) cancelAnimationFrame(cur.raf);
+    const hero = kind === 'hero';
+    const st = { el: el, raf: 0, pts: this.makeSphere(hero ? 44 : 34, hero ? 60 : 46), dust: this.makeDust(hero ? 110 : 80) };
+    this._scenes[kind] = st;
+    const reduce = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const loop = (ms) => {
+      if (!st.el.isConnected) { if (this._scenes && this._scenes[kind] === st) this._scenes[kind] = null; return; }
+      this.drawScene(kind, st, reduce ? 6 : ms / 1000);
+      if (!reduce) st.raf = requestAnimationFrame(loop);
+    };
+    st.raf = requestAnimationFrame(loop);
+    if (reduce) setTimeout(() => { if (st.el.isConnected) this.drawScene(kind, st, 6); }, 400);
+  }
+  drawChart(ctx, w, h, t, accent) {
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let gx = 0; gx <= w; gx += 48) { ctx.moveTo(gx + 0.5, 0); ctx.lineTo(gx + 0.5, h); }
+    for (let gy = 0; gy <= h; gy += 48) { ctx.moveTo(0, gy + 0.5); ctx.lineTo(w, gy + 0.5); }
+    ctx.stroke();
+    const N = 90;
+    const prog = Math.min(1, (t % 14) / 10);
+    const x0 = w * 0.04, x1 = w * 0.96;
+    const f = (i) => { const u = i / N; return h * (0.7 - 0.4 * u + 0.07 * Math.sin(u * 19) + 0.035 * Math.sin(u * 53 + 1.3)); };
+    const last = Math.max(1, Math.floor(N * prog));
+    ctx.beginPath();
+    for (let i = 0; i <= last; i++) {
+      const xx = x0 + (x1 - x0) * i / N, yy = f(i);
+      if (i === 0) ctx.moveTo(xx, yy); else ctx.lineTo(xx, yy);
+    }
+    ctx.strokeStyle = accent;
+    ctx.lineWidth = 2.4;
+    ctx.shadowColor = accent;
+    ctx.shadowBlur = 14;
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+    const hx = x0 + (x1 - x0) * last / N, hy = f(last);
+    ctx.fillStyle = accent;
+    ctx.beginPath();
+    ctx.arc(hx, hy, 5, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  drawScene(kind, st, t) {
+    const el = st.el;
+    const w = el.clientWidth, h = el.clientHeight;
+    if (!w || !h) return;
+    const dpr = Math.min((typeof window !== 'undefined' && window.devicePixelRatio) || 1, 2);
+    const W = Math.round(w * dpr), H = Math.round(h * dpr);
+    if (el.width !== W || el.height !== H) { el.width = W; el.height = H; }
+    const ctx = el.getContext('2d');
+    if (!ctx) return;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    const accent = this._accent || '#FF2B2B';
+    const hero = kind === 'hero';
+    const dot = '#FFFFFF';
+    const dustCol = accent;
+    if (!hero) this.drawChart(ctx, w, h, t, accent);
+    const R = hero ? Math.min(w * 0.38, h * 0.42) : Math.min(w, h) * 0.34;
+    const cx = w * (hero ? 0.5 : 0.72), cy = h * (hero ? 0.62 : 0.5);
+    for (let i = 0; i < st.dust.length; i++) {
+      const p = st.dust[i];
+      const xx = (((p.x - t * 0.006 * p.v) % 1) + 1) % 1;
+      const yy = p.y + Math.sin(t * 0.5 + p.a * 6.28) * 0.01;
+      const tw = 0.5 + 0.5 * Math.sin(t * 1.3 + p.a * 20);
+      ctx.globalAlpha = (p.hi ? 0.55 : 0.2) * tw;
+      ctx.fillStyle = p.hi ? dustCol : dot;
+      const sz = 0.9 + p.sz * 1.3;
+      ctx.fillRect(xx * w, yy * h, sz, sz);
+    }
+    const rot = t * 0.16, cr = Math.cos(rot), sr = Math.sin(rot);
+    const tl = -0.32, ct = Math.cos(tl), stl = Math.sin(tl);
+    ctx.fillStyle = dot;
+    for (let i = 0; i < st.pts.length; i++) {
+      const p = st.pts[i];
+      const x = p.x * cr + p.z * sr;
+      const z0 = -p.x * sr + p.z * cr;
+      const y = p.y * ct - z0 * stl;
+      const z = p.y * stl + z0 * ct;
+      const d = Math.max(0, -x - 0.1);
+      const wob = 0.5 + 0.5 * Math.sin(t * 0.7 + p.s * 6.283);
+      const spread = d * d * (0.8 + 1.1 * wob) * (0.5 + p.s);
+      const px = x - spread * 1.25;
+      const py = y + (p.s2 - 0.5) * spread * 1.1;
+      const sx = cx + px * R, sy = cy + py * R;
+      if (sx < -4 || sx > w + 4 || sy < -4 || sy > h + 4) continue;
+      const light = Math.max(0, x * 0.78 - y * 0.18 + z * 0.6);
+      if (p.dust && d > 0.08) {
+        ctx.fillStyle = dustCol;
+        ctx.globalAlpha = Math.min(0.9, d * 1.5) * (0.4 + 0.6 * wob);
+        ctx.fillRect(sx, sy, 1.8, 1.8);
+        ctx.fillStyle = dot;
+        continue;
+      }
+      let a, sz;
+      if (z >= 0) { a = 0.18 + 0.82 * light; sz = 1.1 + 1.3 * light; }
+      else { a = 0.05 + 0.08 * (1 + z); sz = 0.9; }
+      a *= 1 - Math.min(0.85, d * 0.95);
+      ctx.globalAlpha = a;
+      ctx.fillRect(sx - sz / 2, sy - sz / 2, sz, sz);
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  renderVals() {
+    const accent = this.props.accent ?? '#FF2B2B';
+    this._accent = accent;
+    this.initPrices();
+    const quotes = this._q.map((q) => {
+      const ch = (q.p - q.open) / q.open * 100;
+      const up = ch >= 0;
+      return {
+        sym: q.sym,
+        price: q.p.toLocaleString('en-US', { minimumFractionDigits: q.dec, maximumFractionDigits: q.dec }),
+        chg: (up ? '+' : '') + ch.toFixed(2) + '%',
+        arrow: up ? '▲' : '▼',
+        color: up ? '#FFFFFF' : accent
+      };
+    });
+    const s = this.state || {};
+    const openIdx = s.faqOpen === undefined ? 0 : s.faqOpen;
+    const faq = {};
+    for (let i = 0; i < 6; i++) {
+      const on = openIdx === i;
+      faq['o' + i] = on;
+      faq['s' + i] = on ? '−' : '+';
+      faq['e' + i] = on ? 'true' : 'false';
+      faq['b' + i] = on ? accent : 'rgba(255,255,255,0.22)';
+      faq['bg' + i] = on ? '#202020' : 'transparent';
+      faq['ib' + i] = on ? accent : 'rgba(255,255,255,0.08)';
+      faq['ic' + i] = on ? '#111111' : '#FFFFFF';
+      faq['t' + i] = () => {
+        const cur = (this.state || {}).faqOpen;
+        const c = cur === undefined ? 0 : cur;
+        this.setState({ faqOpen: c === i ? -1 : i });
+      };
+    }
+    const act = s.tmActive === undefined ? 1 : s.tmActive;
+    const tm = {
+      prev: () => { const a = (this.state || {}).tmActive; const c = a === undefined ? 1 : a; this.setState({ tmActive: (c + 2) % 3 }); },
+      next: () => { const a = (this.state || {}).tmActive; const c = a === undefined ? 1 : a; this.setState({ tmActive: (c + 1) % 3 }); }
+    };
+    for (let i = 0; i < 3; i++) {
+      const on = act === i;
+      tm['o' + i] = on ? '1' : '0.45';
+      tm['b' + i] = on ? accent : 'rgba(255,255,255,0.08)';
+      tm['w' + i] = on ? '28px' : '8px';
+      tm['d' + i] = on ? accent : 'rgba(255,255,255,0.3)';
+      tm['c' + i] = on ? '' : 'cod-tm-off';
+    }
+    const menuOpen = !!s.menuOpen;
+    const menu = {
+      open: menuOpen,
+      closed: !menuOpen,
+      expanded: menuOpen ? 'true' : 'false',
+      label: menuOpen ? 'Cerrar menú' : 'Abrir menú',
+      toggle: () => this.setState({ menuOpen: !(this.state || {}).menuOpen }),
+      close: () => this.setState({ menuOpen: false }),
+      key: (e) => { if (e && e.key === 'Escape') this.setState({ menuOpen: false }); }
+    };
+    if (!this._heroRef) this._heroRef = (el) => { if (el) this.attachScene('hero', el); };
+    if (!this._videoRef) this._videoRef = (el) => { if (el) this.attachScene('video', el); };
+    return {
+      accent: accent,
+      tickerLoop: quotes.concat(quotes),
+      faq: faq,
+      tm: tm,
+      menu: menu,
+      heroRef: this._heroRef,
+      videoRef: this._videoRef
+    };
+  }
+}
+</script>
+</body>
+</html>
