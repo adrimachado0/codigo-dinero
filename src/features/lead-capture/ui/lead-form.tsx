@@ -1,5 +1,7 @@
 "use client";
 
+import "@/shared/lib/zod-csp";
+
 import { useAction } from "next-safe-action/hooks";
 import { useState, type SubmitEvent } from "react";
 

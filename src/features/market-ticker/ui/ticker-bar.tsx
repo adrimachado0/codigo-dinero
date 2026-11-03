@@ -1,5 +1,7 @@
 "use client";
 
+import "@/shared/lib/zod-csp";
+
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import gsap from "gsap";
 import { useRef, useState, useSyncExternalStore } from "react";

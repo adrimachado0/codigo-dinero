@@ -1,3 +1,5 @@
+import "@/shared/lib/zod-csp";
+
 import type { z } from "zod";
 
 /**

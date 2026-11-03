@@ -9,6 +9,8 @@ export const site = {
   name: "Código Dinero",
   logoText: "COD",
   url: env.NEXT_PUBLIC_SITE_URL,
+  /** Home URL exactly as Next renders the canonical (origin, no trailing slash). */
+  homeUrl: new URL(env.NEXT_PUBLIC_SITE_URL).origin,
   locale: "es_AR",
   title: "Código Dinero · Academia de trading",
   description:

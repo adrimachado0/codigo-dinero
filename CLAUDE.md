@@ -51,6 +51,8 @@ Las secciones puramente visuales solo tienen `ui/` + `content.ts`. No sobreingen
 - No inventar contenido. Los marcadores (`[PRECIO]`, `[Nombre del alumno]`, `[PLATAFORMA]`, `[CONFIRMAR POLÍTICA]`, …) se mantienen tal cual y se listan en `docs/PENDIENTES.md`.
 - Nada de TODOs sueltos: todo pendiente va a `docs/PENDIENTES.md`.
 - Tailwind v4 con tokens en `@theme`; variantes con `cva`; clases combinadas con `cn` (`clsx` + `tailwind-merge`). Responsive con `md:`/`lg:`, sin `!important`.
+- Sin preflight de Tailwind (la referencia usa los estilos por defecto del navegador): **no usar `border-solid`**, porque pone bordes de 3 px en los cuatro lados; `border-*` ya fija el estilo. Un token nuevo en `@theme` también se registra en `src/shared/lib/cn.ts`.
+- Fuentes: los binarios exactos de la referencia en `public/fonts/` vía `next/font/local`. No cambiar a `next/font/google` (otra revisión, otros anchos).
 - Toda animación respeta `prefers-reduced-motion`, se pausa fuera de pantalla y se limpia al desmontar (`useGSAP`).
 - El `h1` del hero es el LCP: no se anima su entrada.
 - Commits con Conventional Commits (commitlint).

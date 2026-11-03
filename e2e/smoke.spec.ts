@@ -77,6 +77,26 @@ test.describe("home", () => {
   });
 });
 
+test("loads and plays without CSP violations or console errors", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") errors.push(message.text());
+  });
+  await page.addInitScript(() => {
+    document.addEventListener("securitypolicyviolation", (event) => {
+      console.error(`CSP ${event.violatedDirective} ${event.blockedURI}`);
+    });
+  });
+
+  await page.goto("/");
+  await page.waitForLoadState("networkidle");
+  await page.getByRole("button", { name: "Reproducir video de presentación" }).click();
+  await expect(page.getByLabel("Video de presentación de Código Dinero")).toBeVisible();
+  await page.waitForTimeout(500);
+
+  expect(errors).toEqual([]);
+});
+
 test("quotes API returns a validated simulated snapshot", async ({ request }) => {
   const response = await request.get("/api/quotes");
   expect(response.status()).toBe(200);

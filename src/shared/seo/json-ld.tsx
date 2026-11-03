@@ -27,7 +27,7 @@ export function organizationLd(): EducationalOrganization {
     "@type": "EducationalOrganization",
     "@id": absolute("/#organization"),
     name: site.name,
-    url: absolute("/"),
+    url: site.homeUrl,
     logo: absolute("/icon"),
     description: site.description,
     ...(sameAs.length > 0 && { sameAs }),
@@ -39,7 +39,7 @@ export function websiteLd(): WebSite {
     "@type": "WebSite",
     "@id": absolute("/#website"),
     name: site.name,
-    url: absolute("/"),
+    url: site.homeUrl,
     inLanguage: "es",
     publisher: { "@id": absolute("/#organization") },
   };
