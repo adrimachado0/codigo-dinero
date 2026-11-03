@@ -9,7 +9,7 @@ Todo lo que falta definir o implementar. Los marcadores se mantienen tal cual en
 - [ ] **Soporte**: `[CORREO o WHATSAPP DE SOPORTE]` y `[PLAZO]` de acreditación (FAQ 04).
 - [ ] **Política de cancelación**: `[CONFIRMAR POLÍTICA]` y `[DÓNDE SE CANCELA]` (FAQ 05).
 - [ ] **Reseñas reales**: `[Nombre del alumno]`, `[Ciudad]` y los textos `[Reseña de un alumno: …]` (Comunidad, ×3). Archivo: `src/features/testimonials/content.ts`. Avatares opcionales en el mismo archivo.
-- [ ] **Textos de estado del formulario** (no están en la referencia; se escribieron versiones neutras para confirmar): "Enviando…", "¡Gracias! Te escribiremos a tu correo.", "Demasiados intentos. Prueba de nuevo en unos minutos.", "No pudimos registrar tu correo. Inténtalo de nuevo.", y los errores de validación "Escribe tu correo electrónico." / "Revisa el formato de tu correo electrónico.". Archivos: `src/features/lead-capture/content.ts` y `domain/lead.ts`.
+- [ ] **Textos de estado del formulario** (no están en la referencia; se escribieron versiones neutras para confirmar): "Enviando…", "¡Gracias! Te escribiremos a tu correo.", "Demasiados intentos. Prueba de nuevo en unos minutos.", "No pudimos registrar tu correo. Inténtalo de nuevo.", y los errores de validación "Escribe tu correo electrónico." / "Revisa el formato de tu correo electrónico.". Archivos: `src/features/lead-capture/content.ts` y `lead.ts`.
 - [ ] **Textos legales**: Términos y condiciones, Política de privacidad, Aviso de riesgo (páginas y links del footer).
 
 ## Links y datos
@@ -28,13 +28,13 @@ Todos los `href="#"` son destinos sin definir (igual que en la referencia).
 
 ## Integraciones
 
-- [ ] **Proveedor real de cotizaciones** (hoy `SimulatedQuoteSource`; "Simulado" queda visible mientras tanto). Cómo enchufarlo: README, sección "Cómo cambiar el proveedor de cotizaciones". Opciones:
+- [ ] **Proveedor real de cotizaciones** (hoy `SimulatedMarket` en `src/features/market-ticker/simulated-market.ts`; "Simulado" queda visible mientras tanto). Cómo enchufarlo: README, sección "Cómo cambiar el proveedor de cotizaciones". Opciones:
   - FX y metales (XAUUSD, XAGUSD, EURUSD, GBPUSD): Twelve Data (`/quote?symbol=XAU/USD,…`) o Finnhub (`forex/rates`).
   - Cripto (BTCUSD, ETHUSD): CoinGecko (`/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true`).
   - USDARS: una API de dólar argentino (por ejemplo DolarApi, `/v1/dolares/oficial`) y definir qué cotización mostrar.
-  - Un adaptador compuesto puede combinar varios `QuoteSource` por símbolo. Conviene cachear del lado del servidor (respetando los límites de cada API) y mantener el polling del cliente en 3 s contra `/api/quotes`.
-- [ ] **Destino de los leads** (hoy `ConsoleLeadRepository`, que solo loguea el correo enmascarado): CRM, email marketing o base de datos. Implementar `LeadRepository` y pasarle el contract test `leadRepositoryContract`. Registrar en `src/features/lead-capture/composition.ts`.
-- [ ] **Rate limiting** del formulario (hoy `NoopRateLimiter`): implementar `RateLimiter`, por ejemplo con ventana deslizante en Upstash Redis por IP. Ya recibe la IP desde la Server Action.
+  - Se pueden combinar varias APIs (una por tipo de activo) dentro de `getLiveQuotes()`. Conviene cachear del lado del servidor (respetando los límites de cada API) y mantener el polling del cliente en 3 s contra `/api/quotes`.
+- [ ] **Destino de los leads**: hoy `saveLead()` en `src/features/lead-capture/capture-lead.ts` solo loguea el correo enmascarado. Reemplazarla por el guardado real (CRM, email marketing o base de datos).
+- [ ] **Rate limiting** del formulario: hoy `isAllowed()` (mismo archivo) deja pasar todo. Reemplazarla por un límite real, por ejemplo una ventana deslizante en Upstash Redis por IP; `captureLead` ya le pasa la IP.
 - [ ] **Consentimiento y política de privacidad** para el formulario de correo, según el destino de los leads.
 
 ## Técnico
@@ -53,7 +53,7 @@ Todos los `href="#"` son destinos sin definir (igual que en la referencia).
 - **Volúmenes de caché del contenedor**: `docker/Dockerfile` crea `/home/ubuntu/.pnpm-store` y `/home/ubuntu/.cache` como `ubuntu`; si no, Docker los crea como root y pnpm no puede escribir. Si un volumen viejo quedó como root: `docker compose down -v`.
 - **CSP sin nonces** (`next.config.ts`): los nonces obligan a renderizar en dinámico y la home tiene que quedar prerenderizada. `script-src` lleva `'unsafe-inline'`, y `'unsafe-eval'` solo en desarrollo. Zod corre en modo `jitless` (`src/shared/lib/zod-csp.ts`) para no disparar violaciones de CSP con su detección de `Function("")`. `media-src` admite `data:` porque el Player de Remotion desbloquea el autoplay con un audio silencioso embebido. El e2e falla si aparece cualquier violación de CSP (carga y reproducción del video incluidas).
 - **Sin `vite-tsconfig-paths`**: Vite 8 resuelve los `paths` de tsconfig de forma nativa (`resolve.tsconfigPaths`).
-- **Reglas de arquitectura** con `eslint-plugin-boundaries` 7 (`boundaries/dependencies`, con `checkAllOrigins` para limitar `domain/` y `application/` a Zod). Los tests y los `*.contract.ts` quedan fuera de las reglas.
+- **Arquitectura simple**: se probó una versión con capas, puertos y adaptadores (`domain/`, `application/`, `infrastructure/`) y se aplanó a pedido del usuario, porque costaba leerla. `eslint-plugin-boundaries` solo controla que entre secciones se use el `index.ts`, y que `shared/` no importe de `features/`.
 - **Tests de Playwright contra el build de producción** en el puerto 3100 (el 3000 es de `next dev`). `reference/` se sirve en el 3001.
 - **Sin el preflight de Tailwind** (`src/app/globals.css`): la referencia depende de los estilos por defecto del navegador. Se importan solo `theme` y `utilities`, y la capa base replica los estilos globales de la referencia. Consecuencia: **no usar `border-solid`**, porque activa el borde en los cuatro lados con el ancho por defecto (3 px). Las utilidades `border-*` de Tailwind 4 ya fijan el estilo del lado que corresponde.
 - **Fuentes**: los mismos binarios que carga la referencia desde Google Fonts CSS (Lexend v26 y Unbounded v12, subset latino, eje `wght` variable), en `public/fonts/` y servidos con `next/font/local`. `next/font/google` baja otra revisión cuyos anchos difieren ~4% y rompía el pixel match. Sin fallback métrico (`adjustFontFallback: false`), así la cadena de fuentes es idéntica a la de la referencia. Remotion usa los mismos archivos. La imagen OG usa TTF (`src/shared/seo/fonts/`), porque Satori no lee woff2.

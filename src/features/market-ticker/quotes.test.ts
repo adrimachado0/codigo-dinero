@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { toQuoteView } from "./quote";
+import { toQuoteView } from "./quotes";
 
 describe("toQuoteView", () => {
   it("formats like the reference: en-US grouping, fixed decimals, signed change", () => {

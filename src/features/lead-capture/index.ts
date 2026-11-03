@@ -1,1 +1,1 @@
-export { LeadCapture } from "./ui/lead-capture";
+export { LeadCapture } from "./lead-capture";

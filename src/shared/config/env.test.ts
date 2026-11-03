@@ -15,12 +15,12 @@ describe("env", () => {
 
   it("applies defaults when variables are unset", async () => {
     vi.stubEnv("NEXT_PUBLIC_SITE_URL", "");
-    vi.stubEnv("QUOTES_PROVIDER", "");
+    vi.stubEnv("SITE_ENV", "");
 
     const env = await loadEnv();
 
     expect(env.NEXT_PUBLIC_SITE_URL).toBe("http://localhost:3000");
-    expect(env.QUOTES_PROVIDER).toBe("simulated");
+    expect(env.SITE_ENV).toBe("development");
   });
 
   it("reads a valid site URL", async () => {
@@ -39,8 +39,8 @@ describe("env", () => {
     expect(consoleError).toHaveBeenCalled();
   });
 
-  it("rejects an unknown quotes provider", async () => {
-    vi.stubEnv("QUOTES_PROVIDER", "unknown");
+  it("rejects an unknown site environment", async () => {
+    vi.stubEnv("SITE_ENV", "staging");
     const consoleError = vi.spyOn(console, "error").mockImplementation(() => undefined);
 
     await expect(loadEnv()).rejects.toThrow("Invalid environment variables");

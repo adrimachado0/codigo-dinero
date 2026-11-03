@@ -24,7 +24,7 @@ docker compose run --rm app pnpm build            # build de producción
 | `pnpm lint`                               | ESLint, incluidas las reglas de arquitectura (`eslint-plugin-boundaries`)                                         |
 | `pnpm format` / `pnpm format:check`       | Prettier                                                                                                          |
 | `pnpm typecheck`                          | `next typegen` + `tsc --noEmit`                                                                                   |
-| `pnpm test` / `pnpm test:coverage`        | Vitest: unitarios, componentes y contract tests (cobertura ≥ 90% en `domain/` y `application/`)                   |
+| `pnpm test` / `pnpm test:coverage`        | Vitest: unitarios y de componentes (cobertura ≥ 90% en los archivos con lógica)                                   |
 | `pnpm test:e2e`                           | Playwright contra el build de producción: smoke, SEO, formulario, menú, axe y CSP                                 |
 | `pnpm test:visual`                        | Regresión visual por sección contra `reference/`. Tabla en consola y diffs en `test-results/visual/`              |
 | `pnpm remotion:studio`                    | Remotion Studio en http://localhost:3002 (usar el servicio `dev`: `docker compose exec dev pnpm remotion:studio`) |
@@ -36,7 +36,6 @@ Variables de entorno (validadas con Zod en `src/shared/config/env.ts`; ver `.env
 | ---------------------- | ----------------------- | ----------------------------------------------------------- |
 | `NEXT_PUBLIC_SITE_URL` | `http://localhost:3000` | `metadataBase`, canonical, sitemap y JSON-LD                |
 | `SITE_ENV`             | `development`           | Solo `production` es indexable; el resto sale con `noindex` |
-| `QUOTES_PROVIDER`      | `simulated`             | Adaptador de cotizaciones del ticker                        |
 
 Los hooks de Git (Husky) corren en el host y delegan en el contenedor: `lint-staged` en el pre-commit y `commitlint` (Conventional Commits) en el commit-msg. CI (`.github/workflows/ci.yml`) corre lint, formato, tipos, tests con cobertura, build, e2e y la regresión visual, en la misma imagen.
 
@@ -49,57 +48,42 @@ src/
   shared/     # ui/ (primitivas), lib/, config/ (site, env, photos), seo/ (metadata, JSON-LD)
 ```
 
+**La página se arma en `src/app/page.tsx`**: es la lista de secciones en orden (`<SiteHeader />`, `<Hero />`, `<About />`, …). Cada sección es una carpeta en `src/features/`:
+
 ```mermaid
 flowchart LR
-  subgraph app["app/ (capa delgada)"]
-    page[page.tsx]
-    route[api/quotes/route.ts]
-  end
-  subgraph feature["features/&lt;feature&gt;/"]
-    index[index.ts<br/>API pública]
-    ui[ui/]
-    application[application/<br/>casos de uso]
-    domain[domain/<br/>entidades, Zod, puertos]
-    infra[infrastructure/<br/>adaptadores]
-    composition[composition.ts]
-    content[content.ts<br/>copy validado con Zod]
-  end
-  shared[shared/]
-
-  page --> index
-  route --> index
-  index --> ui
-  index --> composition
-  ui --> application --> domain
-  ui --> content
-  composition --> infra --> domain
-  composition --> application
-  ui --> shared
-  infra --> shared
+  page["app/page.tsx<br/>(lista de secciones)"] --> index["features/&lt;sección&gt;/index.ts"]
+  index --> ui["ui/&lt;sección&gt;.tsx<br/>(lo que se ve)"]
+  ui --> content["content.ts<br/>(los textos)"]
+  ui --> shared["shared/<br/>(botones, íconos, colores, config)"]
 ```
+
+Casi todas las secciones son solo `content.ts` (textos) + `ui/<sección>.tsx` (diseño) + `index.ts`. Dos tienen lógica, en archivos planos:
+
+| Sección         | Archivo                  | Qué hace                                                                       |
+| --------------- | ------------------------ | ------------------------------------------------------------------------------ |
+| `market-ticker` | `quotes.ts`              | Qué es una cotización y cómo se muestra (`80,123.5 ▲ +0.15%`)                  |
+|                 | `simulated-market.ts`    | Los precios simulados (random walk de la referencia)                           |
+|                 | `ticker-bar.tsx`         | La barra; pide `/api/quotes` cada 3 s (TanStack Query)                         |
+| `lead-capture`  | `lead.ts`                | Qué es un correo válido (el formulario y el servidor usan la misma regla)      |
+|                 | `capture-lead.ts`        | Qué se hace con el correo: filtra bots (honeypot), límite de envíos y guardado |
+|                 | `capture-lead-action.ts` | El puente formulario → servidor (Server Action con next-safe-action)           |
 
 Reglas, verificadas por ESLint (`eslint.config.mjs`), que fallan en CI:
 
-- `ui → application → domain`; `infrastructure → domain`. `domain` y `application` solo pueden importar `zod`.
-- Entre features, solo a través del `index.ts`. Los imports profundos están prohibidos.
-- `shared` nunca importa de `features`. `app/` solo compone features.
-
-Las features con lógica:
-
-- **market-ticker**: puerto `QuoteSource` → `SimulatedQuoteSource` (random walk de la referencia), caso de uso `getTickerQuotes`, ruta `/api/quotes` validada con Zod y polling con TanStack Query cada 3 s. Mientras la fuente sea simulada, la etiqueta "Simulado" queda visible.
-- **lead-capture**: esquema Zod compartido entre cliente y servidor, Server Action (next-safe-action), caso de uso `captureLead` con honeypot y puerto `RateLimiter`, y `ConsoleLeadRepository`.
-
-Cada puerto tiene un contract test (`*.contract.ts`) que corre contra cada uno de sus adaptadores.
+- Una sección usa otra solo a través de su `index.ts`. Dentro de una sección, los archivos se importan libremente.
+- `shared` nunca importa de `features`. `app/` solo compone secciones.
 
 ## Cómo cambiar el proveedor de cotizaciones
 
-1. Crear el adaptador en `src/features/market-ticker/infrastructure/`, implementando `QuoteSource` (`isSimulated: false` y `getQuotes(symbols)`, que devuelve `{ symbol, price, open, decimals }`).
-2. Correrle el contract test: `quoteSourceContract("MiProveedor", () => new MiProveedor(...))` en un `*.test.ts`.
-3. Agregar el valor a `QUOTES_PROVIDER` en `src/shared/config/env.ts` (y sus credenciales como variables de servidor).
-4. Registrarlo en el mapa `quoteSources` de `src/features/market-ticker/composition.ts`.
-5. Si llama a un servicio externo desde el navegador, sumarlo a `connect-src` en la CSP de `next.config.ts`. Si lo llama desde el servidor (lo recomendado, vía `/api/quotes`), no hace falta.
+Hoy los precios salen de `SimulatedMarket` (`src/features/market-ticker/simulated-market.ts`). Para usar precios reales:
 
-Con una fuente real, "Simulado" desaparece solo (`simulated: false`). Hay ideas de proveedores en `docs/PENDIENTES.md`.
+1. Escribir una función que pida los precios a la API elegida y devuelva lo mismo que `getLiveQuotes()`: `{ quotes: [{ symbol, price, open, decimals }], simulated: false }`. Puede vivir en un archivo nuevo, por ejemplo `real-market.ts`, al lado. Las credenciales van como variables de servidor en `src/shared/config/env.ts`.
+2. Hacer que `getLiveQuotes()` la use en lugar del mercado simulado. `/api/quotes` y la barra no cambian.
+3. Con `simulated: false`, la etiqueta "Simulado" desaparece sola.
+4. Si la API se llama desde el servidor (lo recomendado, a través de `/api/quotes`), no hay que tocar la CSP. Si se llamara desde el navegador, hay que sumarla a `connect-src` en `next.config.ts`.
+
+Hay ideas de proveedores en `docs/PENDIENTES.md`.
 
 ## Cómo reemplazar las fotos de clientes
 

@@ -11,34 +11,26 @@ export const TICKER_SYMBOLS = [
   "USDARS",
 ] as const;
 
+/** One quote: current price, the price the daily change is measured from, display decimals. */
 export const QuoteSchema = z.object({
   symbol: z.string().min(1),
   price: z.number().positive(),
-  /** Reference price the daily change is computed against. */
   open: z.number().positive(),
-  /** Decimals used to display the price. */
   decimals: z.number().int().min(0).max(8),
 });
 
 export type Quote = z.infer<typeof QuoteSchema>;
 
+/** What /api/quotes returns. `simulated: true` keeps the "Simulado" label visible. */
 export const QuoteSnapshotSchema = z.object({
   quotes: z.array(QuoteSchema),
-  /** True while the source is simulated: the UI must keep the "Simulado" label visible. */
   simulated: z.boolean(),
 });
 
 export type QuoteSnapshot = z.infer<typeof QuoteSnapshotSchema>;
 
-export type QuoteView = {
-  symbol: string;
-  price: string;
-  change: string;
-  direction: "up" | "down";
-};
-
-/** Display values exactly as the reference formats them (en-US grouping, ▲/▼ sign rules). */
-export function toQuoteView(quote: Quote): QuoteView {
+/** A quote ready to print, formatted exactly like the reference (e.g. "80,123.5" "▲ +0.15%"). */
+export function toQuoteView(quote: Quote) {
   const change = ((quote.price - quote.open) / quote.open) * 100;
   const up = change >= 0;
   return {
@@ -48,6 +40,6 @@ export function toQuoteView(quote: Quote): QuoteView {
       maximumFractionDigits: quote.decimals,
     }),
     change: `${up ? "+" : ""}${change.toFixed(2)}%`,
-    direction: up ? "up" : "down",
+    direction: up ? ("up" as const) : ("down" as const),
   };
 }

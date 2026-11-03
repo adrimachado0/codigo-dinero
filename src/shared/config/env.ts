@@ -3,7 +3,6 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
-    QUOTES_PROVIDER: z.enum(["simulated"]).default("simulated"),
     /** Only "production" is indexable: everything else gets noindex (metadata + robots.txt). */
     SITE_ENV: z.enum(["development", "preview", "production"]).default("development"),
   },
@@ -12,7 +11,6 @@ export const env = createEnv({
     NEXT_PUBLIC_SITE_URL: z.url().default("http://localhost:3000"),
   },
   runtimeEnv: {
-    QUOTES_PROVIDER: process.env.QUOTES_PROVIDER,
     SITE_ENV: process.env.SITE_ENV,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
   },

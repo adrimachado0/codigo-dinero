@@ -10,7 +10,7 @@ import { cn } from "@/shared/lib/cn";
 import { Marquee } from "@/shared/ui/marquee";
 import { useLoopAnimation } from "@/shared/ui/use-loop-animation";
 
-import { QuoteSnapshotSchema, toQuoteView, type QuoteSnapshot } from "../domain/quote";
+import { QuoteSnapshotSchema, toQuoteView, type QuoteSnapshot } from "./quotes";
 
 const POLL_MS = 3000;
 

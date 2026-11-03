@@ -7,7 +7,7 @@ import { useState, type SubmitEvent } from "react";
 
 import { Button } from "@/shared/ui/button";
 
-import { HONEYPOT_FIELD, LeadInputSchema } from "../domain/lead";
+import { HONEYPOT_FIELD, LeadInputSchema } from "./lead";
 import { captureLeadAction } from "./capture-lead-action";
 
 type Labels = {

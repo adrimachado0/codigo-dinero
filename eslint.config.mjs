@@ -7,26 +7,13 @@ import tseslint from "typescript-eslint";
 
 // ---------------------------------------------------------------------------
 // Architecture (CLAUDE.md "Reglas de dependencia"):
-//   ui → application → domain; infrastructure → domain; domain imports only Zod.
-//   Cross-feature imports only through the feature's index.ts.
-//   shared never imports from features. app/ only composes features.
+//   - A section (src/features/<name>) uses another section only through its index.ts.
+//   - shared/ never imports from features/.
+//   - app/ only composes sections (through their index.ts) and shared/.
+// Inside a section, files import each other freely.
 // ---------------------------------------------------------------------------
 
-const LAYERS = ["domain", "application", "infrastructure", "ui"];
-const PURE_LAYERS = ["feature-domain", "feature-application"];
-
-const sameFeature = { feature: "{{ from.element.captured.feature }}" };
-
-/** A layer (or the root files) of the same feature as the importing file. */
-const ownLayer = (type, file) => ({
-  to: { element: { type, captured: sameFeature }, ...(file && { file }) },
-});
-
-/** Any feature, but only through its public API (index.ts). */
-const featurePublicApi = {
-  to: { element: { type: "feature" }, file: { categories: "public" } },
-};
-
+const publicApi = { to: { element: { type: "feature" }, file: { categories: "public" } } };
 const shared = { to: { element: { type: "shared" } } };
 
 const architecture = {
@@ -36,30 +23,14 @@ const architecture = {
     "import/resolver": {
       typescript: { alwaysTryTypes: true, project: "./tsconfig.json" },
     },
-    // Tests and port contract suites (*.contract.ts) are test support, not architecture.
-    "boundaries/ignore": ["**/*.test.{ts,tsx}", "**/*.contract.ts"],
+    "boundaries/ignore": ["**/*.test.{ts,tsx}"],
     "boundaries/legacy-templates": false,
     "boundaries/elements": [
       { type: "app", pattern: "src/app", partialMatch: false },
-      { type: "shared", pattern: "src/shared/*", partialMatch: false, capture: ["segment"] },
-      ...LAYERS.map((layer) => ({
-        type: `feature-${layer}`,
-        // Remotion compositions are React UI of the promo-video feature.
-        pattern:
-          layer === "ui"
-            ? ["src/features/*/ui", "src/features/*/remotion"]
-            : `src/features/*/${layer}`,
-        partialMatch: false,
-        capture: ["feature"],
-      })),
-      // Feature root files: index.ts, content.ts, composition.ts.
+      { type: "shared", pattern: "src/shared/*", partialMatch: false },
       { type: "feature", pattern: "src/features/*", partialMatch: false, capture: ["feature"] },
     ],
-    "boundaries/files": [
-      { category: "public", pattern: "src/features/*/index.ts" },
-      { category: "content", pattern: "src/features/*/content.ts" },
-      { category: "composition", pattern: "src/features/*/composition.ts" },
-    ],
+    "boundaries/files": [{ category: "public", pattern: "src/features/*/index.ts" }],
   },
   rules: {
     "boundaries/no-unknown-files": "error",
@@ -69,54 +40,10 @@ const architecture = {
       "error",
       {
         default: "disallow",
-        checkAllOrigins: true,
         policies: [
-          // npm packages and Node built-ins: free everywhere except the pure layers.
-          {
-            from: { element: { types: { noneOf: PURE_LAYERS } } },
-            allow: [{ to: { module: { origin: ["external", "core"] } } }],
-          },
-          {
-            from: { element: { types: { anyOf: PURE_LAYERS } } },
-            allow: [{ to: { module: { origin: "external", source: "zod" } } }],
-          },
-          {
-            from: { element: { type: "app" } },
-            allow: [featurePublicApi, shared],
-          },
-          {
-            from: { element: { type: "shared" } },
-            allow: [shared],
-          },
-          {
-            from: { element: { type: "feature" } },
-            allow: [
-              ...LAYERS.map((layer) => ownLayer(`feature-${layer}`)),
-              ownLayer("feature"),
-              featurePublicApi,
-              shared,
-            ],
-          },
-          {
-            from: { element: { type: "feature-ui" } },
-            allow: [
-              ownLayer("feature-ui"), // ui/ ↔ remotion/ of the same feature
-              ownLayer("feature-application"),
-              ownLayer("feature-domain"),
-              ownLayer("feature", { categories: ["content", "composition"] }),
-              featurePublicApi,
-              shared,
-            ],
-          },
-          {
-            from: { element: { type: "feature-application" } },
-            allow: [ownLayer("feature-domain")],
-          },
-          {
-            from: { element: { type: "feature-infrastructure" } },
-            allow: [ownLayer("feature-domain"), shared],
-          },
-          // feature-domain: no local dependencies outside its own folder.
+          { from: { element: { type: "app" } }, allow: [publicApi, shared] },
+          { from: { element: { type: "feature" } }, allow: [publicApi, shared] },
+          { from: { element: { type: "shared" } }, allow: [shared] },
         ],
       },
     ],

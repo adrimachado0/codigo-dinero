@@ -26,24 +26,18 @@ src/
   shared/     # ui/ (primitivas), lib/ (cn, utils), config/ (site, env, photos), seo/
 ```
 
-Estructura interna de una feature (solo las capas que necesite):
+Estructura de una feature (sección). **Simple a propósito: sin capas, puertos ni adaptadores** (se probaron y el usuario prefirió aplanarlas):
 
-- `domain/`: entidades, value objects, esquemas Zod, puertos. TS puro: sin React ni Next, solo Zod.
-- `application/`: casos de uso. Dependen solo de `domain`.
-- `infrastructure/`: adaptadores que implementan puertos.
-- `ui/`: componentes y hooks de React.
-- `composition.ts`: raíz de composición (elige adaptador según env).
-- `content.ts`: copy tipado y validado con Zod al cargar el módulo.
-- `index.ts`: API pública de la feature.
-
-Las secciones puramente visuales solo tienen `ui/` + `content.ts`. No sobreingenierizar.
+- `content.ts`: textos de la sección, validados con Zod al cargar el módulo.
+- `ui/<sección>.tsx` (o `<sección>.tsx` en la raíz): el componente.
+- Si hay lógica, archivos planos con nombres que digan qué hacen (p. ej. `market-ticker/simulated-market.ts`, `lead-capture/capture-lead.ts`) y su `*.test.ts` al lado.
+- `index.ts`: lo que la sección expone a `app/` y a otras secciones.
 
 ## Reglas de dependencia (las hace cumplir `eslint-plugin-boundaries`)
 
-- `ui → application → domain`; `infrastructure → domain`. `domain` no importa nada externo salvo Zod.
-- Entre features, solo vía `index.ts`. Prohibidos los imports profundos.
+- Entre features, solo vía `index.ts`. Prohibidos los imports profundos. Dentro de una feature, libre.
 - `shared` nunca importa de `features`. Cualquier feature puede importar de `shared`.
-- `app/` solo compone features y llama a casos de uso.
+- `app/` solo compone features (vía `index.ts`) y `shared`.
 
 ## Convenciones
 
@@ -68,8 +62,8 @@ Todos se corren en el contenedor: `docker compose run --rm app <comando>` (o `ex
 | `pnpm lint`                                     | ESLint (incluye reglas de arquitectura)                                      |
 | `pnpm typecheck`                                | Type-check estricto                                                          |
 | `pnpm format` / `pnpm format:check`             | Prettier (con orden de clases de Tailwind)                                   |
-| `pnpm test`                                     | Vitest (unitarios, componentes, contract tests)                              |
-| `pnpm test:coverage`                            | Vitest con cobertura (umbral 90% en `domain/` y `application/`)              |
+| `pnpm test`                                     | Vitest (unitarios y componentes)                                             |
+| `pnpm test:coverage`                            | Vitest con cobertura (umbral 90% en los archivos con lógica)                 |
 | `pnpm test:e2e`                                 | Playwright e2e + axe                                                         |
 | `pnpm test:visual`                              | Regresión visual contra `reference/` (pixelmatch, umbral ≤ 0.5% por sección) |
 | `pnpm remotion:studio` / `pnpm remotion:render` | Studio de Remotion / render MP4 a `public/video/`                            |

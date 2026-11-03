@@ -2,7 +2,7 @@ import { photos } from "@/shared/config/photos";
 import { PersonPhoto } from "@/shared/ui/person-photo";
 import { Sparkle } from "@/shared/ui/sparkle";
 
-import { leadContent } from "../content";
+import { leadContent } from "./content";
 import { LeadForm } from "./lead-form";
 
 const photo = photos.cta;

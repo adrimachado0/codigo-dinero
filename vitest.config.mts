@@ -12,9 +12,11 @@ export default defineConfig({
     restoreMocks: true,
     coverage: {
       provider: "v8",
-      include: ["src/features/*/domain/**", "src/features/*/application/**"],
-      // quote-source.ts only declares the port interface (no runtime code).
-      exclude: ["**/*.test.{ts,tsx}", "**/*.contract.ts", "**/domain/quote-source.ts"],
+      // The files with business logic (prices, formatting, lead validation and capture).
+      include: [
+        "src/features/market-ticker/{quotes,simulated-market}.ts",
+        "src/features/lead-capture/{lead,capture-lead}.ts",
+      ],
       thresholds: { lines: 90, functions: 90, branches: 90, statements: 90 },
     },
   },
