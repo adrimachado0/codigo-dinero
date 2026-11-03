@@ -77,6 +77,8 @@ export function TestimonialsCarousel({ reviews, initialIndex, labels, joinLink, 
               aria-roledescription="reseña"
               aria-label={`${String(index + 1)} de ${String(count)}`}
               aria-current={isActive ? "true" : undefined}
+              // Dimmed slides are not the current one: hidden from assistive tech (arrows reach them).
+              aria-hidden={isActive ? undefined : true}
               className={cn(
                 "m-0 box-border flex flex-[1_1_300px] flex-col gap-5 rounded-card border bg-surface-400 p-6.5 transition-[opacity,border-color] duration-300",
                 isActive ? "border-accent opacity-100" : "border-white/8 opacity-45 max-md:hidden",

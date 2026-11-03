@@ -41,7 +41,13 @@ export function FaqAccordion({ items, initialOpen }: { items: FaqItem[]; initial
                 className="flex min-h-15 w-full cursor-pointer items-center justify-between gap-4 border-0 bg-transparent py-2.5 pr-2.5 pl-6 text-left font-sans text-16 font-medium text-white"
               >
                 <span className="flex items-center gap-4">
-                  <span className="font-display text-13 font-semibold text-accent">
+                  <span
+                    aria-hidden="true"
+                    className={cn(
+                      "font-display text-13 font-semibold",
+                      isOpen ? "text-accent-raised" : "text-accent",
+                    )}
+                  >
                     {item.number}
                   </span>
                   <span>{item.question}</span>

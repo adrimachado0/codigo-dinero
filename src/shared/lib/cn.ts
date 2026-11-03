@@ -26,6 +26,7 @@ const twMerge = extendTailwindMerge({
         "placeholder",
         "accent",
         "accent-hover",
+        "accent-raised",
         "wine",
         "wine-circle",
         "wine-fg",

@@ -1,6 +1,9 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   AbsoluteFill,
+  cancelRender,
+  continueRender,
+  delayRender,
   Img,
   interpolate,
   spring,
@@ -20,8 +23,33 @@ export const PROMO_COMPOSITION = {
   durationInFrames: 13 * 30,
 } as const;
 
-const FONT = "var(--font-lexend), Lexend, system-ui, sans-serif";
-const DISPLAY_FONT = "var(--font-unbounded), Unbounded, system-ui, sans-serif";
+const FONT = "CodLexend, system-ui, sans-serif";
+const DISPLAY_FONT = "CodUnbounded, system-ui, sans-serif";
+
+const FONT_FACES = [
+  { family: "CodLexend", file: "fonts/lexend-latin.woff2", weight: "100 900" },
+  { family: "CodUnbounded", file: "fonts/unbounded-latin.woff2", weight: "200 900" },
+];
+
+/** Loads the site fonts (public/fonts) before rendering frames, in Studio, render and Player. */
+function useCompositionFonts() {
+  const [handle] = useState(() => delayRender("Loading fonts"));
+  useEffect(() => {
+    Promise.all(
+      FONT_FACES.map(async ({ family, file, weight }) => {
+        const face = await new FontFace(family, `url(${staticFile(file)})`, { weight }).load();
+        document.fonts.add(face);
+      }),
+    ).then(
+      () => {
+        continueRender(handle);
+      },
+      (error: unknown) => {
+        cancelRender(error);
+      },
+    );
+  }, [handle]);
+}
 
 /** Particle sphere + glowing red price line, drawn deterministically for each frame. */
 function SphereAndChart() {
@@ -47,6 +75,7 @@ function SphereAndChart() {
 }
 
 export function PromoCodigoDinero() {
+  useCompositionFonts();
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 

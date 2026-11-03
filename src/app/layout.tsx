@@ -1,15 +1,10 @@
-import type { Metadata } from "next";
-
 import { cn } from "@/shared/lib/cn";
+import { buildRootMetadata, rootViewport } from "@/shared/seo/metadata";
 import { lexend, unbounded } from "@/shared/ui/fonts";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: {
-    default: "Código Dinero · Academia de trading",
-    template: "%s · Código Dinero",
-  },
-};
+export const metadata = buildRootMetadata();
+export const viewport = rootViewport;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

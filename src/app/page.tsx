@@ -1,6 +1,6 @@
 import { About } from "@/features/about";
 import { PartnerStats } from "@/features/broker-partner";
-import { Faq } from "@/features/faq";
+import { Faq, faqContent } from "@/features/faq";
 import { Hero } from "@/features/hero";
 import { LeadCapture } from "@/features/lead-capture";
 import { MottoBand } from "@/features/motto-band";
@@ -9,10 +9,12 @@ import { SiteHeader } from "@/features/site-header";
 import { Testimonials } from "@/features/testimonials";
 import { TopicsRibbon } from "@/features/topics-ribbon";
 import { Training } from "@/features/training";
+import { faqPageLd, graph, JsonLd, organizationLd, websiteLd } from "@/shared/seo/json-ld";
 
 export default function HomePage() {
   return (
     <>
+      <JsonLd data={graph(organizationLd(), websiteLd(), faqPageLd(faqContent.items))} />
       <SiteHeader />
       <main>
         <Hero />

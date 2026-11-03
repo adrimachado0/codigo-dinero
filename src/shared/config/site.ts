@@ -13,7 +13,7 @@ export const site = {
   title: "Código Dinero · Academia de trading",
   description:
     "Academia de trading con formación, análisis de mercado y una comunidad que opera con método. Clases gratuitas en YouTube y partner oficial de EC Markets.",
-  homeLabel: "Código Dinero, ir al inicio",
+  homeLabel: "COD, Código Dinero: ir al inicio",
   nav: {
     links: [
       { label: "Inicio", href: "#inicio" },

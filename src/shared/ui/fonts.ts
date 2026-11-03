@@ -8,7 +8,7 @@ import localFont from "next/font/local";
  * exactly the reference's: glyphs outside latin (✦ ▲ ▼) come from the same system font.
  */
 export const lexend = localFont({
-  src: "./fonts/lexend-latin.woff2",
+  src: "../../../public/fonts/lexend-latin.woff2",
   weight: "100 900",
   display: "swap",
   variable: "--font-lexend",
@@ -17,7 +17,7 @@ export const lexend = localFont({
 
 // Logo "COD", numbers 01–06, the motto band and the red ribbon.
 export const unbounded = localFont({
-  src: "./fonts/unbounded-latin.woff2",
+  src: "../../../public/fonts/unbounded-latin.woff2",
   weight: "200 900",
   display: "swap",
   variable: "--font-unbounded",
