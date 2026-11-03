@@ -18,15 +18,14 @@ const captionBars = [
   { width: "w-0.5", opacity: "opacity-40" },
 ];
 
-/** "Video · Remotion" card: animated canvas as poster; the red button starts the Player. */
+/** Video card: animated canvas as poster; the red button starts the Player. */
 export function PromoVideoCard() {
   const [playing, setPlaying] = useState(false);
-  const [line1, line2] = promoVideoContent.captionLines;
 
   return (
     <div className="relative h-[260px] overflow-hidden rounded-card border border-white/8 bg-surface-100 md:h-[380px]">
       {playing ? (
-        <PromoPlayer title={promoVideoContent.playerTitle} />
+        <PromoPlayer labels={promoVideoContent} />
       ) : (
         <>
           <ParticleSphere
@@ -47,9 +46,7 @@ export function PromoVideoCard() {
           </button>
           <div className="absolute right-5.5 bottom-5.5 left-5.5 flex items-stretch gap-1.25">
             <div className="bg-accent py-3 pr-5.5 pl-6.5 text-13 leading-caps font-semibold tracking-caps-sm text-ink uppercase">
-              {line1}
-              <br />
-              {line2}
+              {promoVideoContent.caption}
             </div>
             {captionBars.map((bar) => (
               <div key={bar.width} className={`${bar.width} bg-accent ${bar.opacity}`} />

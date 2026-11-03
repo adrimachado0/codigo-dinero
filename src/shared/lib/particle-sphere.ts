@@ -116,7 +116,28 @@ export type DrawOptions = {
   layout?: { cx: number; cy: number; radius: number };
   /** Draws the grid + price line (the video card). Defaults to kind === "video". */
   chart?: boolean;
+  /**
+   * Cursor interaction (hero): extra rotation/tilt of the sphere (radians) and a point that
+   * pushes nearby dots away. `strength` 0..1 fades the effect in and out.
+   */
+  pointer?: { x: number; y: number; strength: number; spin: number; tilt: number };
 };
+
+/** Radius (px) around the cursor where dots get pushed away, and the max push. */
+const REPEL_RADIUS = 120;
+const REPEL_DUST = 26;
+const REPEL_SPHERE = 14;
+
+/** Offset that pushes (x, y) away from the cursor, fading with distance. */
+function repel(x: number, y: number, pointer: DrawOptions["pointer"], force: number) {
+  if (!pointer || pointer.strength <= 0) return [0, 0] as const;
+  const dx = x - pointer.x;
+  const dy = y - pointer.y;
+  const dist = Math.hypot(dx, dy);
+  if (dist >= REPEL_RADIUS || dist === 0) return [0, 0] as const;
+  const k = (1 - dist / REPEL_RADIUS) ** 2 * force * pointer.strength;
+  return [(dx / dist) * k, (dy / dist) * k] as const;
+}
 
 export function drawScene(ctx: CanvasRenderingContext2D, scene: SceneState, opts: DrawOptions) {
   const { kind, t, width: w, height: h, accent = ACCENT } = opts;
@@ -135,12 +156,13 @@ export function drawScene(ctx: CanvasRenderingContext2D, scene: SceneState, opts
     ctx.globalAlpha = (p.hi ? 0.55 : 0.2) * tw;
     ctx.fillStyle = p.hi ? dustCol : dot;
     const sz = 0.9 + p.sz * 1.3;
-    ctx.fillRect(xx * w, yy * h, sz, sz);
+    const [ox, oy] = repel(xx * w, yy * h, opts.pointer, REPEL_DUST);
+    ctx.fillRect(xx * w + ox, yy * h + oy, sz, sz);
   }
-  const rot = t * 0.16;
+  const rot = t * 0.16 + (opts.pointer?.spin ?? 0);
   const cr = Math.cos(rot);
   const sr = Math.sin(rot);
-  const tl = -0.32;
+  const tl = -0.32 + (opts.pointer?.tilt ?? 0);
   const ct = Math.cos(tl);
   const stl = Math.sin(tl);
   ctx.fillStyle = dot;
@@ -154,8 +176,9 @@ export function drawScene(ctx: CanvasRenderingContext2D, scene: SceneState, opts
     const spread = d * d * (0.8 + 1.1 * wob) * (0.5 + p.s);
     const px = x - spread * 1.25;
     const py = y + (p.s2 - 0.5) * spread * 1.1;
-    const sx = cx + px * R;
-    const sy = cy + py * R;
+    const [ox, oy] = repel(cx + px * R, cy + py * R, opts.pointer, REPEL_SPHERE);
+    const sx = cx + px * R + ox;
+    const sy = cy + py * R + oy;
     if (sx < -4 || sx > w + 4 || sy < -4 || sy > h + 4) continue;
     const light = Math.max(0, x * 0.78 - y * 0.18 + z * 0.6);
     if (p.dust && d > 0.08) {

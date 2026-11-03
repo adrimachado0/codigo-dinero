@@ -4,14 +4,15 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import type { RefObject } from "react";
 
+import { isMotionFrozen } from "@/shared/lib/motion";
+
 gsap.registerPlugin(useGSAP);
 
 type LoopAnimation = gsap.core.Tween | gsap.core.Timeline;
 
 /**
- * Runs an infinite GSAP animation on `ref` only when motion is allowed, pauses it while the
- * element is off screen and reverts everything on unmount (useGSAP context + matchMedia).
- * With prefers-reduced-motion the element stays in its static (reference) state.
+ * Runs an infinite GSAP animation on `ref`, pauses it while the element is off screen and
+ * reverts everything on unmount (useGSAP context). Always on (see shared/lib/motion.ts).
  */
 export function useLoopAnimation<T extends Element>(
   ref: RefObject<T | null>,
@@ -20,22 +21,16 @@ export function useLoopAnimation<T extends Element>(
 ) {
   useGSAP(() => {
     const element = ref.current;
-    if (!element) return;
-    const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      const animation = create(element);
-      if (!animation) return;
-      const observer = new IntersectionObserver(([entry]) => {
-        if (entry?.isIntersecting) animation.play();
-        else animation.pause();
-      });
-      observer.observe(element);
-      return () => {
-        observer.disconnect();
-      };
+    if (!element || isMotionFrozen()) return;
+    const animation = create(element);
+    if (!animation) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry?.isIntersecting) animation.play();
+      else animation.pause();
     });
+    observer.observe(element);
     return () => {
-      mm.revert();
+      observer.disconnect();
     };
   });
 }

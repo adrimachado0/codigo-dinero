@@ -7,16 +7,7 @@ afterEach(() => {
   cleanup();
 });
 
-// jsdom lacks matchMedia (used by GSAP): tests run as "prefers-reduced-motion: reduce", so
-// loop animations never start and need no IntersectionObserver.
+// Component tests are static: decorative motion off (jsdom has no IntersectionObserver).
 if (typeof window !== "undefined") {
-  window.matchMedia = (query: string) =>
-    ({
-      matches: query.includes(": reduce"),
-      media: query,
-      onchange: null,
-      addEventListener: () => undefined,
-      removeEventListener: () => undefined,
-      dispatchEvent: () => false,
-    }) as unknown as MediaQueryList;
+  Object.assign(window, { __FREEZE_MOTION__: true });
 }

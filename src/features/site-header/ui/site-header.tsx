@@ -11,7 +11,7 @@ import { MainNav } from "./main-nav";
 export function SiteHeader() {
   return (
     <div id="inicio" className="px-4 pt-4">
-      <header className="mx-auto box-border max-w-shell rounded-t-card-lg bg-wine px-[clamp(16px,3vw,40px)] pt-5.5 text-white">
+      <header className="mx-auto box-border max-w-full rounded-t-card-lg bg-wine px-[clamp(16px,3vw,40px)] pt-5.5 text-white">
         <MainNav
           links={site.nav.links}
           cta={site.nav.cta}

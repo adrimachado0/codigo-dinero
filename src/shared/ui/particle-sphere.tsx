@@ -2,22 +2,31 @@
 
 import { useEffect, useRef, type ComponentProps } from "react";
 
+import { isMotionFrozen } from "@/shared/lib/motion";
 import { createScene, drawScene, type SceneKind } from "@/shared/lib/particle-sphere";
 
 export type ParticleSphereProps = Omit<ComponentProps<"canvas">, "ref" | "children"> & {
   kind: SceneKind;
+  /** The sphere turns toward the cursor and nearby dots move away from it. */
+  interactive?: boolean;
 };
 
 const MAX_DPR = 2;
-/** Frame the reference draws when motion is reduced. */
+/** Frame drawn when motion is frozen (visual tests): same as the reference's static frame. */
 const STATIC_TIME = 6;
+/** Extra pointer area around the canvas (px) where the effect still applies. */
+const POINTER_MARGIN = 40;
 
 /**
  * Canvas port of the reference particle sphere ("hero") and sphere + price chart ("video").
- * Animates with requestAnimationFrame only while on screen; with reduced motion it draws a
- * single static frame and redraws on resize.
+ * Animates with requestAnimationFrame only while on screen.
  */
-export function ParticleSphere({ kind, className, ...props }: ParticleSphereProps) {
+export function ParticleSphere({
+  kind,
+  interactive = false,
+  className,
+  ...props
+}: ParticleSphereProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -26,9 +35,34 @@ export function ParticleSphere({ kind, className, ...props }: ParticleSphereProp
     if (!canvas || !ctx) return;
 
     const scene = createScene(kind, Math.random);
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const frozen = isMotionFrozen();
     let raf = 0;
     let visible = false;
+
+    // Cursor state: `target` follows the mouse, `current` eases toward it every frame.
+    const target = { x: 0, y: 0, strength: 0, spin: 0, tilt: 0 };
+    const current = { ...target };
+
+    const onPointerMove = (event: PointerEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const inside =
+        x > -POINTER_MARGIN &&
+        y > -POINTER_MARGIN &&
+        x < rect.width + POINTER_MARGIN &&
+        y < rect.height + POINTER_MARGIN;
+      target.strength = inside ? 1 : 0;
+      if (!inside) return;
+      target.x = x;
+      target.y = y;
+      // -1..1 from the center: the sphere turns up to ~0.9 rad sideways and 0.35 rad up/down.
+      target.spin = (x / rect.width - 0.5) * 1.8;
+      target.tilt = (y / rect.height - 0.5) * 0.7;
+    };
+    const onPointerLeave = () => {
+      target.strength = 0;
+    };
 
     const draw = (t: number) => {
       const w = canvas.clientWidth;
@@ -42,16 +76,28 @@ export function ParticleSphere({ kind, className, ...props }: ParticleSphereProp
         canvas.height = H;
       }
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      drawScene(ctx, scene, { kind, t, width: w, height: h });
+      drawScene(ctx, scene, {
+        kind,
+        t,
+        width: w,
+        height: h,
+        ...(interactive && { pointer: current }),
+      });
     };
 
+    const ease = (from: number, to: number, k: number) => from + (to - from) * k;
     const loop = (ms: number) => {
+      current.x = ease(current.x, target.x, 0.18);
+      current.y = ease(current.y, target.y, 0.18);
+      current.strength = ease(current.strength, target.strength, 0.08);
+      current.spin = ease(current.spin, target.strength ? target.spin : 0, 0.04);
+      current.tilt = ease(current.tilt, target.strength ? target.tilt : 0, 0.04);
       draw(ms / 1000);
       raf = requestAnimationFrame(loop);
     };
 
     const start = () => {
-      if (reduce) draw(STATIC_TIME);
+      if (frozen) draw(STATIC_TIME);
       else if (!raf) raf = requestAnimationFrame(loop);
     };
     const stop = () => {
@@ -67,16 +113,23 @@ export function ParticleSphere({ kind, className, ...props }: ParticleSphereProp
     intersection.observe(canvas);
 
     const resize = new ResizeObserver(() => {
-      if (reduce && visible) draw(STATIC_TIME);
+      if (frozen && visible) draw(STATIC_TIME);
     });
     resize.observe(canvas);
+
+    if (interactive && !frozen) {
+      window.addEventListener("pointermove", onPointerMove, { passive: true });
+      document.documentElement.addEventListener("pointerleave", onPointerLeave);
+    }
 
     return () => {
       stop();
       intersection.disconnect();
       resize.disconnect();
+      window.removeEventListener("pointermove", onPointerMove);
+      document.documentElement.removeEventListener("pointerleave", onPointerLeave);
     };
-  }, [kind]);
+  }, [kind, interactive]);
 
   return <canvas ref={canvasRef} className={className} {...props} />;
 }
