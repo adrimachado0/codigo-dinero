@@ -1,16 +1,32 @@
-import type { SVGProps } from "react";
+"use client";
+
+import { useRef, type SVGProps } from "react";
 
 import { cn } from "@/shared/lib/cn";
+import { spin, useLoopAnimation } from "@/shared/ui/use-loop-animation";
 
-export type StarburstProps = Omit<SVGProps<SVGSVGElement>, "children"> & {
+export type StarburstProps = Omit<SVGProps<SVGSVGElement>, "children" | "ref"> & {
   size?: number;
   strokeWidth?: number;
+  /** Seconds per turn (reference: logo 24, hero ornament 30). Static when omitted. */
+  spinSeconds?: number;
 };
 
 /** Twelve-ray brand mark (logo, hero ornament, favicon). Color comes from `currentColor`. */
-export function Starburst({ size = 48, strokeWidth = 3, className, ...props }: StarburstProps) {
+export function Starburst({
+  size = 48,
+  strokeWidth = 3,
+  spinSeconds,
+  className,
+  ...props
+}: StarburstProps) {
+  const ref = useRef<SVGSVGElement>(null);
+
+  useLoopAnimation(ref, (svg) => (spinSeconds ? spin(svg, spinSeconds) : null));
+
   return (
     <svg
+      ref={ref}
       width={size}
       height={size}
       viewBox="0 0 48 48"

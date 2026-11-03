@@ -1,0 +1,187 @@
+import { mkdirSync, writeFileSync } from "node:fs";
+import path from "node:path";
+
+import { expect, test, type Page } from "@playwright/test";
+import pixelmatch from "pixelmatch";
+import { PNG } from "pngjs";
+
+/**
+ * Visual regression against reference/ (served on :3001). Each section is captured in the
+ * reference and in the app at the same width and compared with pixelmatch.
+ * Run with: pnpm test:visual (Docker image → deterministic fonts and Chromium).
+ */
+
+const REFERENCE_URL = "http://localhost:3001/";
+const THRESHOLD_PERCENT = 0.5;
+const OUT_DIR = path.join("test-results", "visual");
+const WIDTHS = [1440, 1024, 768, 390] as const;
+
+type Section = { name: string; ref: string[]; app: string[] };
+
+// In the app the reference's `section#inicio` is split into <header id="inicio"> and the
+// hero <section id="hero"> inside <main>, so it is measured as the union of both.
+const SECTIONS: Section[] = [
+  { name: "inicio", ref: ["#inicio"], app: ["#inicio", "#hero"] },
+  ...[
+    'section[aria-label="EC MARKETS en números"]',
+    "#que-es",
+    'section[aria-label="Aprende, analiza, opera"]',
+    "#formacion",
+    "#comunidad",
+    'section[aria-label="Temas"]',
+    "#faq",
+    'section[aria-label="Empezar"]',
+    "footer",
+  ].map((selector) => ({ name: sectionName(selector), ref: [selector], app: [selector] })),
+];
+
+const MENU_SECTION: Section = {
+  name: "menu-abierto",
+  ref: ['nav[aria-label="Principal"]', "#cod-mobile-menu"],
+  app: ['nav[aria-label="Principal"]', "#cod-mobile-menu"],
+};
+
+// Non-deterministic content: particle canvases and the simulated price lane of the ticker.
+const MASKS = ["canvas", '[aria-label="Cotizaciones"] > :nth-child(2)'];
+
+function sectionName(selector: string): string {
+  const label = /aria-label="([^"]+)"/.exec(selector)?.[1];
+  return (label ?? selector.replace("#", "")).toLowerCase().replaceAll(/[^a-z0-9áéíóúñ]+/g, "-");
+}
+
+type Box = { x: number; y: number; width: number; height: number };
+
+async function settle(page: Page) {
+  await page.waitForLoadState("networkidle");
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+  });
+  await page.waitForTimeout(300);
+}
+
+async function unionBox(page: Page, selectors: string[]): Promise<Box> {
+  return page.evaluate((sels) => {
+    const rects = sels.map((s) => {
+      const el = document.querySelector(s);
+      if (!el) throw new Error(`Missing element: ${s}`);
+      return el.getBoundingClientRect();
+    });
+    const left = Math.min(...rects.map((r) => r.left));
+    const top = Math.min(...rects.map((r) => r.top));
+    const right = Math.max(...rects.map((r) => r.right));
+    const bottom = Math.max(...rects.map((r) => r.bottom));
+    return {
+      x: Math.round(left + window.scrollX),
+      y: Math.round(top + window.scrollY),
+      width: Math.round(right - left),
+      height: Math.round(bottom - top),
+    };
+  }, selectors);
+}
+
+async function capture(page: Page, selectors: string[]): Promise<PNG> {
+  const clip = await unionBox(page, selectors);
+  const buffer = await page.screenshot({
+    fullPage: true,
+    clip,
+    animations: "disabled",
+    caret: "hide",
+    mask: MASKS.map((m) => page.locator(m)),
+    maskColor: "#FF00FF",
+  });
+  return PNG.sync.read(buffer);
+}
+
+/** Compares two captures; size mismatch counts every non-overlapping pixel as different. */
+function compare(ref: PNG, app: PNG, file: string): number {
+  const width = Math.max(ref.width, app.width);
+  const height = Math.max(ref.height, app.height);
+  const pad = (img: PNG) => {
+    const out = new PNG({ width, height });
+    out.data.fill(0);
+    PNG.bitblt(img, out, 0, 0, img.width, img.height, 0, 0);
+    return out;
+  };
+  const a = pad(ref);
+  const b = pad(app);
+  const diff = new PNG({ width, height });
+  const different = pixelmatch(a.data, b.data, diff.data, width, height, { threshold: 0.1 });
+  writeFileSync(file, PNG.sync.write(diff));
+  return (different / (width * height)) * 100;
+}
+
+type Row = {
+  width: number;
+  section: string;
+  diffPercent: number;
+  refSize: string;
+  appSize: string;
+};
+
+async function compareSections(
+  refPage: Page,
+  appPage: Page,
+  width: number,
+  sections: Section[],
+): Promise<Row[]> {
+  mkdirSync(OUT_DIR, { recursive: true });
+  const rows: Row[] = [];
+  for (const section of sections) {
+    const ref = await capture(refPage, section.ref);
+    const app = await capture(appPage, section.app);
+    const base = path.join(OUT_DIR, `${String(width)}-${section.name}`);
+    writeFileSync(`${base}-ref.png`, PNG.sync.write(ref));
+    writeFileSync(`${base}-app.png`, PNG.sync.write(app));
+    const diffPercent = compare(ref, app, `${base}-diff.png`);
+    rows.push({
+      width,
+      section: section.name,
+      diffPercent: Math.round(diffPercent * 1000) / 1000,
+      refSize: `${String(ref.width)}x${String(ref.height)}`,
+      appSize: `${String(app.width)}x${String(app.height)}`,
+    });
+  }
+  return rows;
+}
+
+function report(rows: Row[], name: string) {
+  console.table(rows.map((r) => ({ ...r, ok: r.diffPercent <= THRESHOLD_PERCENT ? "✓" : "✗" })));
+  writeFileSync(path.join(OUT_DIR, `${name}.json`), JSON.stringify(rows, null, 2));
+  for (const row of rows) {
+    expect
+      .soft(
+        row.diffPercent,
+        `${String(row.width)}px · ${row.section} (${row.refSize} vs ${row.appSize})`,
+      )
+      .toBeLessThanOrEqual(THRESHOLD_PERCENT);
+  }
+}
+
+async function openBoth(page: Page, width: number) {
+  const refPage = await page.context().newPage();
+  for (const p of [page, refPage]) await p.setViewportSize({ width, height: 900 });
+  await Promise.all([page.goto("/"), refPage.goto(REFERENCE_URL)]);
+  await Promise.all([settle(page), settle(refPage)]);
+  return refPage;
+}
+
+for (const width of WIDTHS) {
+  test(`sections match the reference at ${String(width)}px`, async ({ page }) => {
+    test.setTimeout(120_000);
+    const refPage = await openBoth(page, width);
+
+    const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+    expect.soft(scrollWidth, "no horizontal scroll").toBeLessThanOrEqual(width);
+
+    report(await compareSections(refPage, page, width, SECTIONS), `report-${String(width)}`);
+  });
+}
+
+test("open mobile menu matches the reference at 390px", async ({ page }) => {
+  const refPage = await openBoth(page, 390);
+  for (const p of [page, refPage]) {
+    await p.getByRole("button", { name: "Abrir menú" }).click();
+    await p.locator("#cod-mobile-menu").waitFor();
+  }
+  report(await compareSections(refPage, page, 390, [MENU_SECTION]), "report-390-menu");
+});

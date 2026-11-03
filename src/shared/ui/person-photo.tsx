@@ -1,5 +1,6 @@
-import Image, { type StaticImageData } from "next/image";
+import Image from "next/image";
 
+import type { PhotoSlot } from "@/shared/config/photos";
 import { cn } from "@/shared/lib/cn";
 import { Pill } from "@/shared/ui/pill";
 
@@ -9,16 +10,10 @@ const silhouetteFill = {
   graphite: "fill-silhouette-strong", // mentor card, on #222
 } as const;
 
-type PhotoSource =
-  | {
-      /** Transparent PNG of the person, configured in src/shared/config/photos.ts. */
-      src: StaticImageData;
-      alt: string;
-      sizes?: string;
-    }
-  | { src?: undefined; alt?: undefined; sizes?: undefined };
-
-export type PersonPhotoProps = PhotoSource & {
+export type PersonPhotoProps = {
+  /** Slot from src/shared/config/photos.ts; `null`/omitted shows the silhouette. */
+  photo?: PhotoSlot;
+  sizes?: string;
   tone: keyof typeof silhouetteFill;
   className?: string;
   /** Placeholder label over the silhouette; `null` hides it (the mentor card has its own). */
@@ -27,13 +22,12 @@ export type PersonPhotoProps = PhotoSource & {
 };
 
 /**
- * Photo slot of a client. Without `src` it shows the reference silhouette and the "Foto"
- * pill; with `src` it renders the real photo through next/image.
+ * Photo slot of a client. Without a photo it shows the reference silhouette and the "Foto"
+ * pill; with one it renders the transparent PNG through next/image.
  */
 export function PersonPhoto({
-  src,
-  alt,
-  sizes,
+  photo,
+  sizes = "310px",
   tone,
   className,
   label = "Foto",
@@ -41,8 +35,8 @@ export function PersonPhoto({
 }: PersonPhotoProps) {
   return (
     <div className={cn("relative", className)}>
-      {src ? (
-        <Image src={src} alt={alt} sizes={sizes ?? "310px"} className="block h-auto w-full" />
+      {photo ? (
+        <Image src={photo.src} alt={photo.alt} sizes={sizes} className="block h-auto w-full" />
       ) : (
         <>
           <svg

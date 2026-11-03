@@ -36,7 +36,8 @@ const architecture = {
     "import/resolver": {
       typescript: { alwaysTryTypes: true, project: "./tsconfig.json" },
     },
-    "boundaries/ignore": ["**/*.test.{ts,tsx}"],
+    // Tests and port contract suites (*.contract.ts) are test support, not architecture.
+    "boundaries/ignore": ["**/*.test.{ts,tsx}", "**/*.contract.ts"],
     "boundaries/legacy-templates": false,
     "boundaries/elements": [
       { type: "app", pattern: "src/app", partialMatch: false },
@@ -99,6 +100,7 @@ const architecture = {
           {
             from: { element: { type: "feature-ui" } },
             allow: [
+              ownLayer("feature-ui"), // ui/ ↔ remotion/ of the same feature
               ownLayer("feature-application"),
               ownLayer("feature-domain"),
               ownLayer("feature", { categories: ["content", "composition"] }),

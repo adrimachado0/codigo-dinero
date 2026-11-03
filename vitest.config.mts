@@ -13,7 +13,8 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       include: ["src/features/*/domain/**", "src/features/*/application/**"],
-      exclude: ["**/*.test.{ts,tsx}"],
+      // quote-source.ts only declares the port interface (no runtime code).
+      exclude: ["**/*.test.{ts,tsx}", "**/*.contract.ts", "**/domain/quote-source.ts"],
       thresholds: { lines: 90, functions: 90, branches: 90, statements: 90 },
     },
   },

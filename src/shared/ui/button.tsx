@@ -14,9 +14,9 @@ export const buttonVariants = cva(
     variants: {
       tone: {
         solid: "bg-accent font-semibold text-ink",
-        outline: "border border-solid border-white/32 font-medium text-white",
-        "outline-soft": "border border-solid border-white/28 font-normal text-white",
-        "outline-strong": "border-[1.5px] border-solid border-white/55 font-medium text-white",
+        outline: "border border-white/32 font-medium text-white",
+        "outline-soft": "border border-white/28 font-normal text-white",
+        "outline-strong": "border-[1.5px] border-white/55 font-medium text-white",
       },
       size: {
         nav: "px-5 py-3", // header "Empezar": padding 12px 20px, no min-height

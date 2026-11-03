@@ -37,7 +37,7 @@ describe("PersonPhoto", () => {
   });
 
   it("renders the real photo with its alt text when src is set", () => {
-    render(<PersonPhoto tone="wine" src={photo} alt="Mentor de Código Dinero" />);
+    render(<PersonPhoto tone="wine" photo={{ src: photo, alt: "Mentor de Código Dinero" }} />);
 
     const img = screen.getByRole("img", { name: "Mentor de Código Dinero" });
     expect(img).toHaveAttribute("width", "600");

@@ -8,7 +8,7 @@ export const pillVariants = cva("inline-block rounded-full", {
   variants: {
     tone: {
       accent: "bg-accent text-ink",
-      outline: "border border-solid border-white/32",
+      outline: "border border-white/32",
     },
     size: {
       xs: "px-3 py-1.5 text-12 font-medium", // 6px 12px

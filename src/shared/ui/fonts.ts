@@ -1,17 +1,25 @@
-import { Lexend, Unbounded } from "next/font/google";
+import localFont from "next/font/local";
 
-// Only the weights the reference uses (see docs/PENDIENTES.md about weight ranges).
-export const lexend = Lexend({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+/*
+ * Same binaries the reference loads from Google Fonts CSS (Lexend v26, Unbounded v12, latin
+ * subset, variable wght axis). next/font/google downloads a different revision whose
+ * advance widths differ by ~4%, which breaks the pixel match. Self-hosted via next/font/local
+ * (preload, no layout shift from swapping files). No metric fallback, so the font stack is
+ * exactly the reference's: glyphs outside latin (✦ ▲ ▼) come from the same system font.
+ */
+export const lexend = localFont({
+  src: "./fonts/lexend-latin.woff2",
+  weight: "100 900",
   display: "swap",
   variable: "--font-lexend",
+  adjustFontFallback: false,
 });
 
 // Logo "COD", numbers 01–06, the motto band and the red ribbon.
-export const unbounded = Unbounded({
-  subsets: ["latin"],
-  weight: ["600", "800"],
+export const unbounded = localFont({
+  src: "./fonts/unbounded-latin.woff2",
+  weight: "200 900",
   display: "swap",
   variable: "--font-unbounded",
+  adjustFontFallback: false,
 });
