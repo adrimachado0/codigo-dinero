@@ -47,7 +47,7 @@ Estructura de una feature (sección). **Simple a propósito: sin capas, puertos 
 - Tailwind v4 con tokens en `@theme`; variantes con `cva`; clases combinadas con `cn` (`clsx` + `tailwind-merge`). Responsive con `md:`/`lg:`, sin `!important`.
 - Sin preflight de Tailwind (la referencia usa los estilos por defecto del navegador): **no usar `border-solid`**, porque pone bordes de 3 px en los cuatro lados; `border-*` ya fija el estilo. Un token nuevo en `@theme` también se registra en `src/shared/lib/cn.ts`.
 - Fuentes: los binarios exactos de la referencia en `public/fonts/` vía `next/font/local`. No cambiar a `next/font/google` (otra revisión, otros anchos).
-- Toda animación respeta `prefers-reduced-motion`, se pausa fuera de pantalla y se limpia al desmontar (`useGSAP`).
+- Las animaciones decorativas **no** respetan `prefers-reduced-motion` (decisión del dueño del sitio): siempre se mueven, se pausan fuera de pantalla y se limpian al desmontar (`useGSAP`). Usar `useLoopAnimation` / `isMotionFrozen()` (`src/shared/lib/motion.ts`): los tests congelan el movimiento con `window.__FREEZE_MOTION__`.
 - El `h1` del hero es el LCP: no se anima su entrada.
 - Commits con Conventional Commits (commitlint).
 
@@ -82,5 +82,5 @@ Todos se corren en el contenedor: `docker compose run --rm app <comando>` (o `ex
 - [ ] Sin imports que violen las reglas de dependencia.
 - [ ] Textos idénticos a la referencia; marcadores intactos y listados en `docs/PENDIENTES.md`.
 - [ ] Accesibilidad: foco visible, targets ≥ 44px, `aria-*` correctos, 0 violaciones serias/críticas de axe.
-- [ ] Animaciones con reduced motion, pausa fuera de pantalla y cleanup.
+- [ ] Animaciones con pausa fuera de pantalla, cleanup y congelables en tests (`__FREEZE_MOTION__`).
 - [ ] Sin CLS: dimensiones reservadas para todo lo que carga después.

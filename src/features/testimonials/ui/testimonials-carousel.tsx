@@ -17,7 +17,8 @@ type Props = {
   heading: ReactNode;
 };
 
-const arrowClass = "flex size-12 cursor-pointer items-center justify-center rounded-full p-0";
+const arrowClass =
+  "flex size-12 cursor-pointer items-center justify-center rounded-full p-0 transition-[background-color,color,border-color,translate] duration-300 hover:-translate-y-0.5 active:translate-y-0";
 
 /**
  * Accessible carousel: arrow buttons with labels, slides announced as "N de M" and the
@@ -42,7 +43,10 @@ export function TestimonialsCarousel({ reviews, initialIndex, labels, joinLink, 
             onClick={() => {
               go(-1);
             }}
-            className={cn(arrowClass, "border border-white/32 bg-transparent text-white")}
+            className={cn(
+              arrowClass,
+              "border border-white/32 bg-transparent text-white hover:border-white hover:bg-white hover:text-ink",
+            )}
           >
             <ArrowLeftIcon />
           </button>
@@ -53,7 +57,7 @@ export function TestimonialsCarousel({ reviews, initialIndex, labels, joinLink, 
             onClick={() => {
               go(1);
             }}
-            className={cn(arrowClass, "border-0 bg-accent text-ink")}
+            className={cn(arrowClass, "border-0 bg-accent text-ink hover:bg-white")}
           >
             <ArrowRightIcon />
           </button>

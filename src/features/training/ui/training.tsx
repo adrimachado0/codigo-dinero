@@ -79,13 +79,13 @@ export function Training() {
                 <a
                   key={lesson.number}
                   href={lesson.href}
-                  className="flex min-h-[54px] items-center gap-4 rounded-full border border-white/32 pr-4.5 pl-5.5 text-15 text-white no-underline"
+                  className="group flex min-h-[54px] items-center gap-4 rounded-full border border-white/32 pr-4.5 pl-5.5 text-15 text-white no-underline transition-[background-color,color,border-color] duration-300 hover:border-white hover:bg-white hover:text-ink"
                 >
                   <span className="font-display text-14 font-semibold text-accent">
                     {lesson.number}
                   </span>
                   <span className="flex-auto">{lesson.label}</span>
-                  <ArrowRightIcon />
+                  <ArrowRightIcon className="transition-transform duration-300 group-hover:translate-x-1" />
                 </a>
               ))}
             </div>
@@ -93,12 +93,12 @@ export function Training() {
 
           <a
             href={content.featured.href}
-            className="relative block min-h-[420px] min-w-0 flex-[1.1_1_300px] overflow-hidden rounded-card-lg border border-white/8 bg-canvas text-white no-underline"
+            className="group relative block min-h-[420px] min-w-0 flex-[1.1_1_300px] overflow-hidden rounded-card-lg border border-white/8 bg-canvas text-white no-underline"
           >
             <CandleChart />
             <div className="absolute top-[42%] left-1/2 -mt-[95px] -ml-[95px] size-[190px]">
               <CircularText text={content.featured.circularText} />
-              <span className="absolute top-1/2 left-1/2 -mt-[38px] -ml-[38px] flex size-[76px] items-center justify-center rounded-full bg-accent text-ink">
+              <span className="absolute top-1/2 left-1/2 -mt-[38px] -ml-[38px] flex size-[76px] items-center justify-center rounded-full bg-accent text-ink transition-[scale,background-color] duration-300 group-hover:scale-110 group-hover:bg-white">
                 <PlayIcon size={24} />
               </span>
             </div>
@@ -115,9 +115,9 @@ export function Training() {
           <div className="flex min-w-0 flex-[0.8_1_220px] flex-col gap-4">
             <a
               href={content.studyPath.href}
-              className="flex min-h-[190px] flex-auto flex-col justify-between gap-8 rounded-tile bg-surface-600 p-5.5 text-white no-underline"
+              className="group flex min-h-[190px] flex-auto flex-col justify-between gap-8 rounded-tile bg-surface-600 p-5.5 text-white no-underline transition-colors duration-300 hover:bg-white hover:text-ink"
             >
-              <span className="text-14 leading-normal text-fg-soft">
+              <span className="text-14 leading-normal text-fg-soft transition-colors duration-300 group-hover:text-ink-soft">
                 {content.studyPath.question}
               </span>
               <span className="flex items-end justify-between gap-3">
@@ -126,22 +126,27 @@ export function Training() {
                   <br />
                   {content.studyPath.labelLines[1]}
                 </span>
-                <ArrowUpRightIcon />
+                <ArrowUpRightIcon className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </span>
             </a>
             <a
               href={content.youtube.href}
-              className="flex min-h-[190px] flex-auto flex-col justify-between gap-8 rounded-tile bg-accent p-5.5 text-ink no-underline"
+              className="group flex min-h-[190px] flex-auto flex-col justify-between gap-8 rounded-tile bg-accent p-5.5 text-ink no-underline transition-colors duration-300 hover:bg-ink hover:text-white"
             >
-              <span className="text-14 leading-normal text-ink-soft">{content.youtube.text}</span>
+              <span className="text-14 leading-normal text-ink-soft transition-colors duration-300 group-hover:text-fg-soft">
+                {content.youtube.text}
+              </span>
               <span className="flex items-end justify-between gap-3">
                 <span className="text-18 leading-tight font-semibold">
                   {content.youtube.labelLines[0]}
                   <br />
                   {content.youtube.labelLines[1]}
                 </span>
-                <span className="flex size-10.5 items-center justify-center rounded-full bg-white text-ink">
-                  <ArrowUpRightIcon size={20} />
+                <span className="flex size-10.5 items-center justify-center rounded-full bg-white text-ink transition-colors duration-300 group-hover:bg-accent">
+                  <ArrowUpRightIcon
+                    size={20}
+                    className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  />
                 </span>
               </span>
             </a>

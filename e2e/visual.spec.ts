@@ -18,6 +18,22 @@ const WIDTHS = [1440, 1024, 768, 390] as const;
 
 type Section = { name: string; ref: string[]; app: string[] };
 
+/**
+ * Sections changed on purpose by the site owner after the reference: reported, not asserted.
+ * `widths` limits it to the viewports where the change is visible.
+ */
+const INTENTIONAL: Record<string, { reason: string; widths?: number[] }> = {
+  temas: { reason: "cintas con íconos de Lucide" },
+  // Above 1432px the wine block now spans the full width instead of stopping at 1400px.
+  inicio: { reason: "bloque del hero a todo el ancho", widths: [1440] },
+};
+
+function intentionalReason(section: string, width: number): string | undefined {
+  const entry = INTENTIONAL[section];
+  if (!entry || (entry.widths && !entry.widths.includes(width))) return undefined;
+  return entry.reason;
+}
+
 // In the app the reference's `section#inicio` is split into <header id="inicio"> and the
 // hero <section id="hero"> inside <main>, so it is measured as the union of both.
 const SECTIONS: Section[] = [
@@ -42,7 +58,11 @@ const MENU_SECTION: Section = {
 };
 
 // Non-deterministic content: particle canvases and the simulated price lane of the ticker.
-const MASKS = ["canvas", '[aria-label="Cotizaciones"] > :nth-child(2)'];
+// The video card is masked too: its caption was changed on purpose ("Academia de trading").
+const MASKS = {
+  ref: ["canvas", '[aria-label="Cotizaciones"] > :nth-child(2)', "#que-es .cod-video"],
+  app: ["canvas", '[aria-label="Cotizaciones"] > :nth-child(2)', "[data-video-card]"],
+};
 
 function sectionName(selector: string): string {
   const label = /aria-label="([^"]+)"/.exec(selector)?.[1];
@@ -79,14 +99,14 @@ async function unionBox(page: Page, selectors: string[]): Promise<Box> {
   }, selectors);
 }
 
-async function capture(page: Page, selectors: string[]): Promise<PNG> {
+async function capture(page: Page, selectors: string[], masks: string[]): Promise<PNG> {
   const clip = await unionBox(page, selectors);
   const buffer = await page.screenshot({
     fullPage: true,
     clip,
     animations: "disabled",
     caret: "hide",
-    mask: MASKS.map((m) => page.locator(m)),
+    mask: masks.map((m) => page.locator(m)),
     maskColor: "#FF00FF",
   });
   return PNG.sync.read(buffer);
@@ -116,6 +136,7 @@ type Row = {
   diffPercent: number;
   refSize: string;
   appSize: string;
+  intentional?: string;
 };
 
 async function compareSections(
@@ -127,27 +148,34 @@ async function compareSections(
   mkdirSync(OUT_DIR, { recursive: true });
   const rows: Row[] = [];
   for (const section of sections) {
-    const ref = await capture(refPage, section.ref);
-    const app = await capture(appPage, section.app);
+    const ref = await capture(refPage, section.ref, MASKS.ref);
+    const app = await capture(appPage, section.app, MASKS.app);
     const base = path.join(OUT_DIR, `${String(width)}-${section.name}`);
     writeFileSync(`${base}-ref.png`, PNG.sync.write(ref));
     writeFileSync(`${base}-app.png`, PNG.sync.write(app));
     const diffPercent = compare(ref, app, `${base}-diff.png`);
+    const intentional = intentionalReason(section.name, width);
     rows.push({
       width,
       section: section.name,
       diffPercent: Math.round(diffPercent * 1000) / 1000,
       refSize: `${String(ref.width)}x${String(ref.height)}`,
       appSize: `${String(app.width)}x${String(app.height)}`,
+      ...(intentional && { intentional }),
     });
   }
   return rows;
 }
 
 function report(rows: Row[], name: string) {
-  console.table(rows.map((r) => ({ ...r, ok: r.diffPercent <= THRESHOLD_PERCENT ? "✓" : "✗" })));
+  console.table(
+    rows.map((r) => ({
+      ...r,
+      ok: r.intentional ? "cambio intencional" : r.diffPercent <= THRESHOLD_PERCENT ? "✓" : "✗",
+    })),
+  );
   writeFileSync(path.join(OUT_DIR, `${name}.json`), JSON.stringify(rows, null, 2));
-  for (const row of rows) {
+  for (const row of rows.filter((r) => !r.intentional)) {
     expect
       .soft(
         row.diffPercent,
@@ -158,6 +186,10 @@ function report(rows: Row[], name: string) {
 }
 
 async function openBoth(page: Page, width: number) {
+  // The app's decorative motion always runs: freeze it so captures are its first frame.
+  await page.addInitScript(() => {
+    Object.assign(window, { __FREEZE_MOTION__: true });
+  });
   const refPage = await page.context().newPage();
   for (const p of [page, refPage]) await p.setViewportSize({ width, height: 900 });
   await Promise.all([page.goto("/"), refPage.goto(REFERENCE_URL)]);
@@ -182,6 +214,9 @@ test("open mobile menu matches the reference at 390px", async ({ page }) => {
   for (const p of [page, refPage]) {
     await p.getByRole("button", { name: "Abrir menú" }).click();
     await p.locator("#cod-mobile-menu").waitFor();
+    // Move the pointer away so the burger's hover state isn't captured.
+    await p.mouse.move(0, 800);
+    await p.waitForTimeout(400);
   }
   report(await compareSections(refPage, page, 390, [MENU_SECTION]), "report-390-menu");
 });

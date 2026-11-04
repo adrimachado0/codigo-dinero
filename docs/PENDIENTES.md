@@ -39,6 +39,7 @@ Todos los `href="#"` son destinos sin definir (igual que en la referencia).
 
 ## Técnico
 
+- [ ] **Movimiento y accesibilidad**: por decisión del dueño, las animaciones decorativas (cintas, ticker, giros, esfera) ignoran "reducir movimiento" del sistema. Riesgos: incomoda a personas sensibles al movimiento (WCAG 2.3.3, AAA), y el contenido que se mueve solo durante más de 5 s debería poder pausarse (WCAG 2.2.2, nivel A). Si se quiere cumplir AA, la solución más simple es un botón "Pausar animaciones" (por ejemplo, en el footer).
 - [ ] **HSTS y `upgrade-insecure-requests`**: decidir al definir el hosting (hoy no se envían porque e2e corre en HTTP).
 - [ ] **Rich Results Test de Google**: correrlo cuando haya una URL pública. Hoy el JSON-LD se valida estructuralmente (tests unitarios y e2e). Google limita los resultados enriquecidos de FAQ: el `FAQPage` es válido, pero el rich result no está garantizado.
 - [ ] **Licencia de Remotion**: es gratuita para personas y empresas de hasta 3 empleados. Si Código Dinero supera ese tamaño, necesita una licencia de empresa (remotion.pro).
@@ -67,5 +68,10 @@ Todos los `href="#"` son destinos sin definir (igual que en la referencia).
   - El número de la pregunta abierta de la FAQ usa `#FF3636` (`accent-raised`) en lugar de `#FF2B2B` sobre `#202020`: 4,53:1 contra 4,37:1, para cumplir AA. La diferencia visual queda muy por debajo del umbral de 0,5%.
   - El botón de play del video dice "Reproducir video de presentación" (la referencia agregaba "(próximamente)", pero ahora el video existe).
   - El input de correo muestra el foco en el contorno del formulario (`focus-within`); la referencia lo anulaba con `outline: none`.
+- **Cambios de diseño posteriores a la referencia** (pedidos por el dueño; la regresión visual los reporta como "cambio intencional" sin fallar):
+  - cintas de temas con un ícono de Lucide por tema (`src/features/topics-ribbon/content.ts`);
+  - la tarjeta del video dice solo "Academia de trading", con controles propios (play/pausa, barra de progreso, tiempo, pantalla completa) en lugar de los de Remotion; esa tarjeta se enmascara en la comparación;
+  - el bloque vino del header y del hero ocupa todo el ancho (`max-w-full`), y por eso a 1440 px difiere de la referencia;
+  - hovers: pastilla deslizante en el nav, botones que suben y pasan a blanco, bloques de formación y redes del footer que invierten colores; la esfera del hero reacciona al cursor.
 - **Fotos**: `PersonPhoto` recibe el slot de `src/shared/config/photos.ts`. Sin foto, muestra la silueta y la pastilla "Foto".
 - `pnpm-workspace.yaml` aprueba el build script de `esbuild` (lo usan Remotion y Vite). pnpm 12 bloquea los scripts que no están aprobados.

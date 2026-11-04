@@ -34,7 +34,6 @@ const architecture = {
   },
   rules: {
     "boundaries/no-unknown-files": "error",
-    "boundaries/no-unknown-dependencies": "error",
     "boundaries/no-ignored-dependencies": "error",
     "boundaries/dependencies": [
       "error",

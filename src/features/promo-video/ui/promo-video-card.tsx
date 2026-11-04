@@ -23,7 +23,10 @@ export function PromoVideoCard() {
   const [playing, setPlaying] = useState(false);
 
   return (
-    <div className="relative h-[260px] overflow-hidden rounded-card border border-white/8 bg-surface-100 md:h-[380px]">
+    <div
+      data-video-card=""
+      className="relative h-[260px] overflow-hidden rounded-card border border-white/8 bg-surface-100 md:h-[380px]"
+    >
       {playing ? (
         <PromoPlayer labels={promoVideoContent} />
       ) : (
@@ -40,7 +43,7 @@ export function PromoVideoCard() {
             onClick={() => {
               setPlaying(true);
             }}
-            className="absolute top-[44%] left-1/2 flex size-17.5 -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border-0 bg-accent p-0 text-ink"
+            className="absolute top-[44%] left-1/2 flex size-17.5 -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border-0 bg-accent p-0 text-ink transition-[scale,background-color,box-shadow] duration-300 hover:scale-110 hover:bg-white hover:shadow-[0_0_0_10px_rgba(255,43,43,0.25)]"
           >
             <PlayIcon />
           </button>

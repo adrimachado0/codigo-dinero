@@ -48,7 +48,11 @@ export function SiteFooter() {
               </h2>
               <div className="mt-3.5 flex flex-col text-15">
                 {column.links.map((link) => (
-                  <a key={link.label} href={link.href} className="py-1.25 text-ink no-underline">
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="py-1.25 text-ink no-underline decoration-2 underline-offset-4 hover:underline"
+                  >
                     {link.label}
                   </a>
                 ))}
@@ -69,7 +73,7 @@ export function SiteFooter() {
                   key={network.name}
                   href={network.href}
                   aria-label={network.name}
-                  className="flex size-11 items-center justify-center rounded-full bg-ink text-accent"
+                  className="flex size-11 items-center justify-center rounded-full bg-ink text-accent transition-[background-color,color,box-shadow] duration-300 hover:bg-accent hover:text-ink hover:shadow-[inset_0_0_0_2px_#111111]"
                 >
                   <Icon />
                 </a>

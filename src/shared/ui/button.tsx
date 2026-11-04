@@ -9,14 +9,24 @@ import { cn } from "@/shared/lib/cn";
  * is border-box ("Ver formación"); callers add `box-border` where the reference does.
  */
 export const buttonVariants = cva(
-  "inline-flex items-center rounded-full font-sans text-14 no-underline",
+  [
+    "inline-flex items-center rounded-full font-sans text-14 no-underline",
+    // Hover/focus: lifts 2px and swaps to white; pressing sinks it back.
+    "transition-[background-color,color,border-color,box-shadow,translate] duration-300 ease-out",
+    "hover:-translate-y-0.5 focus-visible:-translate-y-0.5 active:translate-y-0 active:duration-100",
+    "disabled:pointer-events-none",
+  ],
   {
     variants: {
       tone: {
-        solid: "bg-accent font-semibold text-ink",
-        outline: "border border-white/32 font-medium text-white",
-        "outline-soft": "border border-white/28 font-normal text-white",
-        "outline-strong": "border-[1.5px] border-white/55 font-medium text-white",
+        solid:
+          "bg-accent font-semibold text-ink hover:bg-white hover:text-ink hover:shadow-[0_10px_28px_-8px_rgba(255,43,43,0.75)] focus-visible:bg-white",
+        outline:
+          "border border-white/32 font-medium text-white hover:border-white hover:bg-white hover:text-ink hover:shadow-[0_10px_28px_-10px_rgba(255,255,255,0.45)]",
+        "outline-soft":
+          "border border-white/28 font-normal text-white hover:border-white hover:bg-white hover:text-ink hover:shadow-[0_10px_28px_-10px_rgba(255,255,255,0.45)]",
+        "outline-strong":
+          "border-[1.5px] border-white/55 font-medium text-white hover:border-white hover:bg-white hover:text-ink hover:shadow-[0_10px_28px_-10px_rgba(255,255,255,0.45)]",
       },
       size: {
         nav: "px-5 py-3", // header "Empezar": padding 12px 20px, no min-height
