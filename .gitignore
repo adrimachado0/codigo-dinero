@@ -38,3 +38,6 @@ pnpm-debug.log*
 
 # local claude settings
 .claude/settings.local.json
+
+# pipelines
+.github
