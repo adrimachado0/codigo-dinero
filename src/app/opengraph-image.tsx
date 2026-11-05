@@ -1,40 +1,113 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+
 import { ImageResponse } from "next/og";
 
-import { heroHeadline } from "@/features/hero";
+import { partnerContent } from "@/features/broker-partner";
+import { heroTitleLines } from "@/features/hero";
 import { site } from "@/shared/config/site";
-import { loadBrandFonts, StarburstMark } from "@/shared/seo/brand-image";
+import { dataUri, loadBrandFonts, qrBackground } from "@/shared/seo/brand-image";
 
-export const alt = site.title;
+export const alt = `${site.name}, academia de trading: «${heroTitleLines.join(" ")}». ${partnerContent.badge} de ${site.partner.name}.`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const fonts = await loadBrandFonts();
+// Read once at build time (the image is prerendered).
+const cwd = process.cwd();
+const [fonts, logo, mentor, partnerLogo] = await Promise.all([
+  loadBrandFonts(),
+  dataUri(readFile(join(cwd, "src/shared/ui/brand/codigo-dinero-logo.png")), "image/png"),
+  dataUri(readFile(join(cwd, "src/shared/seo/images/mentor.png")), "image/png"),
+  dataUri(readFile(join(cwd, "public/brand/ecmarkets-logo.svg")), "image/svg+xml"),
+]);
+const qr = qrBackground(size);
+
+/** Mentor photo (420 × 684) over the wine circle, as in the hero. */
+const PHOTO = { width: 340, height: 554 };
+const CIRCLE = 500;
+const CENTER_X = 880;
 
 export default function OpengraphImage() {
   return new ImageResponse(
     <div
       style={{
+        position: "relative",
         width: "100%",
         height: "100%",
         display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        padding: 72,
         background: "#3A0C11",
         color: "#FFFFFF",
         fontFamily: "Lexend",
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-        <StarburstMark size={84} color="#FF2B2B" />
-        <span style={{ fontFamily: "Unbounded", fontWeight: 800, fontSize: 64, letterSpacing: 1 }}>
-          {site.logoText}
-        </span>
-      </div>
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <div style={{ fontSize: 84, lineHeight: 1.04, letterSpacing: -1.5 }}>{heroHeadline}</div>
-        <div style={{ marginTop: 28, fontSize: 30, color: "#EBCFD1" }}>
-          {`${site.name} · Academia de trading`}
+      <img
+        src={qr}
+        width={size.width}
+        height={size.height}
+        alt=""
+        style={{ position: "absolute" }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          left: CENTER_X - CIRCLE / 2,
+          bottom: -110,
+          width: CIRCLE,
+          height: CIRCLE,
+          borderRadius: CIRCLE,
+          background: "#4E1219",
+          boxShadow: "0 0 140px rgba(255,43,43,0.22)",
+        }}
+      />
+      <img
+        src={mentor}
+        {...PHOTO}
+        alt=""
+        style={{ position: "absolute", left: CENTER_X - PHOTO.width / 2, bottom: 0 }}
+      />
+
+      <div
+        style={{
+          position: "absolute",
+          left: 72,
+          top: 64,
+          bottom: 64,
+          width: 620,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
+        <img src={logo} width={229} height={80} alt="" />
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          {heroTitleLines.map((line) => (
+            <div key={line} style={{ fontSize: 76, lineHeight: 1.06, letterSpacing: -1.5 }}>
+              {line}
+            </div>
+          ))}
+          <div style={{ marginTop: 22, fontSize: 28, color: "#EBCFD1" }}>Academia de trading</div>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
+          <div
+            style={{
+              display: "flex",
+              padding: "8px 16px",
+              borderRadius: 999,
+              background: "#FF2B2B",
+              color: "#111111",
+              fontSize: 18,
+              letterSpacing: 1.4,
+              textTransform: "uppercase",
+            }}
+          >
+            {partnerContent.badge}
+          </div>
+          <img
+            src={partnerLogo}
+            height={40}
+            width={Math.round((40 * site.partner.logo.width) / site.partner.logo.height)}
+            alt=""
+          />
         </div>
       </div>
     </div>,

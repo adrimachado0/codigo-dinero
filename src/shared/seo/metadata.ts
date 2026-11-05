@@ -5,13 +5,42 @@ import { site } from "@/shared/config/site";
 
 export const isIndexable = env.SITE_ENV === "production";
 
+/** Search terms the page is about (Bing still reads `keywords`; Google ignores it). */
+const keywords = [
+  "academia de trading",
+  "curso de trading",
+  "aprender trading",
+  "trading desde cero",
+  "análisis técnico",
+  "análisis de mercado",
+  "plan de trading",
+  "gestión del riesgo",
+  "forex",
+  "clases de trading gratis",
+  "EC Markets",
+  "Código Dinero",
+];
+
+const verification: NonNullable<Metadata["verification"]> = {
+  ...(env.GOOGLE_SITE_VERIFICATION && { google: env.GOOGLE_SITE_VERIFICATION }),
+  ...(env.BING_SITE_VERIFICATION && {
+    other: { "msvalidate.01": env.BING_SITE_VERIFICATION },
+  }),
+};
+
 export function buildRootMetadata(): Metadata {
   return {
     metadataBase: new URL(site.url),
     title: { default: site.title, template: `%s · ${site.name}` },
     description: site.description,
     applicationName: site.name,
+    keywords,
+    authors: [{ name: site.name, url: site.homeUrl }],
+    creator: site.name,
+    publisher: site.name,
+    category: "education",
     alternates: { canonical: "/" },
+    // og:image and twitter:image come from app/opengraph-image.tsx and app/twitter-image.tsx.
     openGraph: {
       type: "website",
       locale: site.locale,
@@ -26,9 +55,22 @@ export function buildRootMetadata(): Metadata {
       description: site.description,
     },
     robots: isIndexable
-      ? { index: true, follow: true }
+      ? {
+          index: true,
+          follow: true,
+          // Large image previews and full snippets in Google results and Discover.
+          googleBot: {
+            index: true,
+            follow: true,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+            "max-video-preview": -1,
+          },
+        }
       : { index: false, follow: false, googleBot: { index: false, follow: false } },
-    formatDetection: { telephone: false },
+    ...(Object.keys(verification).length > 0 && { verification }),
+    appleWebApp: { title: site.name, statusBarStyle: "black-translucent" },
+    formatDetection: { telephone: false, email: false, address: false },
   };
 }
 

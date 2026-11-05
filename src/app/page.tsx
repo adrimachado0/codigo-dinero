@@ -7,14 +7,14 @@ import { MottoBand } from "@/features/motto-band";
 import { SiteFooter } from "@/features/site-footer";
 import { SiteHeader } from "@/features/site-header";
 import { Testimonials } from "@/features/testimonials";
-import { TopicsRibbon } from "@/features/topics-ribbon";
+import { topicLabels, TopicsRibbon } from "@/features/topics-ribbon";
 import { Training } from "@/features/training";
 import { faqPageLd, graph, JsonLd, organizationLd, websiteLd } from "@/shared/seo/json-ld";
 
 export default function HomePage() {
   return (
     <>
-      <JsonLd data={graph(organizationLd(), websiteLd(), faqPageLd(faqContent.items))} />
+      <JsonLd data={graph(organizationLd(topicLabels), websiteLd(), faqPageLd(faqContent.items))} />
       <SiteHeader />
       <main>
         <Hero />

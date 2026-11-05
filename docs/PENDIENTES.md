@@ -20,11 +20,13 @@ Todos los `href="#"` son destinos sin definir (igual que en la referencia).
 - [ ] **Redes**: YouTube, Instagram, TikTok, Telegram, X (`src/shared/config/site.ts`). Con URLs reales, `sameAs` del JSON-LD se completa solo (hoy se omite porque son `#`).
 - [ ] **Partner EC Markets**: link de "Abrir cuenta" (hero) y `site.partner.href`.
 - [ ] **Menú**: destinos de Escuela, Calendario, Mercado, Equipo y los dos "Empezar" (header y hero "Empezar ahora"), "Quiero sumarme".
-- [ ] **Dominio de producción**: `NEXT_PUBLIC_SITE_URL` (hoy `http://localhost:3000` por defecto) y `SITE_ENV=production` en el deploy. Sin `SITE_ENV=production` el sitio sale con `noindex` y `robots.txt` bloquea todo.
+- [ ] **Dominio de producción**: en Vercel se toma solo (`VERCEL_ENV` y el dominio de producción del proyecto). Con un dominio propio, definir `NEXT_PUBLIC_SITE_URL` con ese dominio. Fuera de Vercel hay que definir `NEXT_PUBLIC_SITE_URL` y `SITE_ENV=production`: sin `production` el sitio sale con `noindex` y `robots.txt` bloquea todo.
+- [ ] **Search Console y Bing Webmaster Tools**: verificar la propiedad (variables `GOOGLE_SITE_VERIFICATION` y `BING_SITE_VERIFICATION`) y enviar `https://<dominio>/sitemap.xml`.
 
 ## Assets
 
 - [ ] **Fotos de clientes** (PNG o WebP con fondo transparente): el hero y la tarjeta del mentor ya usan la foto del mentor (`src/shared/config/photos/mentor.webp`); falta la del CTA final ("¿Listo para operar con método?"), que sigue con el marcador "Foto". Se configuran en `src/shared/config/photos.ts` (ver README).
+- [ ] **Emblema del logo en alta resolución** (PNG cuadrado transparente, ideal ≥ 1024 px): el favicon y los íconos salen del emblema recortado del logo, que mide 160 px; los de 512 px (manifest, logo del JSON-LD) se ven algo blandos. Con el archivo nuevo, ajustar `EMBLEM` en `scripts/generate-icons.mjs` y correr `pnpm icons`.
 - [ ] **QR del fondo del hero**: el QR es GENÉRICO, de prueba (copiado del lienzo de diseño, no apunta a nada). Para poner el real, cambiar solo `src/shared/ui/qr-glyph.ts` (path en unidades de módulo y cantidad de módulos por lado); `QrPattern` lo escala para que cada QR siga midiendo 200 × 200 px. Los tweaks del lienzo `qrStyle` e `qrIntensity` no se implementaron: quedan fijos en rojo e intensidad 1.
 
 ## Integraciones

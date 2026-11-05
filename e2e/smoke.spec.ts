@@ -31,6 +31,11 @@ test.describe("home", () => {
       /opengraph-image/,
     );
     await expect(page.locator('meta[property="og:locale"]')).toHaveAttribute("content", "es_AR");
+    await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute(
+      "content",
+      /twitter-image/,
+    );
+    await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveCount(1);
     await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute(
       "content",
       "summary_large_image",
@@ -65,7 +70,11 @@ test.describe("home", () => {
   test("serves the generated metadata routes", async ({ request }) => {
     for (const [path, type] of [
       ["/opengraph-image", "image/png"],
-      ["/icon", "image/png"],
+      ["/twitter-image", "image/png"],
+      ["/favicon.ico", "image/x-icon"],
+      ["/icon.png", "image/png"],
+      ["/apple-icon.png", "image/png"],
+      ["/icons/icon-maskable-512.png", "image/png"],
       ["/robots.txt", "text/plain"],
       ["/sitemap.xml", "application/xml"],
       ["/manifest.webmanifest", "application/manifest+json"],
