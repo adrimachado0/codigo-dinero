@@ -3,6 +3,7 @@ import Image from "next/image";
 import { site } from "@/shared/config/site";
 import { cn } from "@/shared/lib/cn";
 import { Pill } from "@/shared/ui/pill";
+import { Reveal } from "@/shared/ui/reveal";
 
 import { partnerContent } from "../content";
 
@@ -52,9 +53,9 @@ export function FooterPartner() {
 export function PartnerStats() {
   return (
     <section aria-label={partnerContent.statsLabel} className="relative px-6 pt-16">
-      <div className="mx-auto box-border grid max-w-nav grid-cols-2 gap-y-7 rounded-card-lg border border-white/18 bg-surface-200 px-4 py-6.5 lg:flex lg:flex-wrap lg:gap-y-5">
+      <Reveal className="mx-auto box-border grid max-w-nav grid-cols-2 gap-y-7 rounded-card-lg border border-white/18 bg-surface-200 px-4 py-6.5 lg:flex lg:flex-wrap lg:gap-y-5">
         {partnerContent.stats.map((stat) => (
-          <div key={stat.label} className="flex-[1_1_200px] text-center">
+          <div key={stat.label} data-reveal className="flex-[1_1_200px] text-center">
             <p className="m-0 text-28 font-semibold md:text-34">
               {stat.before}
               <span className="text-accent">{stat.accent}</span>
@@ -63,7 +64,7 @@ export function PartnerStats() {
             <p className="mt-1.5 mb-0 text-14 text-fg-muted">{stat.label}</p>
           </div>
         ))}
-      </div>
+      </Reveal>
     </section>
   );
 }

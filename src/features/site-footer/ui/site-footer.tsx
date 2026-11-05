@@ -10,6 +10,7 @@ import {
   YouTubeIcon,
   type IconProps,
 } from "@/shared/ui/icons";
+import { Reveal } from "@/shared/ui/reveal";
 import { Starburst } from "@/shared/ui/starburst";
 
 import { footerContent as content } from "../content";
@@ -25,9 +26,13 @@ const socialIcons: Record<SocialNetwork, ComponentType<IconProps>> = {
 export function SiteFooter() {
   return (
     <footer className="px-4 pb-4">
-      <div className="mx-auto box-border max-w-shell rounded-panel bg-accent px-[clamp(22px,4vw,56px)] pt-[clamp(32px,4vw,56px)] pb-7 text-ink">
+      {/* Only the columns move: shifting the last panel would stretch the page while it rises. */}
+      <Reveal
+        self={false}
+        className="mx-auto box-border max-w-shell rounded-panel bg-accent px-[clamp(22px,4vw,56px)] pt-[clamp(32px,4vw,56px)] pb-7 text-ink"
+      >
         <div className="flex flex-wrap gap-x-12 gap-y-9">
-          <div className="max-w-[420px] flex-[1_1_320px]">
+          <div data-reveal className="max-w-[420px] flex-[1_1_320px]">
             <a
               href="#inicio"
               aria-label={site.homeLabel}
@@ -42,7 +47,12 @@ export function SiteFooter() {
             <FooterPartner />
           </div>
           {content.columns.map((column) => (
-            <nav key={column.title} aria-label={column.title} className="flex-[1_1_140px]">
+            <nav
+              key={column.title}
+              data-reveal
+              aria-label={column.title}
+              className="flex-[1_1_140px]"
+            >
               <h2 className="m-0 text-13 font-semibold tracking-caps-md uppercase">
                 {column.title}
               </h2>
@@ -81,7 +91,7 @@ export function SiteFooter() {
             })}
           </div>
         </div>
-      </div>
+      </Reveal>
     </footer>
   );
 }

@@ -10,7 +10,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="es" className={cn(lexend.variable, unbounded.variable)}>
       <body>
-        <div className="relative min-h-screen overflow-x-hidden bg-canvas font-sans text-white">
+        <div className="relative min-h-screen overflow-x-clip bg-canvas font-sans text-white">
           {children}
         </div>
       </body>

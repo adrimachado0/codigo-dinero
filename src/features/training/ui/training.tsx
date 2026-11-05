@@ -1,4 +1,5 @@
 import { ArrowRightIcon, ArrowUpRightIcon, PlayIcon } from "@/shared/ui/icons";
+import { Reveal } from "@/shared/ui/reveal";
 import { SectionTitle } from "@/shared/ui/section-title";
 
 import { trainingContent as content } from "../content";
@@ -57,7 +58,7 @@ function CandleChart() {
 export function Training() {
   return (
     <section id="formacion" aria-labelledby="formacion-title" className="px-4 pt-25">
-      <div className="relative mx-auto box-border max-w-panel rounded-panel border border-white/6 bg-surface-300 px-[clamp(20px,4vw,56px)] py-[clamp(28px,4vw,56px)]">
+      <Reveal className="relative mx-auto box-border max-w-panel rounded-panel border border-white/6 bg-surface-300 px-[clamp(20px,4vw,56px)] py-[clamp(28px,4vw,56px)]">
         <div className="absolute top-14 left-0 hidden h-[150px] w-7.5 items-center justify-center rounded-r-tab bg-accent md:flex">
           <span className="-rotate-90 text-10 font-semibold tracking-caps-lg whitespace-nowrap text-ink uppercase">
             {content.tab}
@@ -65,7 +66,7 @@ export function Training() {
         </div>
 
         <div className="flex flex-wrap items-stretch gap-6">
-          <div className="min-w-0 flex-[1_1_300px] pl-3">
+          <div data-reveal className="min-w-0 flex-[1_1_300px] pl-3">
             <SectionTitle
               id="formacion-title"
               lead={content.titleLead}
@@ -93,6 +94,7 @@ export function Training() {
 
           <a
             href={content.featured.href}
+            data-reveal
             className="group relative block min-h-[420px] min-w-0 flex-[1.1_1_300px] overflow-hidden rounded-card-lg border border-white/8 bg-canvas text-white no-underline"
           >
             <CandleChart />
@@ -112,7 +114,7 @@ export function Training() {
             </div>
           </a>
 
-          <div className="flex min-w-0 flex-[0.8_1_220px] flex-col gap-4">
+          <div data-reveal className="flex min-w-0 flex-[0.8_1_220px] flex-col gap-4">
             <a
               href={content.studyPath.href}
               className="group flex min-h-[190px] flex-auto flex-col justify-between gap-8 rounded-tile bg-surface-600 p-5.5 text-white no-underline transition-colors duration-300 hover:bg-white hover:text-ink"
@@ -152,7 +154,7 @@ export function Training() {
             </a>
           </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

@@ -1,4 +1,5 @@
 import { LinkButton } from "@/shared/ui/button";
+import { Reveal } from "@/shared/ui/reveal";
 import { SectionTitle } from "@/shared/ui/section-title";
 
 import { testimonialsContent as content } from "../content";
@@ -7,7 +8,7 @@ import { TestimonialsCarousel } from "./testimonials-carousel";
 export function Testimonials() {
   return (
     <section id="comunidad" aria-labelledby="comunidad-title" className="px-4 pt-27.5">
-      <div className="mx-auto max-w-panel">
+      <Reveal className="mx-auto max-w-panel">
         <TestimonialsCarousel
           reviews={content.reviews}
           initialIndex={content.initialIndex}
@@ -34,7 +35,7 @@ export function Testimonials() {
             </LinkButton>
           }
         />
-      </div>
+      </Reveal>
     </section>
   );
 }
