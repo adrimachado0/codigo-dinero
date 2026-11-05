@@ -12,7 +12,6 @@ function setup() {
     <MainNav
       links={site.nav.links}
       cta={site.nav.cta}
-      logoText={site.logoText}
       homeLabel={site.homeLabel}
       labels={headerContent}
     />,

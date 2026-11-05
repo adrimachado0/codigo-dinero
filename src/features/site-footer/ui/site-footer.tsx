@@ -10,8 +10,8 @@ import {
   YouTubeIcon,
   type IconProps,
 } from "@/shared/ui/icons";
+import { Logo } from "@/shared/ui/logo";
 import { Reveal } from "@/shared/ui/reveal";
-import { Starburst } from "@/shared/ui/starburst";
 
 import { footerContent as content } from "../content";
 
@@ -36,12 +36,9 @@ export function SiteFooter() {
             <a
               href="#inicio"
               aria-label={site.homeLabel}
-              className="inline-flex items-center gap-3 text-ink no-underline"
+              className="inline-flex items-center rounded-badge bg-ink px-5 py-3.5 no-underline"
             >
-              <Starburst size={40} className="text-ink" />
-              <span className="font-display text-40 leading-none font-extrabold">
-                {site.logoText}
-              </span>
+              <Logo height={64} />
             </a>
             <p className="mt-4.5 mb-0 text-15 leading-relaxed text-ink-soft">{content.about}</p>
             <FooterPartner />

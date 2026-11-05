@@ -24,7 +24,8 @@ Todos los `href="#"` son destinos sin definir (igual que en la referencia).
 
 ## Assets
 
-- [ ] **Fotos de clientes** (PNG con fondo transparente): hero, mentor y CTA final. Se configuran en `src/shared/config/photos.ts` (ver README).
+- [ ] **Fotos de clientes** (PNG o WebP con fondo transparente): el hero y la tarjeta del mentor ya usan la foto del mentor (`src/shared/config/photos/mentor.webp`); falta la del CTA final ("¿Listo para operar con método?"), que sigue con el marcador "Foto". Se configuran en `src/shared/config/photos.ts` (ver README).
+- [ ] **QR del fondo del hero**: el QR es GENÉRICO, de prueba (copiado del lienzo de diseño, no apunta a nada). Para poner el real, cambiar solo `src/shared/ui/qr-glyph.ts` (path en unidades de módulo y cantidad de módulos por lado); `QrPattern` lo escala para que cada QR siga midiendo 200 × 200 px. Los tweaks del lienzo `qrStyle` e `qrIntensity` no se implementaron: quedan fijos en rojo e intensidad 1.
 
 ## Integraciones
 

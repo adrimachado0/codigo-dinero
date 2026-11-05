@@ -47,7 +47,13 @@ export function About() {
               tone="graphite"
               photo={mentor}
               label={null}
-              className="absolute bottom-0 left-1/2 w-[82%] -translate-x-1/2"
+              sizes="(max-width: 767px) 92vw, 400px"
+              className={
+                mentor
+                  ? "absolute top-8 left-1/2 w-[92%] -translate-x-1/2"
+                  : "absolute bottom-0 left-1/2 w-[82%] -translate-x-1/2"
+              }
+              imageClassName="[filter:grayscale(1)_contrast(1.05)]"
             />
             <CandlesIcon className="absolute top-6.5 right-6.5 text-accent" />
             {!mentor && (

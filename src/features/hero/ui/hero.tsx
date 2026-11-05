@@ -3,6 +3,7 @@ import { photos } from "@/shared/config/photos";
 import { LinkButton } from "@/shared/ui/button";
 import { ParticleSphere } from "@/shared/ui/particle-sphere";
 import { PersonPhoto } from "@/shared/ui/person-photo";
+import { QrPattern } from "@/shared/ui/qr-pattern";
 import { Starburst } from "@/shared/ui/starburst";
 
 import { heroContent } from "../content";
@@ -17,7 +18,8 @@ export function Hero() {
   const [line1, line2] = heroContent.titleLines;
   return (
     <section id="hero" aria-labelledby="hero-title" className="px-4">
-      <div className="relative mx-auto box-border max-w-full overflow-hidden rounded-b-hero-bottom bg-wine px-[clamp(16px,3vw,40px)] text-white">
+      <div className="relative isolate mx-auto box-border max-w-full overflow-hidden rounded-b-hero-bottom bg-wine px-[clamp(16px,3vw,40px)] text-white">
+        <QrPattern id="hero" continued />
         <div className="mx-auto max-w-nav">
           <div className="relative mx-auto mt-14 max-w-narrow text-center">
             <Starburst
@@ -51,7 +53,7 @@ export function Hero() {
           </div>
 
           <div className="mt-7 flex flex-col flex-wrap items-stretch gap-7 lg:mt-5 lg:flex-row lg:items-end lg:gap-6">
-            <div className="mx-auto max-w-[560px] flex-none text-center lg:mx-0 lg:max-w-[320px] lg:flex-[1_1_260px] lg:pb-30 lg:text-left">
+            <div className="relative z-1 mx-auto max-w-[560px] flex-none text-center lg:mx-0 lg:max-w-[320px] lg:flex-[1_1_260px] lg:pb-30 lg:text-left">
               <svg
                 width="22"
                 height="20"
@@ -89,8 +91,14 @@ export function Hero() {
               <PersonPhoto
                 tone="wine"
                 photo={photo}
-                className="absolute bottom-0 left-1/2 -ml-[135px] w-[270px] md:-ml-[155px] md:w-[310px]"
+                sizes="(max-width: 767px) 270px, 300px"
+                className={
+                  photo
+                    ? "absolute bottom-0 left-1/2 -ml-[135px] w-[270px] md:-ml-[150px] md:w-[300px]"
+                    : "absolute bottom-0 left-1/2 -ml-[135px] w-[270px] md:-ml-[155px] md:w-[310px]"
+                }
                 labelClassName="top-1/2 md:top-[66%]"
+                imageClassName="max-lg:[mask-image:linear-gradient(to_bottom,#000_78%,transparent_100%)]"
               />
               <div className="absolute bottom-6.5 left-1/2 flex -translate-x-1/2 gap-1.5 rounded-full bg-ink/86 p-1.5 whitespace-nowrap">
                 <LinkButton href={heroContent.primaryCta.href}>
@@ -102,7 +110,7 @@ export function Hero() {
               </div>
             </div>
 
-            <HeroPartner className="mx-auto mt-2 max-w-none flex-none pb-16 text-center lg:mt-0 lg:mr-0 lg:ml-auto lg:max-w-[280px] lg:flex-[1_1_220px] lg:pb-40 lg:text-right" />
+            <HeroPartner className="relative z-1 mx-auto mt-2 max-w-none flex-none pb-16 text-center lg:mt-0 lg:mr-0 lg:ml-auto lg:max-w-[280px] lg:flex-[1_1_220px] lg:pb-40 lg:text-right" />
           </div>
         </div>
       </div>

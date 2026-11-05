@@ -19,6 +19,8 @@ export type PersonPhotoProps = {
   /** Placeholder label over the silhouette; `null` hides it (the mentor card has its own). */
   label?: string | null;
   labelClassName?: string;
+  /** Extra classes of the photo itself (filters, masks); not applied to the silhouette. */
+  imageClassName?: string;
 };
 
 /**
@@ -32,6 +34,7 @@ export function PersonPhoto({
   className,
   label = "Foto",
   labelClassName,
+  imageClassName,
 }: PersonPhotoProps) {
   return (
     <div className={cn("relative", className)}>
@@ -40,7 +43,7 @@ export function PersonPhoto({
           src={photo.src}
           alt={photo.alt}
           sizes={sizes}
-          className="block max-h-[400px] w-full object-contain"
+          className={cn("block h-auto w-full", imageClassName)}
         />
       ) : (
         <>

@@ -6,14 +6,13 @@ import { useRef, useState, type KeyboardEvent } from "react";
 import type { NavLink } from "@/shared/config/site";
 import { LinkButton } from "@/shared/ui/button";
 import { CloseIcon, MenuIcon } from "@/shared/ui/icons";
-import { Starburst } from "@/shared/ui/starburst";
+import { Logo } from "@/shared/ui/logo";
 
 export const MOBILE_MENU_ID = "cod-mobile-menu";
 
 type MainNavProps = {
   links: readonly NavLink[];
   cta: NavLink;
-  logoText: string;
   homeLabel: string;
   labels: { navLabel: string; openMenuLabel: string; closeMenuLabel: string };
 };
@@ -52,7 +51,7 @@ function hidePill(pill: HTMLElement) {
   gsap.to(pill, { opacity: 0, duration: 0.25, overwrite: true });
 }
 
-export function MainNav({ links, cta, logoText, homeLabel, labels }: MainNavProps) {
+export function MainNav({ links, cta, homeLabel, labels }: MainNavProps) {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const navRef = useRef<HTMLElement>(null);
@@ -113,8 +112,7 @@ export function MainNav({ links, cta, logoText, homeLabel, labels }: MainNavProp
           aria-label={homeLabel}
           className="flex flex-none items-center gap-2 text-white no-underline"
         >
-          <Starburst size={26} spinSeconds={24} />
-          <span className="font-display text-20 font-extrabold tracking-logo">{logoText}</span>
+          <Logo height={44} preload className="h-8.5 md:h-11" />
         </a>
         <div className="flex flex-none flex-wrap items-center justify-end gap-2 text-14 md:flex-[1_1_260px] md:gap-x-6.5 md:gap-y-1">
           {right.map((link) => (
