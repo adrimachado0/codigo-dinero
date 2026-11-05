@@ -36,7 +36,12 @@ export function PersonPhoto({
   return (
     <div className={cn("relative", className)}>
       {photo ? (
-        <Image src={photo.src} alt={photo.alt} sizes={sizes} className="block h-auto w-full" />
+        <Image
+          src={photo.src}
+          alt={photo.alt}
+          sizes={sizes}
+          className="block max-h-[400px] w-full object-contain"
+        />
       ) : (
         <>
           <svg
