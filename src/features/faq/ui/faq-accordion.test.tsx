@@ -27,7 +27,7 @@ describe("FaqAccordion", () => {
     const [, second] = setup();
 
     const panel = document.getElementById(second?.getAttribute("aria-controls") ?? "");
-    expect(panel).toHaveAttribute("hidden");
+    expect(panel).toHaveAttribute("inert");
     expect(panel).toHaveTextContent("La formación empieza desde cero");
   });
 

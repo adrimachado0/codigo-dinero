@@ -8,8 +8,9 @@ import type { FaqItem } from "../content";
 
 /**
  * Accordion (WAI-ARIA pattern): heading > button with aria-expanded/aria-controls, panel as
- * region labelled by its button. Closed answers stay in the HTML (`hidden`) for SEO.
- * One item open at a time; clicking the open one closes it, as in the reference.
+ * region labelled by its button. Closed answers stay in the HTML for SEO, `inert` and invisible.
+ * One item open at a time; clicking the open one closes it, as in the reference. Opening and
+ * closing animate the height (grid rows 0fr ↔ 1fr) and turn the icon half a revolution.
  */
 export function FaqAccordion({ items, initialOpen }: { items: FaqItem[]; initialOpen: number }) {
   const [open, setOpen] = useState(initialOpen);
@@ -24,8 +25,9 @@ export function FaqAccordion({ items, initialOpen }: { items: FaqItem[]; initial
         return (
           <div
             key={item.number}
+            data-reveal
             className={cn(
-              "rounded-accordion border transition-[background] duration-200",
+              "rounded-accordion border transition-[background,border-color] duration-300",
               isOpen ? "border-accent bg-surface-500" : "border-white/22 bg-transparent",
             )}
           >
@@ -55,23 +57,30 @@ export function FaqAccordion({ items, initialOpen }: { items: FaqItem[]; initial
                 <span
                   aria-hidden="true"
                   className={cn(
-                    "flex size-10 flex-[0_0_40px] items-center justify-center rounded-full text-20",
-                    isOpen ? "bg-accent text-ink" : "bg-white/8 text-white",
+                    "flex size-10 flex-[0_0_40px] items-center justify-center rounded-full text-20 transition-[background,color,rotate] duration-300 ease-out",
+                    isOpen ? "rotate-180 bg-accent text-ink" : "bg-white/8 text-white",
                   )}
                 >
                   {isOpen ? "−" : "+"}
                 </span>
               </button>
             </h3>
-            <p
+            <div
               id={panelId}
               role="region"
               aria-labelledby={buttonId}
-              hidden={!isOpen}
-              className="m-0 pt-0 pr-6 pb-5.5 pl-15.5 text-15 leading-loose text-fg-soft"
+              inert={!isOpen}
+              className={cn(
+                "grid transition-[grid-template-rows,visibility] duration-300 ease-out",
+                isOpen ? "grid-rows-[1fr]" : "invisible grid-rows-[0fr]",
+              )}
             >
-              {item.answer}
-            </p>
+              <div className="min-h-0 overflow-hidden">
+                <p className="m-0 pt-0 pr-6 pb-5.5 pl-15.5 text-15 leading-loose text-fg-soft">
+                  {item.answer}
+                </p>
+              </div>
+            </div>
           </div>
         );
       })}
