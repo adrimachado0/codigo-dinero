@@ -25,11 +25,11 @@ const socialIcons: Record<SocialNetwork, ComponentType<IconProps>> = {
 
 export function SiteFooter() {
   return (
-    <footer className="px-4 pb-4">
+    <footer className="px-3 pb-3 md:px-4 md:pb-4">
       {/* Only the columns move: shifting the last panel would stretch the page while it rises. */}
       <Reveal
         self={false}
-        className="mx-auto box-border max-w-shell rounded-panel bg-accent px-[clamp(22px,4vw,56px)] pt-[clamp(32px,4vw,56px)] pb-7 text-ink"
+        className="mx-auto box-border max-w-shell rounded-panel bg-accent px-5 pt-[clamp(32px,4vw,56px)] pb-7 text-ink md:px-[clamp(22px,4vw,56px)]"
       >
         <div className="flex flex-wrap gap-x-12 gap-y-9">
           <div data-reveal className="max-w-[420px] flex-[1_1_320px]">

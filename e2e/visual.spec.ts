@@ -28,7 +28,11 @@ const INTENTIONAL: Record<string, { reason: string; widths?: number[] }> = {
   inicio: { reason: "bloque del hero a todo el ancho", widths: [1440] },
 };
 
+/** Below 768px the page uses tighter gutters and section spacing than the reference. */
+const MOBILE_WIDTH = 390;
+
 function intentionalReason(section: string, width: number): string | undefined {
+  if (width === MOBILE_WIDTH) return "márgenes y espaciado compactos en mobile";
   const entry = INTENTIONAL[section];
   if (!entry || (entry.widths && !entry.widths.includes(width))) return undefined;
   return entry.reason;

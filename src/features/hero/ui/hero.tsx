@@ -17,8 +17,8 @@ const photo = photos.hero;
  */
 export function Hero() {
   return (
-    <section id="hero" aria-labelledby="hero-title" className="px-4">
-      <div className="relative isolate mx-auto box-border max-w-full overflow-hidden rounded-b-hero-bottom bg-wine px-[clamp(16px,3vw,40px)] text-white">
+    <section id="hero" aria-labelledby="hero-title" className="px-3 md:px-4">
+      <div className="relative isolate mx-auto box-border max-w-full overflow-hidden rounded-b-hero-bottom bg-wine px-3 text-white md:px-[clamp(16px,3vw,40px)]">
         <QrPattern id="hero" continued />
         <div className="mx-auto max-w-nav">
           <div className="relative mx-auto mt-14 max-w-narrow text-center">

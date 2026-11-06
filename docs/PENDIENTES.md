@@ -80,6 +80,7 @@ Todos los `href="#"` son destinos sin definir (igual que en la referencia).
   - cintas de temas con un ícono de Lucide por tema (`src/features/topics-ribbon/content.ts`);
   - la tarjeta del video dice solo "Academia de trading", con controles propios (play/pausa, barra de progreso, tiempo, pantalla completa) en lugar de los de Remotion; esa tarjeta se enmascara en la comparación;
   - el bloque vino del header y del hero ocupa todo el ancho (`max-w-full`), y por eso a 1440 px difiere de la referencia;
+  - por debajo de 768 px los márgenes y el espaciado son más compactos que en la referencia: secciones abiertas a 16 px (en lugar de 24), cajas (header/hero, Recursos, FAQ, footer) a 12 px del borde con padding interno de 12–20 px, tarjetas a 20 px, respuestas de la FAQ a todo el ancho y 72 px entre secciones (en lugar de 100–110). Desde 768 px no cambia nada. Por eso la regresión visual a 390 px solo reporta (no falla);
   - hovers: pastilla deslizante en el nav, botones que suben y pasan a blanco, bloques de formación y redes del footer que invierten colores; la esfera del hero reacciona al cursor.
 - **Fotos**: `PersonPhoto` recibe el slot de `src/shared/config/photos.ts`. Sin foto, muestra la silueta y la pastilla "Foto".
 - `pnpm-workspace.yaml` aprueba el build script de `esbuild` (lo usan Remotion y Vite). pnpm 12 bloquea los scripts que no están aprobados.

@@ -13,7 +13,7 @@ const icons = { steps: StepsUpIcon, trend: TrendUpIcon, community: CommunityIcon
 
 // Hover: the card lifts like the buttons; dark cards light up their border.
 const cardVariants = cva(
-  "box-border flex min-w-0 flex-[1_1_300px] flex-col rounded-card-lg p-7 transition-[translate,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 md:min-h-[440px]",
+  "box-border flex min-w-0 flex-[1_1_300px] flex-col rounded-card-lg p-5 transition-[translate,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 md:min-h-[440px] md:p-7",
   {
     variants: {
       tone: {
@@ -27,7 +27,11 @@ const cardVariants = cva(
 
 export function Audience() {
   return (
-    <section id="para-quien" aria-labelledby="para-quien-title" className="relative px-6 pt-27.5">
+    <section
+      id="para-quien"
+      aria-labelledby="para-quien-title"
+      className="relative px-4 pt-18 md:px-6 md:pt-27.5"
+    >
       <Reveal self={false} className="mx-auto max-w-content">
         <SectionTitle
           id="para-quien-title"
@@ -52,7 +56,7 @@ export function Audience() {
                     {card.number}
                   </span>
                 </div>
-                <Icon className={`mt-10 ${onAccent ? "text-ink" : "text-accent"}`} />
+                <Icon className={`mt-6 md:mt-10 ${onAccent ? "text-ink" : "text-accent"}`} />
                 <h3
                   className={`mt-6 mb-0 text-24 leading-tight ${onAccent ? "font-semibold" : "font-medium"}`}
                 >
@@ -68,7 +72,7 @@ export function Audience() {
                     href={card.cta.href}
                     tone="ink"
                     size="lg"
-                    className="group mt-auto gap-2.5 self-start"
+                    className="group mt-5 gap-2.5 self-start md:mt-auto"
                   >
                     {card.cta.label}
                     <ArrowRightIcon className="transition-transform duration-300 group-hover:translate-x-1" />
@@ -76,7 +80,7 @@ export function Audience() {
                 ) : (
                   <a
                     href={card.cta.href}
-                    className="group mt-auto inline-flex min-h-11 items-center gap-2.5 pt-7 text-15 font-medium text-white no-underline transition-colors duration-300 hover:text-accent"
+                    className="group mt-auto inline-flex min-h-11 items-center gap-2.5 pt-5 text-15 font-medium text-white no-underline transition-colors duration-300 hover:text-accent md:pt-7"
                   >
                     {card.cta.label}
                     <ArrowRightIcon className="transition-transform duration-300 group-hover:translate-x-1" />

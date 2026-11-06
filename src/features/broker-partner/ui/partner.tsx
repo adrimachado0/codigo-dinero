@@ -52,7 +52,10 @@ export function FooterPartner() {
 /** "EC MARKETS en números" band. */
 export function PartnerStats() {
   return (
-    <section aria-label={partnerContent.statsLabel} className="relative px-6 pt-16">
+    <section
+      aria-label={partnerContent.statsLabel}
+      className="relative px-4 pt-12 md:px-6 md:pt-16"
+    >
       <Reveal className="mx-auto box-border grid max-w-nav grid-cols-2 gap-y-7 rounded-card-lg border border-white/18 bg-surface-200 px-4 py-6.5 lg:flex lg:flex-wrap lg:gap-y-5">
         {partnerContent.stats.map((stat) => (
           <div key={stat.label} data-reveal className="flex-[1_1_200px] text-center">

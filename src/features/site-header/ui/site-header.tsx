@@ -11,10 +11,10 @@ import { MainNav } from "./main-nav";
  */
 export function SiteHeader() {
   return (
-    <div id="inicio" className="px-4 pt-4">
+    <div id="inicio" className="px-3 pt-3 md:px-4 md:pt-4">
       <header
         data-qr-anchor
-        className="relative isolate mx-auto box-border max-w-full overflow-hidden rounded-t-card-lg bg-wine px-[clamp(16px,3vw,40px)] pt-5.5 text-white"
+        className="relative isolate mx-auto box-border max-w-full overflow-hidden rounded-t-card-lg bg-wine px-3 pt-5.5 text-white md:px-[clamp(16px,3vw,40px)]"
       >
         <QrPattern id="header" />
         <MainNav

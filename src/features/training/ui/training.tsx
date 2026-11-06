@@ -58,8 +58,12 @@ function CandleChart() {
 
 export function Training() {
   return (
-    <section id="formacion" aria-labelledby="formacion-title" className="px-4 pt-25">
-      <Reveal className="relative mx-auto box-border max-w-panel rounded-panel border border-white/6 bg-surface-300 px-[clamp(20px,4vw,56px)] py-[clamp(28px,4vw,56px)]">
+    <section
+      id="formacion"
+      aria-labelledby="formacion-title"
+      className="px-3 pt-18 md:px-4 md:pt-25"
+    >
+      <Reveal className="relative mx-auto box-border max-w-panel rounded-panel border border-white/6 bg-surface-300 px-4 py-6 md:px-[clamp(20px,4vw,56px)] md:py-[clamp(28px,4vw,56px)]">
         <div className="absolute top-14 left-0 hidden h-[150px] w-7.5 items-center justify-center rounded-r-tab bg-accent md:flex">
           <span className="-rotate-90 text-10 font-semibold tracking-caps-lg whitespace-nowrap text-ink uppercase">
             {content.tab}
@@ -67,7 +71,7 @@ export function Training() {
         </div>
 
         <div className="flex flex-wrap items-stretch gap-6">
-          <div data-reveal className="min-w-0 flex-[1_1_300px] pl-3">
+          <div data-reveal className="min-w-0 flex-[1_1_300px] md:pl-3">
             <SectionTitle
               id="formacion-title"
               lead={content.titleLead}

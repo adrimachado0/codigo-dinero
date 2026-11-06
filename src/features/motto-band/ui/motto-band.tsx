@@ -6,7 +6,7 @@ import { mottoContent } from "../content";
 
 export function MottoBand() {
   return (
-    <section aria-label={mottoContent.label} className="px-6 pt-27.5">
+    <section aria-label={mottoContent.label} className="px-4 pt-18 md:px-6 md:pt-27.5">
       <div className="mx-auto max-w-wide">
         <p className="m-0 flex flex-col flex-wrap items-center justify-center gap-0.5 font-display text-42 leading-heading font-extrabold tracking-snug md:flex-row md:gap-x-7 md:gap-y-2 md:text-motto">
           {mottoContent.words.map((word, index) => (

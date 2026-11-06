@@ -69,7 +69,7 @@ export function TopicsRibbon() {
   return (
     <section
       aria-label={topicsContent.label}
-      className="relative mt-22.5 h-[220px] overflow-hidden"
+      className="relative mt-15 h-[220px] overflow-hidden md:mt-22.5"
     >
       <Marquee
         duration={60}

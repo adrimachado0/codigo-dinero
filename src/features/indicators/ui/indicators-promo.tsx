@@ -71,7 +71,7 @@ export function IndicatorsPromo() {
     <div
       id="indicadores"
       data-reveal
-      className="mt-6 flex flex-wrap items-center gap-x-12 gap-y-8 rounded-card-lg bg-accent p-[clamp(24px,3.5vw,44px)] text-ink"
+      className="mt-6 flex flex-wrap items-center gap-x-12 gap-y-8 rounded-card-lg bg-accent p-5 text-ink md:p-[clamp(24px,3.5vw,44px)]"
     >
       <div className="min-w-0 flex-[1_1_380px]">
         <Pill tone="ink" size="tag" caps>
@@ -97,7 +97,7 @@ export function IndicatorsPromo() {
           <ArrowRightIcon className="transition-transform duration-300 group-hover:translate-x-1" />
         </LinkButton>
       </div>
-      <div className="box-border min-w-0 flex-[1_1_360px] rounded-tile bg-ink p-4.5">
+      <div className="box-border min-w-0 flex-[1_1_360px] rounded-tile bg-ink p-3 md:p-4.5">
         <IndicatorChart label={content.chartLabel} />
       </div>
     </div>

@@ -40,9 +40,9 @@ export function FaqAccordion({ items, initialOpen }: { items: FaqItem[]; initial
                 onClick={() => {
                   setOpen(isOpen ? -1 : index);
                 }}
-                className="flex min-h-15 w-full cursor-pointer items-center justify-between gap-4 border-0 bg-transparent py-2.5 pr-2.5 pl-6 text-left font-sans text-16 font-medium text-white"
+                className="flex min-h-15 w-full cursor-pointer items-center justify-between gap-3 border-0 bg-transparent py-2.5 pr-2.5 pl-4 text-left font-sans text-16 font-medium text-white md:gap-4 md:pl-6"
               >
-                <span className="flex items-center gap-4">
+                <span className="flex items-center gap-3 md:gap-4">
                   <span
                     aria-hidden="true"
                     className={cn(
@@ -76,7 +76,7 @@ export function FaqAccordion({ items, initialOpen }: { items: FaqItem[]; initial
               )}
             >
               <div className="min-h-0 overflow-hidden">
-                <p className="m-0 pt-0 pr-6 pb-5.5 pl-15.5 text-15 leading-loose text-fg-soft">
+                <p className="m-0 px-4 pt-0 pb-5.5 text-15 leading-loose text-fg-soft md:pr-6 md:pl-15.5">
                   {item.answer}
                 </p>
               </div>

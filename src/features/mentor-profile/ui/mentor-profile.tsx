@@ -19,7 +19,11 @@ const captionBars = [
 
 export function MentorProfile() {
   return (
-    <section id="quien-soy" aria-labelledby="quien-soy-title" className="px-6 pt-27.5">
+    <section
+      id="quien-soy"
+      aria-labelledby="quien-soy-title"
+      className="px-4 pt-18 md:px-6 md:pt-27.5"
+    >
       <Reveal
         self={false}
         className="mx-auto flex max-w-content flex-wrap items-center gap-x-16 gap-y-10"

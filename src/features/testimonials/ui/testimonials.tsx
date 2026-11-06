@@ -7,7 +7,7 @@ import { TestimonialsCarousel } from "./testimonials-carousel";
 
 export function Testimonials() {
   return (
-    <section id="comunidad" aria-labelledby="comunidad-title" className="px-4 pt-27.5">
+    <section id="comunidad" aria-labelledby="comunidad-title" className="px-4 pt-18 md:pt-27.5">
       <Reveal className="mx-auto max-w-panel">
         <TestimonialsCarousel
           reviews={content.reviews}

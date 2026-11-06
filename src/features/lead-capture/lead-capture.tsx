@@ -10,7 +10,11 @@ const photo = photos.cta;
 
 export function LeadCapture() {
   return (
-    <section id="contacto" aria-label={leadContent.sectionLabel} className="px-6 pt-25">
+    <section
+      id="contacto"
+      aria-label={leadContent.sectionLabel}
+      className="px-4 pt-18 md:px-6 md:pt-25"
+    >
       <Reveal
         self={false}
         className="mx-auto flex max-w-content flex-wrap items-end justify-between gap-8"

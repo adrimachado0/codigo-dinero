@@ -6,7 +6,11 @@ import { aboutContent } from "../content";
 
 export function About() {
   return (
-    <section id="que-es" aria-labelledby="que-es-title" className="relative px-6 pt-27.5">
+    <section
+      id="que-es"
+      aria-labelledby="que-es-title"
+      className="relative px-4 pt-18 md:px-6 md:pt-27.5"
+    >
       <Reveal self={false} className="mx-auto max-w-content">
         <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-6">
           <div data-reveal className="max-w-[520px] flex-[1_1_380px]">
