@@ -108,6 +108,48 @@ export function CandlesIcon({ size = 64, strokeWidth = 2.4, ...props }: IconProp
   );
 }
 
+export function ChevronDownIcon({ size = 16, strokeWidth = 2, ...props }: IconProps) {
+  return (
+    <StrokeIcon size={size} strokeWidth={strokeWidth} {...props}>
+      <path d="M6 9l6 6 6-6" />
+    </StrokeIcon>
+  );
+}
+
+/** Audience cards ("¿A quién está dirigido?"): steps up for beginners. */
+export function StepsUpIcon({ size = 52, strokeWidth = 2.4, ...props }: IconProps) {
+  return (
+    <StrokeIcon size={size} viewBox="0 0 48 48" strokeWidth={strokeWidth} {...props}>
+      <path d="M6 40h10v-9h10v-9h10v-9h6" />
+      <path d="M36 7l6 6-6 6" />
+    </StrokeIcon>
+  );
+}
+
+/** Audience cards: rising chart for experienced traders. */
+export function TrendUpIcon({ size = 52, strokeWidth = 2.4, ...props }: IconProps) {
+  return (
+    <StrokeIcon size={size} viewBox="0 0 48 48" strokeWidth={strokeWidth} {...props}>
+      <path d="M6 42h36" />
+      <path d="M8 34l10-10 8 6 14-16" />
+      <path d="M32 14h8v8" />
+    </StrokeIcon>
+  );
+}
+
+/** Audience cards: a leader and their community. */
+export function CommunityIcon({ size = 52, strokeWidth = 2.4, ...props }: IconProps) {
+  return (
+    <StrokeIcon size={size} viewBox="0 0 48 48" strokeWidth={strokeWidth} {...props}>
+      <circle cx="24" cy="14" r="5" />
+      <circle cx="10" cy="32" r="4.5" />
+      <circle cx="38" cy="32" r="4.5" />
+      <path d="M24 19v8M24 27l-11 3M24 27l11 3" />
+      <path d="M3 44c1-4 4-6 7-6s6 2 7 6M31 44c1-4 4-6 7-6s6 2 7 6" />
+    </StrokeIcon>
+  );
+}
+
 export function PlayIcon({ size = 22, ...props }: IconProps) {
   return (
     <FillIcon size={size} {...props}>

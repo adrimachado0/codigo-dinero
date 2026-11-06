@@ -4,6 +4,7 @@ import { LinkButton } from "@/shared/ui/button";
 import { ParticleSphere } from "@/shared/ui/particle-sphere";
 import { PersonPhoto } from "@/shared/ui/person-photo";
 import { QrPattern } from "@/shared/ui/qr-pattern";
+import { RichText } from "@/shared/ui/rich-text";
 import { Starburst } from "@/shared/ui/starburst";
 
 import { heroContent } from "../content";
@@ -15,7 +16,6 @@ const photo = photos.hero;
  * it is never animated on entry.
  */
 export function Hero() {
-  const [line1, line2] = heroContent.titleLines;
   return (
     <section id="hero" aria-labelledby="hero-title" className="px-4">
       <div className="relative isolate mx-auto box-border max-w-full overflow-hidden rounded-b-hero-bottom bg-wine px-[clamp(16px,3vw,40px)] text-white">
@@ -30,11 +30,10 @@ export function Hero() {
             />
             <h1
               id="hero-title"
-              className="m-0 text-hero leading-display font-semibold tracking-tightest text-white"
+              className="mx-auto my-0 max-w-[940px] text-hero leading-display font-semibold tracking-tightest text-balance text-white"
             >
-              {line1}
-              <br />
-              {line2}
+              {heroContent.title.lead}{" "}
+              <span className="block text-balance text-accent">{heroContent.title.highlight}</span>
             </h1>
             <svg
               width="40"
@@ -69,15 +68,8 @@ export function Hero() {
                 <path d="M3 3L9 16M13 2L16 13" />
               </svg>
               <p className="mt-2.5 mb-0 text-15 leading-relaxed text-wine-fg">
-                {heroContent.intro}
+                <RichText value={heroContent.intro} strongClassName="font-semibold text-white" />
               </p>
-              <LinkButton
-                href={heroContent.secondaryCta.href}
-                tone="outline-strong"
-                className="mt-5.5 box-border px-5.5"
-              >
-                {heroContent.secondaryCta.label}
-              </LinkButton>
             </div>
 
             <div className="relative h-[420px] w-full min-w-0 flex-none md:h-[480px] lg:h-[500px] lg:w-auto lg:flex-[1.6_1_380px]">
@@ -100,12 +92,17 @@ export function Hero() {
                 labelClassName="top-1/2 md:top-[66%]"
                 imageClassName="max-lg:[mask-image:linear-gradient(to_bottom,#000_78%,transparent_100%)]"
               />
-              <div className="absolute bottom-6.5 left-1/2 flex -translate-x-1/2 gap-1.5 rounded-full bg-ink/86 p-1.5 whitespace-nowrap">
-                <LinkButton href={heroContent.primaryCta.href}>
+              {/* Below 768px the capsule stacks in a column (reference: .cod-hero-cta). */}
+              <div className="absolute bottom-6.5 left-1/2 z-2 flex w-[min(300px,calc(100%-24px))] -translate-x-1/2 flex-col gap-1.5 rounded-accordion bg-ink/86 p-1.5 md:w-auto md:flex-row md:rounded-full md:whitespace-nowrap">
+                <LinkButton href={heroContent.primaryCta.href} className="max-md:justify-center">
                   {heroContent.primaryCta.label}
                 </LinkButton>
-                <LinkButton href={heroContent.accountCta.href} tone="outline-soft">
-                  {heroContent.accountCta.label}
+                <LinkButton
+                  href={heroContent.partnerCta.href}
+                  tone="outline-soft"
+                  className="max-md:justify-center"
+                >
+                  {heroContent.partnerCta.label}
                 </LinkButton>
               </div>
             </div>

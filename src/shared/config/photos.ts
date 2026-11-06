@@ -16,8 +16,8 @@ export type PhotoKey = "hero" | "mentor" | "cta";
 export const photos: Readonly<Record<PhotoKey, PhotoSlot>> = {
   /** Hero, over the wine circle. */
   hero: { src: mentorPhoto, alt: "Mentor de Código Dinero" },
-  /** Mentor card in "¿Qué es Código Dinero?": same photo in black and white, decorative. */
-  mentor: { src: mentorPhoto, alt: "" },
+  /** "Quién soy": same photo in black and white. Pending: confirm it is Ángel González. */
+  mentor: { src: mentorPhoto, alt: "Ángel González, mentor de Código Dinero" },
   /** Final CTA, next to the email form. */
   cta: null,
 };

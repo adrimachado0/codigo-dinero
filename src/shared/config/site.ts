@@ -14,7 +14,7 @@ export const site = {
   locale: "es_AR",
   title: "Código Dinero · Academia de trading",
   description:
-    "Academia de trading con formación, análisis de mercado y una comunidad que opera con método. Clases gratuitas en YouTube y partner oficial de EC Markets.",
+    "De cero a tu propio plan de trading: formación, análisis y una comunidad que opera con método. Para quien empieza, traders con experiencia e IBs de EC Markets.",
   homeLabel: "Código Dinero, ir al inicio",
   nav: {
     links: [

@@ -40,13 +40,15 @@ const SECTIONS: Section[] = [
   { name: "inicio", ref: ["#inicio"], app: ["#inicio", "#hero"] },
   ...[
     'section[aria-label="EC MARKETS en números"]',
+    "#para-quien",
     "#que-es",
     'section[aria-label="Aprende, analiza, opera"]',
+    "#quien-soy",
     "#formacion",
     "#comunidad",
     'section[aria-label="Temas"]',
     "#faq",
-    'section[aria-label="Empezar"]',
+    "#contacto",
     "footer",
   ].map((selector) => ({ name: sectionName(selector), ref: [selector], app: [selector] })),
 ];
@@ -73,7 +75,18 @@ type Box = { x: number; y: number; width: number; height: number };
 
 async function settle(page: Page) {
   await page.waitForLoadState("networkidle");
+  // next/image is lazy: walk the page so images far below the fold load before capturing.
   await page.evaluate(async () => {
+    for (let y = 0; y < document.documentElement.scrollHeight; y += window.innerHeight) {
+      window.scrollTo(0, y);
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+    }
+    window.scrollTo(0, 0);
+    await Promise.all(
+      [...document.images].map((img) =>
+        img.complete ? Promise.resolve() : img.decode().catch(() => undefined),
+      ),
+    );
     await document.fonts.ready;
   });
   await page.waitForTimeout(300);

@@ -4,11 +4,11 @@ import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
 import { partnerContent } from "@/features/broker-partner";
-import { heroTitleLines } from "@/features/hero";
+import { heroTitle } from "@/features/hero";
 import { site } from "@/shared/config/site";
 import { dataUri, loadBrandFonts, qrBackground } from "@/shared/seo/brand-image";
 
-export const alt = `${site.name}, academia de trading: «${heroTitleLines.join(" ")}». ${partnerContent.badge} de ${site.partner.name}.`;
+export const alt = `${site.name}, academia de trading: «${heroTitle.lead} ${heroTitle.highlight}». ${partnerContent.badge} de ${site.partner.name}.`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -80,11 +80,10 @@ export default function OpengraphImage() {
       >
         <img src={logo} width={229} height={80} alt="" />
         <div style={{ display: "flex", flexDirection: "column" }}>
-          {heroTitleLines.map((line) => (
-            <div key={line} style={{ fontSize: 76, lineHeight: 1.06, letterSpacing: -1.5 }}>
-              {line}
-            </div>
-          ))}
+          <div style={{ fontSize: 52, lineHeight: 1.06, letterSpacing: -1 }}>{heroTitle.lead}</div>
+          <div style={{ fontSize: 52, lineHeight: 1.06, letterSpacing: -1, color: "#FF2B2B" }}>
+            {heroTitle.highlight}
+          </div>
           <div style={{ marginTop: 22, fontSize: 28, color: "#EBCFD1" }}>Academia de trading</div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 18 }}>

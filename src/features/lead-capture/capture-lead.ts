@@ -1,16 +1,16 @@
-import { HONEYPOT_FIELD, LeadInputSchema, type LeadInput } from "./lead";
+import { HONEYPOT_FIELD, LeadInputSchema, type Lead, type LeadInput } from "./lead";
 
 export type CaptureLeadResult =
   { status: "captured" } | { status: "invalid"; message: string } | { status: "rate-limited" };
 
 /**
- * Where leads go. Today: a server log with the address masked, until the destination
- * (CRM, newsletter, database) is defined. Replace this function to store them for real.
+ * Where leads go. Today: a server log with the address masked and no name, until the
+ * destination (CRM, newsletter, database) is defined. Replace this function to store them.
  */
-export function saveLead(email: string, createdAt: Date): Promise<void> {
-  const [user = "", domain = ""] = email.split("@");
+export function saveLead(lead: Lead, createdAt: Date): Promise<void> {
+  const [user = "", domain = ""] = lead.email.split("@");
   console.info(
-    `[lead-capture] new lead ${user.slice(0, 2)}***@${domain} at ${createdAt.toISOString()}`,
+    `[lead-capture] new lead ${user.slice(0, 2)}***@${domain} (${lead.profile}) at ${createdAt.toISOString()}`,
   );
   return Promise.resolve();
 }
@@ -24,7 +24,7 @@ export function isAllowed(): Promise<boolean> {
 }
 
 type Deps = {
-  save: (email: string, createdAt: Date) => Promise<void>;
+  save: (lead: Lead, createdAt: Date) => Promise<void>;
   isAllowed: (requester: string) => Promise<boolean>;
   now: () => Date;
 };
@@ -47,9 +47,10 @@ export async function captureLead(
   if (!parsed.success) {
     return { status: "invalid", message: parsed.error.issues.map((i) => i.message).join(" ") };
   }
-  if (parsed.data[HONEYPOT_FIELD]) return { status: "captured" };
+  const { [HONEYPOT_FIELD]: honeypot, name, email, profile } = parsed.data;
+  if (honeypot) return { status: "captured" };
   if (!(await allowed(requester))) return { status: "rate-limited" };
 
-  await save(parsed.data.email.toLowerCase(), now());
+  await save({ name, email: email.toLowerCase(), profile }, now());
   return { status: "captured" };
 }

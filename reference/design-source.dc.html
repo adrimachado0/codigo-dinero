@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>Código Dinero · Academia de trading</title>
+<title>Código Dinero · Academia de trading (v2)</title>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -49,6 +49,10 @@ input::placeholder{color:#8A8A8A}
 .cod-tab{display:none !important}
 .cod-tm-off{display:none !important}
 .cod-video{height:260px !important}
+.cod-hero-cta{flex-direction:column !important;border-radius:26px !important;white-space:normal !important;width:min(300px, calc(100% - 24px))}
+.cod-hero-cta a{justify-content:center}
+.cod-mentor-photo{height:440px !important}
+.cod-aud-card{min-height:0 !important}
 }
 </style>
 </helmet>
@@ -120,15 +124,14 @@ input::placeholder{color:#8A8A8A}
 
 <div style="position: relative; max-width: 1000px; margin: 56px auto 0; text-align: center">
 <svg class="cod-anim cod-deco-star" width="72" height="72" viewBox="0 0 48 48" fill="none" stroke="{{accent}}" stroke-width="2.6" stroke-linecap="round" aria-hidden="true" style="position: absolute; left: 0; top: -34px; animation: codSpin 30s linear infinite"><path d="M30 24L46 24M29.2 27L43.1 35M27 29.2L35 43.1M24 30L24 46M21 29.2L13 43.1M18.8 27L4.9 35M18 24L2 24M18.8 21L4.9 13M21 18.8L13 4.9M24 18L24 2M27 18.8L35 4.9M29.2 21L43.1 13"></path></svg>
-<h1 style="margin: 0; font-size: clamp(40px, 5.6vw, 76px); line-height: 1.04; font-weight: 600; letter-spacing: -0.02em; color: #FFFFFF">Te guiamos en<br>cada operación</h1>
+<h1 style="margin: 0 auto; max-width: 940px; font-size: clamp(36px, 4.9vw, 68px); line-height: 1.06; font-weight: 600; letter-spacing: -0.02em; color: #FFFFFF; text-wrap: balance">De cero a tu propio plan de trading: <span style="display: block; color: {{accent}}; text-wrap: balance">te guiamos en cada paso.</span></h1>
 <svg class="cod-deco-mark" width="40" height="44" viewBox="0 0 40 44" fill="none" stroke="{{accent}}" stroke-width="3.2" stroke-linecap="round" aria-hidden="true" style="position: absolute; right: 8px; bottom: 2px"><path d="M34 6L8 20M10 28L34 38"></path></svg>
 </div>
 
 <div class="cod-hero-row" style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 24px; max-width: 1040px; margin: 20px auto 0">
 <div class="cod-hero-intro" style="flex: 1 1 260px; max-width: 320px; padding-bottom: 120px; position: relative; z-index: 1">
 <svg class="cod-hero-slash" width="22" height="20" viewBox="0 0 22 20" fill="none" stroke="{{accent}}" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M3 3L9 16M13 2L16 13"></path></svg>
-<p style="margin: 10px 0 0; font-size: 15px; line-height: 1.6; color: #EBCFD1">Formación, análisis de mercado y una comunidad que opera con método. Te acompañamos desde tu primera operación hasta tu plan de trading.</p>
-<a href="#formacion" style="display: inline-flex; align-items: center; min-height: 44px; margin-top: 22px; padding: 0 22px; box-sizing: border-box; border: 1.5px solid rgba(255,255,255,0.55); border-radius: 999px; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500">Ver formación</a>
+<p style="margin: 10px 0 0; font-size: 15px; line-height: 1.6; color: #EBCFD1">Formación, análisis y una comunidad que opera con método. Si estás empezando, te llevamos de la mano; si ya tienes experiencia o una comunidad, potenciamos tu operativa y tus ingresos como partner de <strong style="color: #FFFFFF; font-weight: 600">EC Markets</strong>.</p>
 </div>
 <div class="cod-hero-figure" style="flex: 1.6 1 380px; min-width: 0; position: relative; height: 500px">
 <div class="cod-hero-circle" style="position: absolute; left: 50%; bottom: -40px; width: 460px; height: 460px; margin-left: -230px; border-radius: 50%; background: #4E1219; box-shadow: 0 0 140px rgba(255,43,43,0.22)"></div>
@@ -136,9 +139,9 @@ input::placeholder{color:#8A8A8A}
 <div class="cod-hero-person" style="position: absolute; left: 50%; bottom: 0; width: 300px; margin-left: -150px">
 <img class="cod-hero-img" src="/_blob/771d26ea924481f9087f3374a5a94714" alt="Mentor de Código Dinero" style="display: block; width: 100%; height: auto">
 </div>
-<div style="position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); display: flex; gap: 6px; padding: 6px; border-radius: 999px; background: rgba(17,17,17,0.86); white-space: nowrap">
-<a href="#" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; background: {{accent}}; color: #111111; text-decoration: none; font-size: 14px; font-weight: 600">Empezar ahora</a>
-<a href="#" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.28); color: #FFFFFF; text-decoration: none; font-size: 14px">Abrir cuenta</a>
+<div class="cod-hero-cta" style="position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); display: flex; gap: 6px; padding: 6px; border-radius: 999px; background: rgba(17,17,17,0.86); white-space: nowrap; z-index: 2">
+<a href="#contacto" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; background: {{accent}}; color: #111111; text-decoration: none; font-size: 14px; font-weight: 600">Quiero aprender desde cero</a>
+<a href="#contacto" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.28); color: #FFFFFF; text-decoration: none; font-size: 14px">Sumarme como Partner / IB</a>
 </div>
 </div>
 <div class="cod-hero-partner" style="flex: 1 1 220px; max-width: 280px; padding-bottom: 160px; text-align: right; margin-left: auto; position: relative; z-index: 1">
@@ -174,6 +177,48 @@ input::placeholder{color:#8A8A8A}
 </div>
 </section>
 
+<section id="para-quien" style="padding: 110px 24px 0; position: relative">
+<div style="max-width: 1100px; margin: 0 auto">
+<h2 style="margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.12; font-weight: 500"><span>¿A quién está</span><span style="background: {{accent}}; color: #111111; padding: 2px 14px 4px; border-radius: 12px; transform: rotate(-2deg); display: inline-block">dirigido?</span></h2>
+<div style="display: flex; flex-wrap: wrap; gap: 18px; margin-top: 44px; align-items: stretch">
+
+<article class="cod-aud-card" style="flex: 1 1 300px; min-width: 0; min-height: 440px; box-sizing: border-box; display: flex; flex-direction: column; background: #1A1A1A; border: 1px solid rgba(255,255,255,0.08); border-radius: 28px; padding: 28px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px">
+<span style="font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; padding: 7px 12px">Traders novatos</span>
+<span style="font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 22px; color: {{accent}}">01</span>
+</div>
+<svg width="52" height="52" viewBox="0 0 48 48" fill="none" stroke="{{accent}}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-top: 40px"><path d="M6 40h10v-9h10v-9h10v-9h6"></path><path d="M36 7l6 6-6 6"></path></svg>
+<h3 style="margin: 24px 0 0; font-size: 24px; line-height: 1.2; font-weight: 500">Dando tus primeros pasos.</h3>
+<p style="margin: 14px 0 0; font-size: 15px; line-height: 1.6; color: #BDBDBD">Aprende una habilidad real desde cero. Te enseñamos a leer el mercado, gestionar el riesgo y te ofrecemos cuentas demo para practicar sin riesgo antes de dar el salto al mercado real.</p>
+<a href="#contacto" style="margin-top: auto; padding-top: 28px; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 500">Quiero aprender desde cero <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+</article>
+
+<article class="cod-aud-card" style="flex: 1 1 300px; min-width: 0; min-height: 440px; box-sizing: border-box; display: flex; flex-direction: column; background: #222222; border: 1px solid rgba(255,255,255,0.08); border-radius: 28px; padding: 28px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px">
+<span style="font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; padding: 7px 12px">Traders con experiencia</span>
+<span style="font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 22px; color: {{accent}}">02</span>
+</div>
+<svg width="52" height="52" viewBox="0 0 48 48" fill="none" stroke="{{accent}}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-top: 40px"><path d="M6 42h36"></path><path d="M8 34l10-10 8 6 14-16"></path><path d="M32 14h8v8"></path></svg>
+<h3 style="margin: 24px 0 0; font-size: 24px; line-height: 1.2; font-weight: 500">Lleva tu operativa al siguiente nivel.</h3>
+<p style="margin: 14px 0 0; font-size: 15px; line-height: 1.6; color: #BDBDBD">Accede a herramientas avanzadas, estrategias probadas, indicadores exclusivos por suscripción y análisis de mercado profesionales.</p>
+<a href="#indicadores" style="margin-top: auto; padding-top: 28px; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 500">Ver planes de indicadores <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+</article>
+
+<article class="cod-aud-card" style="flex: 1 1 300px; min-width: 0; min-height: 440px; box-sizing: border-box; display: flex; flex-direction: column; background: {{accent}}; color: #111111; border-radius: 28px; padding: 28px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px">
+<span style="font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; background: #111111; color: #FFFFFF; border-radius: 999px; padding: 7px 12px">Líderes e IBs</span>
+<span style="font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 22px; color: #111111">03</span>
+</div>
+<svg width="52" height="52" viewBox="0 0 48 48" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-top: 40px"><circle cx="24" cy="14" r="5"></circle><circle cx="10" cy="32" r="4.5"></circle><circle cx="38" cy="32" r="4.5"></circle><path d="M24 19v8M24 27l-11 3M24 27l11 3"></path><path d="M3 44c1-4 4-6 7-6s6 2 7 6M31 44c1-4 4-6 7-6s6 2 7 6"></path></svg>
+<h3 style="margin: 24px 0 0; font-size: 24px; line-height: 1.2; font-weight: 600">Potencia tu comunidad con EC Markets.</h3>
+<p style="margin: 14px 0 0; font-size: 15px; line-height: 1.6; color: #1A1A1A">Si ya lideras un grupo o eres trader con comunidad, súmate a nuestro equipo. Te ofrecemos las mejores condiciones comerciales, soporte directo y un esquema de trabajo estructurado para escalar juntos en <strong style="font-weight: 600">EC Markets</strong>.</p>
+<a href="#contacto" style="margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 999px; background: #111111; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 600">Sumarme como Partner / IB <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+</article>
+
+</div>
+</div>
+</section>
+
 <section id="que-es" style="padding: 110px 24px 0; position: relative">
 <div style="max-width: 1100px; margin: 0 auto">
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px 48px">
@@ -186,7 +231,7 @@ input::placeholder{color:#8A8A8A}
 <div style="display: flex; flex-wrap: wrap; gap: 18px; margin-top: 48px; align-items: flex-end">
 <div style="flex: 1.75 1 460px; min-width: 0; position: relative">
 <svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true" style="position: absolute; left: -14px; top: -16px; z-index: 2"><path d="M12 0C12.8 7 17 11.2 24 12C17 12.8 12.8 17 12 24C11.2 17 7 12.8 0 12C7 11.2 11.2 7 12 0Z" fill="{{accent}}"></path></svg>
-<div class="cod-video" style="position: relative; height: 380px; border-radius: 24px; overflow: hidden; background: #141414; border: 1px solid rgba(255,255,255,0.08)">
+<div class="cod-video" style="position: relative; height: 420px; border-radius: 24px; overflow: hidden; background: #141414; border: 1px solid rgba(255,255,255,0.08)">
 <canvas data-scene="video" ref="{{videoRef}}" role="img" aria-label="Animación: esfera de partículas y gráfico de precio" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: block"></canvas>
 <button type="button" aria-label="Reproducir video de presentación (próximamente)" style="position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%); width: 70px; height: 70px; border-radius: 50%; border: 0; background: {{accent}}; color: #111111; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"></path></svg></button>
 <div style="position: absolute; left: 22px; bottom: 22px; right: 22px; display: flex; align-items: stretch; gap: 5px">
@@ -197,10 +242,6 @@ input::placeholder{color:#8A8A8A}
 <div style="width: 2px; background: {{accent}}; opacity: 0.4"></div>
 </div>
 </div>
-</div>
-<div style="flex: 1 1 260px; min-width: 0; position: relative; height: 440px; border-radius: 24px; overflow: hidden; background: #222222">
-<img src="/_blob/771d26ea924481f9087f3374a5a94714" alt="" style="position: absolute; left: 50%; top: 32px; width: 92%; height: auto; transform: translateX(-50%); filter: grayscale(1) contrast(1.05)">
-<svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="{{accent}}" stroke-width="2.4" stroke-linecap="round" aria-hidden="true" style="position: absolute; right: 26px; top: 26px"><path d="M14 18v8M14 46v6M32 10v10M32 40v12M50 22v6M50 44v8"></path><rect x="9" y="26" width="10" height="20" rx="2"></rect><rect x="27" y="20" width="10" height="20" rx="2"></rect><rect x="45" y="28" width="10" height="16" rx="2"></rect></svg>
 </div>
 </div>
 </div>
@@ -223,20 +264,51 @@ input::placeholder{color:#8A8A8A}
 </div>
 </section>
 
+<section id="quien-soy" style="padding: 110px 24px 0">
+<div style="max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px 64px; align-items: center">
+<div class="cod-mentor-photo" style="flex: 1 1 320px; max-width: 440px; min-width: 0; position: relative; height: 540px; border-radius: 28px; overflow: hidden; background: #222222">
+<img src="/_blob/771d26ea924481f9087f3374a5a94714" alt="Ángel González, mentor de Código Dinero" style="position: absolute; left: 50%; top: 32px; width: 92%; height: auto; transform: translateX(-50%); filter: grayscale(1) contrast(1.05)">
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="{{accent}}" stroke-width="2.4" stroke-linecap="round" aria-hidden="true" style="position: absolute; right: 26px; top: 26px"><path d="M14 18v8M14 46v6M32 10v10M32 40v12M50 22v6M50 44v8"></path><rect x="9" y="26" width="10" height="20" rx="2"></rect><rect x="27" y="20" width="10" height="20" rx="2"></rect><rect x="45" y="28" width="10" height="16" rx="2"></rect></svg>
+<div style="position: absolute; left: 20px; right: 20px; bottom: 20px; display: flex; align-items: stretch; gap: 5px">
+<div style="background: {{accent}}; color: #111111; padding: 12px 20px 12px 22px; line-height: 1.35"><span style="display: block; font-size: 16px; font-weight: 700">Ángel González</span><span style="display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase">BDM en EC Markets</span></div>
+<div style="width: 9px; background: {{accent}}"></div>
+<div style="width: 5px; background: {{accent}}; opacity: 0.8"></div>
+<div style="width: 3px; background: {{accent}}; opacity: 0.6"></div>
+</div>
+</div>
+<div style="flex: 1.2 1 420px; min-width: 0">
+<p style="margin: 0; font-size: 14px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: {{accent}}">¿Quién soy?</p>
+<h2 style="margin: 14px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.12; font-weight: 500"><span>Quién está detrás de</span><span style="background: {{accent}}; color: #111111; padding: 2px 14px 4px; border-radius: 12px; transform: rotate(-2deg); display: inline-block">Código Dinero</span></h2>
+<p style="margin: 26px 0 0; font-size: 18px; line-height: 1.6; color: #E6E6E6">Hola, soy <strong style="color: #FFFFFF; font-weight: 600">Ángel González</strong>. Tengo 45 años, vivo en Rosario y hace 2 años que me dedico al trading. Actualmente desempeño el rol de <strong style="color: #FFFFFF; font-weight: 600">BDM en EC Markets</strong>.</p>
+<p style="margin: 16px 0 0; font-size: 15px; line-height: 1.7; color: #BDBDBD">Creé este espacio para conectar con personas que realmente quieren aprender esta profesión. Mi objetivo es acompañar a traders novatos en su formación, facilitarles cuentas demo para su práctica y, al mismo tiempo, convocar a traders con experiencia y líderes de comunidades que busquen asociarse, formar equipos de trabajo y aprovechar las condiciones preferenciales que ofrecemos junto a <strong style="color: #FFFFFF; font-weight: 600">EC Markets</strong>.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px">
+<span style="border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; padding: 8px 16px; font-size: 14px">45 años</span>
+<span style="border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; padding: 8px 16px; font-size: 14px">Rosario</span>
+<span style="border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; padding: 8px 16px; font-size: 14px">2 años en trading</span>
+<span style="border: 1px solid {{accent}}; color: {{accent}}; border-radius: 999px; padding: 8px 16px; font-size: 14px">BDM en EC Markets</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px">
+<a href="#contacto" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 22px; box-sizing: border-box; border-radius: 999px; background: {{accent}}; color: #111111; text-decoration: none; font-size: 14px; font-weight: 600">Quiero aprender desde cero</a>
+<a href="#contacto" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 22px; box-sizing: border-box; border-radius: 999px; border: 1px solid rgba(255,255,255,0.32); color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500">Sumarme como Partner / IB</a>
+</div>
+</div>
+</div>
+</section>
+
 <section id="formacion" style="padding: 100px 16px 0">
 <div style="max-width: 1240px; margin: 0 auto; position: relative; background: #181818; border: 1px solid rgba(255,255,255,0.06); border-radius: 36px; padding: clamp(28px, 4vw, 56px) clamp(20px, 4vw, 56px); box-sizing: border-box">
 <div class="cod-tab" style="position: absolute; left: 0; top: 56px; width: 30px; height: 150px; background: {{accent}}; border-radius: 0 8px 8px 0; display: flex; align-items: center; justify-content: center">
-<span style="transform: rotate(-90deg); white-space: nowrap; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #111111">Qué enseñamos</span>
+<span style="transform: rotate(-90deg); white-space: nowrap; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #111111">Recursos</span>
 </div>
 <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: stretch">
 <div style="flex: 1 1 300px; min-width: 0; padding-left: 12px">
-<h2 style="margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: clamp(30px, 3.2vw, 42px); font-weight: 500"><span>Nuestra</span><span style="background: {{accent}}; color: #111111; padding: 2px 14px 4px; border-radius: 12px; transform: rotate(-2deg); display: inline-block">formación</span></h2>
-<p style="margin: 18px 0 0; max-width: 360px; font-size: 15px; line-height: 1.6; color: #BDBDBD">Clases gratuitas en YouTube para aprender a operar con criterio: desde los fundamentos hasta tu propio plan de trading.</p>
+<h2 style="margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: clamp(30px, 3.2vw, 42px); font-weight: 500"><span>Nuestros</span><span style="background: {{accent}}; color: #111111; padding: 2px 14px 4px; border-radius: 12px; transform: rotate(-2deg); display: inline-block">recursos</span></h2>
+<p style="margin: 18px 0 0; max-width: 360px; font-size: 15px; line-height: 1.6; color: #BDBDBD">Formación, clases, biblioteca e indicadores propios para que aprendas y operes con criterio.</p>
 <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 28px; max-width: 380px">
-<a href="#" style="display: flex; align-items: center; gap: 16px; min-height: 54px; padding: 0 18px 0 22px; border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; color: #FFFFFF; text-decoration: none; font-size: 15px"><span style="font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 14px; color: {{accent}}">01</span><span style="flex: 1 1 auto">Fundamentos del trading</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
-<a href="#" style="display: flex; align-items: center; gap: 16px; min-height: 54px; padding: 0 18px 0 22px; border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; color: #FFFFFF; text-decoration: none; font-size: 15px"><span style="font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 14px; color: {{accent}}">02</span><span style="flex: 1 1 auto">Análisis técnico</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
-<a href="#" style="display: flex; align-items: center; gap: 16px; min-height: 54px; padding: 0 18px 0 22px; border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; color: #FFFFFF; text-decoration: none; font-size: 15px"><span style="font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 14px; color: {{accent}}">03</span><span style="flex: 1 1 auto">Gestión de riesgo</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
-<a href="#" style="display: flex; align-items: center; gap: 16px; min-height: 54px; padding: 0 18px 0 22px; border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; color: #FFFFFF; text-decoration: none; font-size: 15px"><span style="font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 14px; color: {{accent}}">04</span><span style="flex: 1 1 auto">Psicología del trader</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a href="#" style="display: flex; align-items: center; gap: 16px; min-height: 54px; padding: 0 18px 0 22px; border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; color: #FFFFFF; text-decoration: none; font-size: 15px"><span style="font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 14px; color: {{accent}}">01</span><span style="flex: 1 1 auto">Videos en YouTube</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a href="#" style="display: flex; align-items: center; gap: 16px; min-height: 54px; padding: 0 18px 0 22px; border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; color: #FFFFFF; text-decoration: none; font-size: 15px"><span style="font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 14px; color: {{accent}}">02</span><span style="flex: 1 1 auto">Clases grabadas de operaciones reales</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a href="#" style="display: flex; align-items: center; gap: 16px; min-height: 54px; padding: 0 18px 0 22px; border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; color: #FFFFFF; text-decoration: none; font-size: 15px"><span style="font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 14px; color: {{accent}}">03</span><span style="flex: 1 1 auto">Biblioteca y estrategias</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a href="#indicadores" style="display: flex; align-items: center; gap: 16px; min-height: 54px; padding: 0 18px 0 22px; border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; color: #FFFFFF; text-decoration: none; font-size: 15px"><span style="font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 14px; color: {{accent}}">04</span><span style="flex: 1 1 auto">Indicadores exclusivos</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
 </div>
 </div>
 <a href="#" style="flex: 1.1 1 300px; min-width: 0; min-height: 420px; position: relative; display: block; border-radius: 28px; overflow: hidden; background: #0F0F0F; border: 1px solid rgba(255,255,255,0.08); color: #FFFFFF; text-decoration: none">
@@ -259,19 +331,55 @@ input::placeholder{color:#8A8A8A}
 <span style="position: absolute; left: 50%; top: 50%; width: 76px; height: 76px; margin: -38px 0 0 -38px; border-radius: 50%; background: {{accent}}; color: #111111; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"></path></svg></span>
 </div>
 <div style="position: absolute; left: 22px; right: 22px; bottom: 22px">
-<p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: {{accent}}">Clase destacada</p>
+<p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: {{accent}}">Formación y clases</p>
 <h3 style="margin: 6px 0 0; font-size: 20px; font-weight: 500; line-height: 1.3">Cómo leer velas japonesas desde cero</h3>
 </div>
 </a>
 <div style="flex: 0.8 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
 <a href="#" style="flex: 1 1 auto; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; min-height: 190px; padding: 22px; border-radius: 22px; background: #222222; color: #FFFFFF; text-decoration: none">
-<span style="font-size: 14px; line-height: 1.5; color: #CFCFCF">¿No sabes por dónde empezar con el trading?</span>
-<span style="display: flex; justify-content: space-between; align-items: flex-end; gap: 12px"><span style="font-size: 18px; font-weight: 600; line-height: 1.2">Ver la ruta<br>de estudio</span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg></span>
+<span style="font-size: 14px; line-height: 1.5; color: #CFCFCF">Clases grabadas de operaciones reales y análisis paso a paso.</span>
+<span style="display: flex; justify-content: space-between; align-items: flex-end; gap: 12px"><span style="font-size: 18px; font-weight: 600; line-height: 1.2">Ver clases<br>grabadas</span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg></span>
 </a>
 <a href="#" style="flex: 1 1 auto; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; min-height: 190px; padding: 22px; border-radius: 22px; background: {{accent}}; color: #111111; text-decoration: none">
-<span style="font-size: 14px; line-height: 1.5; color: #1A1A1A">Todas las clases, gratis en nuestro canal.</span>
-<span style="display: flex; justify-content: space-between; align-items: flex-end; gap: 12px"><span style="font-size: 18px; font-weight: 600; line-height: 1.2">Ver en<br>YouTube</span><span style="width: 42px; height: 42px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg></span></span>
+<span style="font-size: 14px; line-height: 1.5; color: #1A1A1A">Biblioteca y estrategias: libros de trading y metodologías de análisis técnico.</span>
+<span style="display: flex; justify-content: space-between; align-items: flex-end; gap: 12px"><span style="font-size: 18px; font-weight: 600; line-height: 1.2">Ir a la<br>biblioteca</span><span style="width: 42px; height: 42px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg></span></span>
 </a>
+</div>
+</div>
+<div id="indicadores" style="margin-top: 24px; background: {{accent}}; color: #111111; border-radius: 28px; padding: clamp(24px, 3.5vw, 44px); display: flex; flex-wrap: wrap; gap: 32px 48px; align-items: center">
+<div style="flex: 1 1 380px; min-width: 0">
+<span style="display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; background: #111111; color: #FFFFFF; border-radius: 999px; padding: 7px 12px">Indicadores exclusivos</span>
+<h3 style="margin: 18px 0 0; font-size: clamp(26px, 2.8vw, 36px); line-height: 1.15; font-weight: 600; letter-spacing: -0.01em">Herramientas profesionales de desarrollo propio.</h3>
+<p style="margin: 14px 0 0; font-size: 16px; line-height: 1.6; color: #1A1A1A">Indicadores avanzados para optimizar entradas, gestión de riesgo y automatización.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px">
+<span style="border: 1.5px solid #111111; border-radius: 999px; padding: 7px 14px; font-size: 14px; font-weight: 500">Suscripción mensual</span>
+<span style="border: 1.5px solid #111111; border-radius: 999px; padding: 7px 14px; font-size: 14px; font-weight: 500">Suscripción anual</span>
+</div>
+<a href="#" style="margin-top: 26px; display: inline-flex; align-items: center; gap: 10px; min-height: 50px; padding: 0 24px; border-radius: 999px; background: #111111; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600">Ver planes de indicadores <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+</div>
+<div style="flex: 1 1 360px; min-width: 0; background: #111111; border-radius: 22px; padding: 18px; box-sizing: border-box">
+<svg viewBox="0 0 420 240" role="img" aria-label="Gráfico ilustrativo con señales de un indicador" style="display: block; width: 100%; height: auto">
+<path d="M0 60H420M0 120H420M0 180H420" stroke="#FFFFFF" stroke-opacity="0.06"></path>
+<g stroke-width="2">
+<line x1="30" y1="150" x2="30" y2="205" stroke="#FFFFFF" stroke-opacity="0.5"></line><rect x="23" y="162" width="14" height="32" fill="#FFFFFF" fill-opacity="0.5"></rect>
+<line x1="62" y1="140" x2="62" y2="190" stroke="#FF2B2B"></line><rect x="55" y="148" width="14" height="30" fill="#FF2B2B"></rect>
+<line x1="94" y1="120" x2="94" y2="172" stroke="#FF2B2B"></line><rect x="87" y="128" width="14" height="34" fill="#FF2B2B"></rect>
+<line x1="126" y1="128" x2="126" y2="176" stroke="#FFFFFF" stroke-opacity="0.5"></line><rect x="119" y="136" width="14" height="30" fill="#FFFFFF" fill-opacity="0.5"></rect>
+<line x1="158" y1="104" x2="158" y2="156" stroke="#FF2B2B"></line><rect x="151" y="112" width="14" height="34" fill="#FF2B2B"></rect>
+<line x1="190" y1="86" x2="190" y2="136" stroke="#FF2B2B"></line><rect x="183" y="94" width="14" height="32" fill="#FF2B2B"></rect>
+<line x1="222" y1="94" x2="222" y2="142" stroke="#FFFFFF" stroke-opacity="0.5"></line><rect x="215" y="102" width="14" height="30" fill="#FFFFFF" fill-opacity="0.5"></rect>
+<line x1="254" y1="70" x2="254" y2="122" stroke="#FF2B2B"></line><rect x="247" y="78" width="14" height="34" fill="#FF2B2B"></rect>
+<line x1="286" y1="56" x2="286" y2="104" stroke="#FF2B2B"></line><rect x="279" y="62" width="14" height="32" fill="#FF2B2B"></rect>
+<line x1="318" y1="62" x2="318" y2="112" stroke="#FFFFFF" stroke-opacity="0.5"></line><rect x="311" y="70" width="14" height="32" fill="#FFFFFF" fill-opacity="0.5"></rect>
+<line x1="350" y1="40" x2="350" y2="92" stroke="#FF2B2B"></line><rect x="343" y="48" width="14" height="34" fill="#FF2B2B"></rect>
+<line x1="382" y1="26" x2="382" y2="76" stroke="#FF2B2B"></line><rect x="375" y="34" width="14" height="32" fill="#FF2B2B"></rect>
+</g>
+<polyline points="30,190 62,176 94,160 126,156 158,140 190,124 222,118 254,104 286,90 318,84 350,70 382,54" fill="none" stroke="#FFFFFF" stroke-width="2.2"></polyline>
+<polyline points="30,200 62,192 94,182 126,176 158,166 190,154 222,146 254,136 286,124 318,116 350,104 382,92" fill="none" stroke="#FFFFFF" stroke-opacity="0.45" stroke-width="2" stroke-dasharray="5 5"></polyline>
+<path d="M94 196l-7 10h14z" fill="#FFFFFF"></path>
+<path d="M254 138l-7 10h14z" fill="#FFFFFF"></path>
+<circle cx="382" cy="54" r="5" fill="#FFFFFF"></circle>
+</svg>
 </div>
 </div>
 </div>
@@ -409,15 +517,16 @@ input::placeholder{color:#8A8A8A}
 </div>
 </section>
 
-<section aria-label="Empezar" style="padding: 100px 24px 0">
+<section id="contacto" aria-label="Contacto" style="padding: 100px 24px 0">
 <div style="max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 32px">
 <div style="flex: 1 1 420px; max-width: 560px; padding-bottom: 60px">
-<h2 style="margin: 0; font-size: clamp(32px, 3.6vw, 48px); line-height: 1.1; font-weight: 500; letter-spacing: -0.01em">¿Listo para operar con método?</h2>
-<p style="margin: 18px 0 0; font-size: 15px; line-height: 1.6; color: #BDBDBD">Déjanos tu correo y te contamos cómo empezar en la Escuela y abrir tu cuenta en EC MARKETS.</p>
-<div style="margin-top: 26px; display: flex; align-items: center; gap: 6px; max-width: 460px; padding: 6px 6px 6px 22px; border: 1px solid rgba(255,255,255,0.3); border-radius: 999px; box-sizing: border-box">
-<label for="cod-email" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">Tu correo electrónico</label>
-<input id="cod-email" type="email" placeholder="Tu correo electrónico" style="flex: 1 1 auto; min-width: 0; height: 44px; background: transparent; border: 0; color: #FFFFFF; font-family: inherit; font-size: 15px; outline: none">
-<button type="button" style="flex: 0 0 auto; min-height: 44px; padding: 0 22px; border-radius: 999px; border: 0; background: {{accent}}; color: #111111; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer">Empezar</button>
+<h2 style="margin: 0; font-size: clamp(32px, 3.6vw, 48px); line-height: 1.1; font-weight: 500; letter-spacing: -0.01em">Coordinemos una sesión estratégica</h2>
+<p style="margin: 18px 0 0; font-size: 16px; line-height: 1.6; color: #BDBDBD">¿Buscas mejorar las condiciones de tu operativa actual o llevar tu comunidad al siguiente broker? Déjanos tus datos y coordinamos una sesión estratégica para evaluar tu caso.</p>
+<div style="margin-top: 26px; display: flex; flex-wrap: wrap; gap: 12px; max-width: 520px">
+<div style="flex: 1 1 200px; position: relative"><label for="cod-name" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">Tu nombre</label><input id="cod-name" type="text" autocomplete="name" placeholder="Tu nombre" style="width: 100%; height: 52px; box-sizing: border-box; padding: 0 22px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.3); background: #141414; color: #FFFFFF; font-family: inherit; font-size: 15px"></div>
+<div style="flex: 1 1 200px; position: relative"><label for="cod-email" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">Tu correo electrónico</label><input id="cod-email" type="email" autocomplete="email" placeholder="Tu correo electrónico" style="width: 100%; height: 52px; box-sizing: border-box; padding: 0 22px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.3); background: #141414; color: #FFFFFF; font-family: inherit; font-size: 15px"></div>
+<div style="flex: 1 1 100%; position: relative"><label for="cod-profile" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">Tu perfil</label><select id="cod-profile" style="width: 100%; height: 52px; box-sizing: border-box; padding: 0 22px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.3); background: #141414; color: #FFFFFF; font-family: inherit; font-size: 15px; appearance: none; -webkit-appearance: none; cursor: pointer"><option>Estoy empezando desde cero</option><option>Soy trader con experiencia</option><option>Lidero una comunidad / soy IB</option></select><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; right: 22px; top: 18px; pointer-events: none"><path d="M6 9l6 6 6-6"></path></svg></div>
+<button type="button" style="flex: 1 1 100%; min-height: 52px; padding: 0 22px; border-radius: 999px; border: 0; background: {{accent}}; color: #111111; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Coordinar sesión</button>
 </div>
 </div>
 <div style="flex: 0 1 360px; min-width: 0; position: relative; height: 380px">
@@ -458,8 +567,11 @@ input::placeholder{color:#8A8A8A}
 <nav aria-label="Academia" style="flex: 1 1 140px">
 <h2 style="margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase">Academia</h2>
 <div style="display: flex; flex-direction: column; margin-top: 14px; font-size: 15px">
+<a href="#para-quien" style="color: #111111; text-decoration: none; padding: 5px 0">¿A quién está dirigido?</a>
 <a href="#que-es" style="color: #111111; text-decoration: none; padding: 5px 0">Qué es</a>
-<a href="#formacion" style="color: #111111; text-decoration: none; padding: 5px 0">Formación</a>
+<a href="#quien-soy" style="color: #111111; text-decoration: none; padding: 5px 0">Quién soy</a>
+<a href="#formacion" style="color: #111111; text-decoration: none; padding: 5px 0">Recursos</a>
+<a href="#indicadores" style="color: #111111; text-decoration: none; padding: 5px 0">Indicadores</a>
 <a href="#comunidad" style="color: #111111; text-decoration: none; padding: 5px 0">Comunidad</a>
 <a href="#faq" style="color: #111111; text-decoration: none; padding: 5px 0">Preguntas frecuentes</a>
 </div>
@@ -489,7 +601,7 @@ input::placeholder{color:#8A8A8A}
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#FF2B2B","options":["#FF2B2B","#FF4545","#FF3D6E","#FF5A36"]},"qrStyle":{"editor":"enum","options":["Solo rojo","Solo dorado","Rojo y dorado"],"default":"Solo rojo","section":"Fondo QR"},"qrIntensity":{"editor":"range","min":0.4,"max":2,"step":0.1,"default":1,"section":"Fondo QR"},"$preview":{"width":1440,"height":5600}}'>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#FF2B2B","options":["#FF2B2B","#FF4545","#FF3D6E","#FF5A36"]},"qrStyle":{"editor":"enum","options":["Solo rojo","Solo dorado","Rojo y dorado"],"default":"Solo rojo","section":"Fondo QR"},"qrIntensity":{"editor":"range","min":0.4,"max":2,"step":0.1,"default":1,"section":"Fondo QR"},"$preview":{"width":1440,"height":7200}}'>
 class Component extends DCLogic {
   componentDidMount() {
     this.initPrices();

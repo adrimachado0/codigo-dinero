@@ -15,8 +15,12 @@ const keywords = [
   "análisis de mercado",
   "plan de trading",
   "gestión del riesgo",
+  "cuentas demo",
+  "indicadores de trading",
   "forex",
   "clases de trading gratis",
+  "partner EC Markets",
+  "introducing broker",
   "EC Markets",
   "Código Dinero",
 ];

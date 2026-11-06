@@ -1,6 +1,6 @@
 import { heroContent } from "./content";
 
-/** The two headline lines (Open Graph image). */
-export const heroTitleLines = heroContent.titleLines;
+/** The headline: white lead and red highlight (Open Graph image). */
+export const heroTitle = heroContent.title;
 
 export { Hero } from "./ui/hero";

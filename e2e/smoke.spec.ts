@@ -45,11 +45,23 @@ test.describe("home", () => {
     await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#0F0F0F");
 
     await expect(page.locator("h1")).toHaveCount(1);
-    await expect(page.locator("h1")).toHaveText(/Te guiamos en\s*cada operación/);
+    await expect(page.locator("h1")).toHaveText(
+      "De cero a tu propio plan de trading: te guiamos en cada paso.",
+    );
     for (const landmark of ["banner", "main", "contentinfo"]) {
       await expect(page.getByRole(landmark as "banner")).toHaveCount(1);
     }
-    for (const id of ["inicio", "que-es", "formacion", "comunidad", "faq"]) {
+    for (const id of [
+      "inicio",
+      "para-quien",
+      "que-es",
+      "quien-soy",
+      "formacion",
+      "indicadores",
+      "comunidad",
+      "faq",
+      "contacto",
+    ]) {
       await expect(page.locator(`#${id}`)).toHaveCount(1);
     }
   });
@@ -133,22 +145,45 @@ test("ticker keeps the 'Simulado' label visible", async ({ page }) => {
 
 test("lead form validates and reports success accessibly", async ({ page }) => {
   await page.goto("/");
+  const name = page.getByLabel("Tu nombre");
   const email = page.getByLabel("Tu correo electrónico");
-  const submit = page.getByRole("button", { name: "Empezar" });
+  const profile = page.getByLabel("Tu perfil");
+  const submit = page.getByRole("button", { name: "Coordinar sesión" });
+  const status = page.locator("#cod-lead-status");
 
+  await submit.click();
+  await expect(status).toHaveText("Escribe tu nombre.");
+  await expect(name).toHaveAttribute("aria-invalid", "true");
+
+  await name.fill("Ana Pérez");
   await email.fill("no-es-un-correo");
   await submit.click();
-  await expect(page.locator("#cod-email-status")).toHaveText(
-    "Revisa el formato de tu correo electrónico.",
-  );
+  await expect(status).toHaveText("Revisa el formato de tu correo electrónico.");
   await expect(email).toHaveAttribute("aria-invalid", "true");
+  await expect(name).not.toHaveAttribute("aria-invalid");
 
   await email.fill("ana@example.com");
+  await profile.selectOption({ label: "Lidero una comunidad / soy IB" });
   await submit.click();
-  await expect(page.locator("#cod-email-status")).toHaveText(
-    "¡Gracias! Te escribiremos a tu correo.",
+  await expect(status).toHaveText("¡Gracias! Te escribiremos a tu correo.");
+  await expect(status).toHaveAttribute("role", "status");
+});
+
+test("profile CTAs lead to the contact form and the indicators block", async ({ page }) => {
+  await page.goto("/");
+  const audience = page.locator("#para-quien");
+
+  await expect(audience.getByRole("article")).toHaveCount(3);
+  await expect(audience.getByRole("link", { name: "Ver planes de indicadores" })).toHaveAttribute(
+    "href",
+    "#indicadores",
   );
-  await expect(page.locator("#cod-email-status")).toHaveAttribute("role", "status");
+  for (const label of ["Quiero aprender desde cero", "Sumarme como Partner / IB"]) {
+    await expect(page.locator("#hero").getByRole("link", { name: label })).toHaveAttribute(
+      "href",
+      "#contacto",
+    );
+  }
 });
 
 test.describe("mobile", () => {

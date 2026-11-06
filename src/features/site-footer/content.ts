@@ -29,8 +29,11 @@ export const footerContent = defineContent(
       {
         title: "Academia",
         links: [
+          { label: "¿A quién está dirigido?", href: "#para-quien" },
           { label: "Qué es", href: "#que-es" },
-          { label: "Formación", href: "#formacion" },
+          { label: "Quién soy", href: "#quien-soy" },
+          { label: "Recursos", href: "#formacion" },
+          { label: "Indicadores", href: "#indicadores" },
           { label: "Comunidad", href: "#comunidad" },
           { label: "Preguntas frecuentes", href: "#faq" },
         ],

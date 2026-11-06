@@ -1,8 +1,10 @@
 import { About } from "@/features/about";
+import { Audience } from "@/features/audience";
 import { PartnerStats } from "@/features/broker-partner";
 import { Faq, faqContent } from "@/features/faq";
 import { Hero } from "@/features/hero";
 import { LeadCapture } from "@/features/lead-capture";
+import { MentorProfile } from "@/features/mentor-profile";
 import { MottoBand } from "@/features/motto-band";
 import { SiteFooter } from "@/features/site-footer";
 import { SiteHeader } from "@/features/site-header";
@@ -28,8 +30,10 @@ export default function HomePage() {
           className="pointer-events-none absolute top-[1700px] -right-45 size-[460px] rounded-full bg-accent opacity-7 blur-blob-lg"
         />
         <PartnerStats />
+        <Audience />
         <About />
         <MottoBand />
+        <MentorProfile />
         <Training />
         <Testimonials />
         <TopicsRibbon />

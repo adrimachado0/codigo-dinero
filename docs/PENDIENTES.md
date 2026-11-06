@@ -9,23 +9,27 @@ Todo lo que falta definir o implementar. Los marcadores se mantienen tal cual en
 - [ ] **Soporte**: `[CORREO o WHATSAPP DE SOPORTE]` y `[PLAZO]` de acreditación (FAQ 04).
 - [ ] **Política de cancelación**: `[CONFIRMAR POLÍTICA]` y `[DÓNDE SE CANCELA]` (FAQ 05).
 - [ ] **Reseñas reales**: `[Nombre del alumno]`, `[Ciudad]` y los textos `[Reseña de un alumno: …]` (Comunidad, ×3). Archivo: `src/features/testimonials/content.ts`. Avatares opcionales en el mismo archivo.
-- [ ] **Textos de estado del formulario** (no están en la referencia; se escribieron versiones neutras para confirmar): "Enviando…", "¡Gracias! Te escribiremos a tu correo.", "Demasiados intentos. Prueba de nuevo en unos minutos.", "No pudimos registrar tu correo. Inténtalo de nuevo.", y los errores de validación "Escribe tu correo electrónico." / "Revisa el formato de tu correo electrónico.". Archivos: `src/features/lead-capture/content.ts` y `lead.ts`.
+- [ ] **Textos de estado del formulario** (no están en la referencia; se escribieron versiones neutras para confirmar): "Enviando…", "¡Gracias! Te escribiremos a tu correo.", "Demasiados intentos. Prueba de nuevo en unos minutos.", "No pudimos registrar tu correo. Inténtalo de nuevo.", y los errores de validación "Escribe tu nombre." / "Escribe tu correo electrónico." / "Revisa el formato de tu correo electrónico." / "Elige tu perfil.". Archivos: `src/features/lead-capture/content.ts` y `lead.ts`.
+- [ ] **Foto de "Quién soy"**: confirmar que la foto del mentor (`src/shared/config/photos/mentor.webp`, también en el hero) es de Ángel González. El texto alternativo ya lo nombra (`src/shared/config/photos.ts`).
+- [ ] **Indicadores**: planes y precios de las suscripciones mensual y anual (hoy solo se muestran los chips "Suscripción mensual" y "Suscripción anual"). Archivo: `src/features/indicators/content.ts`.
 - [ ] **Textos legales**: Términos y condiciones, Política de privacidad, Aviso de riesgo (páginas y links del footer).
 
 ## Links y datos
 
 Todos los `href="#"` son destinos sin definir (igual que en la referencia).
 
-- [ ] **YouTube**: canal, clases 01–04, clase destacada y "Ver la ruta de estudio" (`src/features/training/content.ts`). Con URLs reales se puede agregar el JSON-LD `VideoObject` en `src/shared/seo/json-ld.tsx` (y sumar `i.ytimg.com` a `img-src` si se muestran miniaturas).
+- [ ] **Recursos**: "Videos en YouTube", "Clases grabadas de operaciones reales", "Biblioteca y estrategias", la clase destacada, "Ver clases grabadas" e "Ir a la biblioteca" (`src/features/training/content.ts`).
+- [ ] **"Ver planes de indicadores"** (botón negro del bloque de indicadores): link real a los planes. Hoy es `#` (`src/features/indicators/content.ts`). El link de la tarjeta "Traders con experiencia" lleva a `#indicadores`, como en el diseño.
+- [ ] **YouTube**: canal. Con URLs reales se puede agregar el JSON-LD `VideoObject` en `src/shared/seo/json-ld.tsx` (y sumar `i.ytimg.com` a `img-src` si se muestran miniaturas).
 - [ ] **Redes**: YouTube, Instagram, TikTok, Telegram, X (`src/shared/config/site.ts`). Con URLs reales, `sameAs` del JSON-LD se completa solo (hoy se omite porque son `#`).
-- [ ] **Partner EC Markets**: link de "Abrir cuenta" (hero) y `site.partner.href`.
-- [ ] **Menú**: destinos de Escuela, Calendario, Mercado, Equipo y los dos "Empezar" (header y hero "Empezar ahora"), "Quiero sumarme".
+- [ ] **Partner EC Markets**: `site.partner.href`. Los CTA "Quiero aprender desde cero" y "Sumarme como Partner / IB" (hero, "Quién soy" y tarjetas de perfil) llevan al formulario `#contacto`, como en el diseño v2.
+- [ ] **Menú**: destinos de Escuela, Calendario, Mercado, Equipo, "Empezar" (header) y "Quiero sumarme".
 - [ ] **Dominio de producción**: en Vercel se toma solo (`VERCEL_ENV` y el dominio de producción del proyecto). Con un dominio propio, definir `NEXT_PUBLIC_SITE_URL` con ese dominio. Fuera de Vercel hay que definir `NEXT_PUBLIC_SITE_URL` y `SITE_ENV=production`: sin `production` el sitio sale con `noindex` y `robots.txt` bloquea todo.
 - [ ] **Search Console y Bing Webmaster Tools**: verificar la propiedad (variables `GOOGLE_SITE_VERIFICATION` y `BING_SITE_VERIFICATION`) y enviar `https://<dominio>/sitemap.xml`.
 
 ## Assets
 
-- [ ] **Fotos de clientes** (PNG o WebP con fondo transparente): el hero y la tarjeta del mentor ya usan la foto del mentor (`src/shared/config/photos/mentor.webp`); falta la del CTA final ("¿Listo para operar con método?"), que sigue con el marcador "Foto". Se configuran en `src/shared/config/photos.ts` (ver README).
+- [ ] **Fotos de clientes** (PNG o WebP con fondo transparente): el hero y "Quién soy" ya usan la foto del mentor (`src/shared/config/photos/mentor.webp`); falta la del cierre ("Coordinemos una sesión estratégica"), que sigue con el marcador "Foto". Se configuran en `src/shared/config/photos.ts` (ver README).
 - [ ] **Emblema del logo en alta resolución** (PNG cuadrado transparente, ideal ≥ 1024 px): el favicon y los íconos salen del emblema recortado del logo, que mide 160 px; los de 512 px (manifest, logo del JSON-LD) se ven algo blandos. Con el archivo nuevo, ajustar `EMBLEM` en `scripts/generate-icons.mjs` y correr `pnpm icons`.
 - [ ] **QR del fondo del hero**: el QR es GENÉRICO, de prueba (copiado del lienzo de diseño, no apunta a nada). Para poner el real, cambiar solo `src/shared/ui/qr-glyph.ts` (path en unidades de módulo y cantidad de módulos por lado); `QrPattern` lo escala para que cada QR siga midiendo 200 × 200 px. Los tweaks del lienzo `qrStyle` e `qrIntensity` no se implementaron: quedan fijos en rojo e intensidad 1.
 
@@ -36,7 +40,7 @@ Todos los `href="#"` son destinos sin definir (igual que en la referencia).
   - Cripto (BTCUSD, ETHUSD): CoinGecko (`/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true`).
   - USDARS: una API de dólar argentino (por ejemplo DolarApi, `/v1/dolares/oficial`) y definir qué cotización mostrar.
   - Se pueden combinar varias APIs (una por tipo de activo) dentro de `getLiveQuotes()`. Conviene cachear del lado del servidor (respetando los límites de cada API) y mantener el polling del cliente en 3 s contra `/api/quotes`.
-- [ ] **Destino de los leads**: hoy `saveLead()` en `src/features/lead-capture/capture-lead.ts` solo loguea el correo enmascarado. Reemplazarla por el guardado real (CRM, email marketing o base de datos).
+- [ ] **Destino de los leads**: hoy `saveLead()` en `src/features/lead-capture/capture-lead.ts` solo loguea el correo enmascarado y el perfil (no el nombre). Recibe `{ name, email, profile }`, con `profile` = `beginner` | `experienced` | `community-leader`. Reemplazarla por el guardado real (CRM, email marketing o base de datos).
 - [ ] **Rate limiting** del formulario: hoy `isAllowed()` (mismo archivo) deja pasar todo. Reemplazarla por un límite real, por ejemplo una ventana deslizante en Upstash Redis por IP; `captureLead` ya le pasa la IP.
 - [ ] **Consentimiento y política de privacidad** para el formulario de correo, según el destino de los leads.
 
@@ -58,6 +62,7 @@ Todos los `href="#"` son destinos sin definir (igual que en la referencia).
 - **CSP sin nonces** (`next.config.ts`): los nonces obligan a renderizar en dinámico y la home tiene que quedar prerenderizada. `script-src` lleva `'unsafe-inline'`, y `'unsafe-eval'` solo en desarrollo. Zod corre en modo `jitless` (`src/shared/lib/zod-csp.ts`) para no disparar violaciones de CSP con su detección de `Function("")`. `media-src` admite `data:` porque el Player de Remotion desbloquea el autoplay con un audio silencioso embebido. El e2e falla si aparece cualquier violación de CSP (carga y reproducción del video incluidas).
 - **Sin `vite-tsconfig-paths`**: Vite 8 resuelve los `paths` de tsconfig de forma nativa (`resolve.tsconfigPaths`).
 - **Arquitectura simple**: se probó una versión con capas, puertos y adaptadores (`domain/`, `application/`, `infrastructure/`) y se aplanó a pedido del usuario, porque costaba leerla. `eslint-plugin-boundaries` solo controla que entre secciones se use el `index.ts`, y que `shared/` no importe de `features/`.
+- **Referencia v2**: `reference/index.html` es el render standalone de la página "Principal v2" (`project/Main-v2.dc.html`) del lienzo de diseño, generado con la misma transformación que la v1 (plantilla + lógica del artboard, assets locales en lugar de `/_blob/…`). `reference/design-source.dc.html` es la fuente v2 tal cual. La v1 queda en el historial de Git.
 - **Tests de Playwright contra el build de producción** en el puerto 3100 (el 3000 es de `next dev`). `reference/` se sirve en el 3001.
 - **Sin el preflight de Tailwind** (`src/app/globals.css`): la referencia depende de los estilos por defecto del navegador. Se importan solo `theme` y `utilities`, y la capa base replica los estilos globales de la referencia. Consecuencia: **no usar `border-solid`**, porque activa el borde en los cuatro lados con el ancho por defecto (3 px). Las utilidades `border-*` de Tailwind 4 ya fijan el estilo del lado que corresponde.
 - **Fuentes**: los mismos binarios que carga la referencia desde Google Fonts CSS (Lexend v26 y Unbounded v12, subset latino, eje `wght` variable), en `public/fonts/` y servidos con `next/font/local`. `next/font/google` baja otra revisión cuyos anchos difieren ~4% y rompía el pixel match. Sin fallback métrico (`adjustFontFallback: false`), así la cadena de fuentes es idéntica a la de la referencia. Remotion usa los mismos archivos. La imagen OG usa TTF (`src/shared/seo/fonts/`), porque Satori no lee woff2.

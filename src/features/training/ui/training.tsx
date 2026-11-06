@@ -1,3 +1,4 @@
+import { IndicatorsPromo } from "@/features/indicators";
 import { ArrowRightIcon, ArrowUpRightIcon, PlayIcon } from "@/shared/ui/icons";
 import { Reveal } from "@/shared/ui/reveal";
 import { SectionTitle } from "@/shared/ui/section-title";
@@ -76,16 +77,16 @@ export function Training() {
               {content.intro}
             </p>
             <div className="mt-7 flex max-w-[380px] flex-col gap-3">
-              {content.lessons.map((lesson) => (
+              {content.resources.map((resource) => (
                 <a
-                  key={lesson.number}
-                  href={lesson.href}
+                  key={resource.number}
+                  href={resource.href}
                   className="group flex min-h-[54px] items-center gap-4 rounded-full border border-white/32 pr-4.5 pl-5.5 text-15 text-white no-underline transition-[background-color,color,border-color] duration-300 hover:border-white hover:bg-white hover:text-ink"
                 >
                   <span className="font-display text-14 font-semibold text-accent">
-                    {lesson.number}
+                    {resource.number}
                   </span>
-                  <span className="flex-auto">{lesson.label}</span>
+                  <span className="flex-auto">{resource.label}</span>
                   <ArrowRightIcon className="transition-transform duration-300 group-hover:translate-x-1" />
                 </a>
               ))}
@@ -116,33 +117,33 @@ export function Training() {
 
           <div data-reveal className="flex min-w-0 flex-[0.8_1_220px] flex-col gap-4">
             <a
-              href={content.studyPath.href}
+              href={content.recordings.href}
               className="group flex min-h-[190px] flex-auto flex-col justify-between gap-8 rounded-tile bg-surface-600 p-5.5 text-white no-underline transition-colors duration-300 hover:bg-white hover:text-ink"
             >
               <span className="text-14 leading-normal text-fg-soft transition-colors duration-300 group-hover:text-ink-soft">
-                {content.studyPath.question}
+                {content.recordings.text}
               </span>
               <span className="flex items-end justify-between gap-3">
                 <span className="text-18 leading-tight font-semibold">
-                  {content.studyPath.labelLines[0]}
+                  {content.recordings.labelLines[0]}
                   <br />
-                  {content.studyPath.labelLines[1]}
+                  {content.recordings.labelLines[1]}
                 </span>
                 <ArrowUpRightIcon className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </span>
             </a>
             <a
-              href={content.youtube.href}
+              href={content.library.href}
               className="group flex min-h-[190px] flex-auto flex-col justify-between gap-8 rounded-tile bg-accent p-5.5 text-ink no-underline transition-colors duration-300 hover:bg-ink hover:text-white"
             >
               <span className="text-14 leading-normal text-ink-soft transition-colors duration-300 group-hover:text-fg-soft">
-                {content.youtube.text}
+                {content.library.text}
               </span>
               <span className="flex items-end justify-between gap-3">
                 <span className="text-18 leading-tight font-semibold">
-                  {content.youtube.labelLines[0]}
+                  {content.library.labelLines[0]}
                   <br />
-                  {content.youtube.labelLines[1]}
+                  {content.library.labelLines[1]}
                 </span>
                 <span className="flex size-10.5 items-center justify-center rounded-full bg-white text-ink transition-colors duration-300 group-hover:bg-accent">
                   <ArrowUpRightIcon
@@ -154,6 +155,8 @@ export function Training() {
             </a>
           </div>
         </div>
+
+        <IndicatorsPromo />
       </Reveal>
     </section>
   );

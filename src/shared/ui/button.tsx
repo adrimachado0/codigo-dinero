@@ -21,6 +21,8 @@ export const buttonVariants = cva(
       tone: {
         solid:
           "bg-accent font-semibold text-ink hover:bg-white hover:text-ink hover:shadow-[0_10px_28px_-8px_rgba(255,43,43,0.75)] focus-visible:bg-white",
+        // On red surfaces (audience card, indicators block).
+        ink: "bg-ink font-semibold text-white hover:bg-white hover:text-ink hover:shadow-[0_10px_28px_-10px_rgba(17,17,17,0.6)] focus-visible:bg-white focus-visible:text-ink",
         outline:
           "border border-white/32 font-medium text-white hover:border-white hover:bg-white hover:text-ink hover:shadow-[0_10px_28px_-10px_rgba(255,255,255,0.45)]",
         "outline-soft":

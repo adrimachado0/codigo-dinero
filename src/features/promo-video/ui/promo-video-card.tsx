@@ -25,7 +25,7 @@ export function PromoVideoCard() {
   return (
     <div
       data-video-card=""
-      className="relative h-[260px] overflow-hidden rounded-card border border-white/8 bg-surface-100 md:h-[380px]"
+      className="relative h-[260px] overflow-hidden rounded-card border border-white/8 bg-surface-100 md:h-[420px]"
     >
       {playing ? (
         <PromoPlayer labels={promoVideoContent} />

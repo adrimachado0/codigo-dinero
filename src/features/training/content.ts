@@ -4,56 +4,54 @@ import { defineContent } from "@/shared/lib/content";
 
 const LinkSchema = z.object({ label: z.string().min(1), href: z.string().min(1) });
 
+const TileSchema = z.object({
+  text: z.string().min(1),
+  labelLines: z.tuple([z.string().min(1), z.string().min(1)]),
+  href: z.string().min(1),
+});
+
 export const trainingContent = defineContent(
   z.object({
     tab: z.string().min(1),
     titleLead: z.string().min(1),
     titleHighlight: z.string().min(1),
     intro: z.string().min(1),
-    lessons: z.array(LinkSchema.extend({ number: z.string().regex(/^\d{2}$/) })).length(4),
+    resources: z.array(LinkSchema.extend({ number: z.string().regex(/^\d{2}$/) })).length(4),
     featured: z.object({
       eyebrow: z.string().min(1),
       title: z.string().min(1),
       href: z.string().min(1),
       circularText: z.string().min(1),
     }),
-    studyPath: z.object({
-      question: z.string().min(1),
-      labelLines: z.tuple([z.string().min(1), z.string().min(1)]),
-      href: z.string().min(1),
-    }),
-    youtube: z.object({
-      text: z.string().min(1),
-      labelLines: z.tuple([z.string().min(1), z.string().min(1)]),
-      href: z.string().min(1),
-    }),
+    recordings: TileSchema,
+    library: TileSchema,
   }),
   {
-    tab: "Qué enseñamos",
-    titleLead: "Nuestra",
-    titleHighlight: "formación",
+    tab: "Recursos",
+    titleLead: "Nuestros",
+    titleHighlight: "recursos",
     intro:
-      "Clases gratuitas en YouTube para aprender a operar con criterio: desde los fundamentos hasta tu propio plan de trading.",
-    lessons: [
-      { number: "01", label: "Fundamentos del trading", href: "#" },
-      { number: "02", label: "Análisis técnico", href: "#" },
-      { number: "03", label: "Gestión de riesgo", href: "#" },
-      { number: "04", label: "Psicología del trader", href: "#" },
+      "Formación, clases, biblioteca e indicadores propios para que aprendas y operes con criterio.",
+    resources: [
+      { number: "01", label: "Videos en YouTube", href: "#" },
+      { number: "02", label: "Clases grabadas de operaciones reales", href: "#" },
+      { number: "03", label: "Biblioteca y estrategias", href: "#" },
+      { number: "04", label: "Indicadores exclusivos", href: "#indicadores" },
     ],
     featured: {
-      eyebrow: "Clase destacada",
+      eyebrow: "Formación y clases",
       title: "Cómo leer velas japonesas desde cero",
       href: "#",
       circularText: "CÓDIGO DINERO ✦ CLASES EN YOUTUBE ✦ GRATIS ✦",
     },
-    studyPath: {
-      question: "¿No sabes por dónde empezar con el trading?",
-      labelLines: ["Ver la ruta", "de estudio"],
+    recordings: {
+      text: "Clases grabadas de operaciones reales y análisis paso a paso.",
+      labelLines: ["Ver clases", "grabadas"],
       href: "#",
     },
-    youtube: {
-      text: "Todas las clases, gratis en nuestro canal.",
-      labelLines: ["Ver en", "YouTube"],
+    library: {
+      text: "Biblioteca y estrategias: libros de trading y metodologías de análisis técnico.",
+      labelLines: ["Ir a la", "biblioteca"],
       href: "#",
     },
   },
