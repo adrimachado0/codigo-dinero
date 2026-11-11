@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import {
   libraryRequestMessage,
   linkAttributes,
@@ -10,7 +12,8 @@ import { Pill } from "@/shared/ui/pill";
 import { Reveal } from "@/shared/ui/reveal";
 
 import { libraryContent as content } from "../content";
-import { BookCover, LibraryCover } from "./covers";
+import bookCover from "../book-cover.jpg";
+import { LibraryCover } from "./covers";
 
 /** "Libro y biblioteca": the book (bought over WhatsApp) and the library grid. */
 export function Library() {
@@ -30,7 +33,19 @@ export function Library() {
               aria-hidden="true"
               className="absolute top-1/2 left-1/2 -mt-[170px] -ml-[170px] size-[340px] rounded-full bg-wine shadow-[0_0_120px_rgba(255,43,43,0.18)]"
             />
-            <BookCover cover={content.cover} />
+            {/* The real cover, tilted like the design's book; it also opens the WhatsApp order. */}
+            <a
+              {...linkAttributes(whatsappLink("book"))}
+              aria-label={content.cover.linkLabel}
+              className="group relative block w-[270px] max-w-[78%] -rotate-3 transition-transform duration-500 ease-out hover:scale-[1.03] hover:rotate-0 focus-visible:rotate-0"
+            >
+              <Image
+                src={bookCover}
+                alt={content.cover.alt}
+                sizes="270px"
+                className="block aspect-[2/3] h-auto w-full rounded-[6px_16px_16px_6px] object-cover shadow-[0_40px_80px_rgba(0,0,0,0.6)]"
+              />
+            </a>
           </div>
 
           <div data-reveal className="min-w-0 flex-[1.2_1_420px]">

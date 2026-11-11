@@ -26,8 +26,9 @@ const INTENTIONAL: Record<string, { reason: string; widths?: number[] }> = {
   temas: { reason: "cintas con íconos de Lucide" },
   // Above 1432px the wine block now spans the full width instead of stopping at 1400px.
   inicio: { reason: "bloque del hero a todo el ancho", widths: [1440] },
-  // "Solicitar por WhatsApp" keeps the 44px touch target (the design draws it at 40px).
-  biblioteca: { reason: "enlaces de la biblioteca de 44px" },
+  // The real book cover replaces the drawn one; "Solicitar por WhatsApp" keeps the 44px touch
+  // target (the design draws it at 40px).
+  biblioteca: { reason: "portada real del libro y enlaces de la biblioteca de 44px" },
   // The client has no Telegram or X: the footer keeps YouTube, Instagram, TikTok and WhatsApp.
   footer: { reason: "footer sin Telegram ni X" },
   // The owner removed the payment and cancellation questions (04 and 05).

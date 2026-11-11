@@ -1,73 +1,8 @@
 import { cn } from "@/shared/lib/cn";
-import { Logo } from "@/shared/ui/logo";
 
 import type { LibraryItem } from "../content";
 
 const toneColor = { accent: "#FF2B2B", gold: "#D9A94A" } as const;
-
-/** Cover of the book, slightly rotated over the wine circle. */
-export function BookCover({
-  cover,
-}: {
-  cover: { label: string; author: string; title: string; subtitle: string };
-}) {
-  return (
-    <div
-      role="img"
-      aria-label={cover.label}
-      className="relative box-border flex aspect-[2/3] w-[270px] max-w-[78%] -rotate-3 flex-col overflow-hidden rounded-[6px_16px_16px_6px] bg-[#121212] pt-6.5 pr-5.5 pb-5.5 pl-9.5 shadow-[0_40px_80px_rgba(0,0,0,0.6)]"
-    >
-      <div className="absolute inset-y-0 left-0 w-4 border-r border-gold/55 bg-[#0a0a0a]" />
-      <span className="text-10 font-semibold tracking-[0.22em] text-gold uppercase">
-        {cover.author}
-      </span>
-      <span className="mt-5.5 font-display text-[21px] leading-compact font-extrabold text-white">
-        {cover.title}
-      </span>
-      <span className="mt-3.5 h-1 w-10 bg-accent" />
-      <span className="mt-3 text-13 text-fg-soft">{cover.subtitle}</span>
-      <div className="flex flex-auto items-center">
-        <svg
-          viewBox="0 0 200 120"
-          aria-hidden="true"
-          focusable="false"
-          className="block h-auto w-full"
-        >
-          <rect
-            x="104"
-            y="70"
-            width="96"
-            height="16"
-            fill="#D9A94A"
-            fillOpacity="0.22"
-            stroke="#D9A94A"
-            strokeOpacity="0.7"
-          />
-          <path
-            d="M4 96L30 60L48 78L76 36L96 58L112 76L140 24L158 44L196 10"
-            fill="none"
-            stroke="#FF2B2B"
-            strokeWidth="2.6"
-            strokeLinejoin="round"
-          />
-          <path d="M76 36H150" stroke="#FFFFFF" strokeOpacity="0.6" strokeDasharray="4 4" />
-          <text
-            x="112"
-            y="31"
-            fill="#FFFFFF"
-            fillOpacity="0.7"
-            fontSize="9"
-            letterSpacing="1"
-            className="font-sans"
-          >
-            BOS
-          </text>
-        </svg>
-      </div>
-      <Logo height={28} className="self-start" />
-    </div>
-  );
-}
 
 /** Drawing in the middle of a library cover. */
 function Motif({ motif, color }: { motif: LibraryItem["motif"]; color: string }) {

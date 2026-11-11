@@ -18,6 +18,7 @@ Todo lo que falta definir o implementar. Los marcadores se mantienen tal cual en
 
 ## Contenido (marcadores del diseño)
 
+- [x] **Portada del libro** "Domina la estructura del mercado": la foto real (`src/features/library/book-cover.jpg`) reemplaza a la portada dibujada, con la misma inclinación. Al tocarla se abre WhatsApp para pedirlo, igual que el botón "Comprar el libro por WhatsApp".
 - [ ] **Portadas reales de la biblioteca**: las 6 tarjetas son portadas de ejemplo con `[Título del recurso]` y la nota "Portadas de ejemplo: se reemplazan por las reales." (`src/features/library/content.ts`). El mensaje de WhatsApp de cada una toma su título.
 - [ ] **Precio**: `[PRECIO] [por mes / pago único]` (FAQ 01). Archivo: `src/features/faq/content.ts`.
 - [ ] **Plataforma** de la formación: `[PLATAFORMA]` (FAQ 03).

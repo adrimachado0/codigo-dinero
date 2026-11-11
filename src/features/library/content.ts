@@ -26,12 +26,8 @@ export const libraryContent = defineContent(
     chips: z.array(z.string().min(1)).min(1),
     /** Opens WhatsApp with the book message. */
     buyCta: z.string().min(1),
-    cover: z.object({
-      label: z.string().min(1),
-      author: z.string().min(1),
-      title: z.string().min(1),
-      subtitle: z.string().min(1),
-    }),
+    /** Alt text of the cover photo, and the accessible name of the link around it. */
+    cover: z.object({ alt: z.string().min(1), linkLabel: z.string().min(1) }),
     library: z.object({
       title: z.string().min(1),
       note: z.string().min(1),
@@ -48,10 +44,8 @@ export const libraryContent = defineContent(
     chips: ["Smart Money Concepts", "Order Flow", "Gestión de riesgo"],
     buyCta: "Comprar el libro por WhatsApp",
     cover: {
-      label: "Portada del libro Domina la estructura del mercado",
-      author: "Ángel Jesús González",
-      title: "Domina la estructura del mercado",
-      subtitle: "El método Código Dinero",
+      alt: "Portada del libro Domina la estructura del mercado: El método Código Dinero, de Ángel Jesús González",
+      linkLabel: "Pedir el libro Domina la estructura del mercado por WhatsApp",
     },
     library: {
       title: "Biblioteca",
