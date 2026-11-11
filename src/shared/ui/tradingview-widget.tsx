@@ -17,7 +17,7 @@ import { isMotionFrozen } from "@/shared/lib/motion";
 
 const SCRIPT_BASE = "https://s3.tradingview.com/external-embedding/embed-widget-";
 
-type WidgetKind = "advanced-chart" | "mini-symbol-overview" | "market-quotes" | "ticker-tape";
+type WidgetKind = "advanced-chart" | "mini-symbol-overview" | "market-quotes";
 
 /** Shared look: Spanish, dark, and the page font where TradingView allows it. */
 const BASE_CONFIG = { locale: "es", colorTheme: "dark" } as const;
@@ -184,32 +184,6 @@ export function MarketQuotesWidget({
             symbols: symbols.map((s) => ({ name: s.proName, displayName: s.title })),
           },
         ],
-      }}
-    />
-  );
-}
-
-/** Ticker Tape: scrolling strip of quotes. */
-export function TickerTapeWidget({
-  symbols,
-  title,
-  className,
-}: {
-  symbols: readonly TradingViewSymbol[];
-  title: string;
-  className?: string;
-}) {
-  return (
-    <TradingViewWidget
-      kind="ticker-tape"
-      title={title}
-      className={className}
-      rootMargin="0px"
-      config={{
-        symbols: symbols.map((s) => ({ proName: s.proName, title: s.title })),
-        showSymbolLogo: false,
-        isTransparent: true,
-        displayMode: "regular",
       }}
     />
   );

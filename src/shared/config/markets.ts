@@ -14,14 +14,3 @@ export const markets = {
   pound: { proName: "FX:GBPUSD", title: "GBPUSD" },
   peso: { proName: "FX_IDC:USDARS", title: "USDARS" },
 } as const satisfies Record<string, TradingViewSymbol>;
-
-/** Header ticker, in the same order as before. */
-export const tickerSymbols: readonly TradingViewSymbol[] = [
-  markets.gold,
-  markets.bitcoin,
-  markets.silver,
-  markets.ether,
-  markets.euro,
-  markets.pound,
-  markets.peso,
-];

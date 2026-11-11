@@ -6,11 +6,9 @@ export const tickerContent = defineContent(
   z.object({
     regionLabel: z.string().min(1),
     title: z.string().min(1),
-    widgetTitle: z.string().min(1),
   }),
   {
     regionLabel: "Cotizaciones",
     title: "Mercados",
-    widgetTitle: "Cinta de cotizaciones de TradingView",
   },
 );
