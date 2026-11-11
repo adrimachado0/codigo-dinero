@@ -168,6 +168,46 @@ function compare(ref: PNG, app: PNG, file: string): number {
   return (different / (width * height)) * 100;
 }
 
+/** Fractional part of the section's top on the page (text is rasterized relative to it). */
+async function topFraction(page: Page, selector: string): Promise<number> {
+  return page.evaluate((sel) => {
+    const el = document.querySelector(sel);
+    if (!el) throw new Error(`Missing element: ${sel}`);
+    const top = el.getBoundingClientRect().top + window.scrollY;
+    return top - Math.floor(top);
+  }, selector);
+}
+
+/**
+ * An intentional height change higher up (e.g. the book block) can leave a section at a
+ * different subpixel offset than in the reference, and the text then antialiases differently
+ * on every line. Nudging the app section by the missing fraction of a pixel (margin-top, set
+ * fresh for each section) makes both start at the same phase, so only real changes count.
+ */
+async function alignSubpixel(refPage: Page, appPage: Page, section: Section) {
+  const [first] = section.app;
+  if (!first) return;
+  await appPage.evaluate(() => {
+    for (const el of document.querySelectorAll<HTMLElement>("[data-subpixel-shift]")) {
+      el.style.marginTop = "";
+      el.removeAttribute("data-subpixel-shift");
+    }
+  });
+  const target = await topFraction(refPage, section.ref[0] ?? first);
+  const current = await topFraction(appPage, first);
+  const shift = (target - current + 1) % 1;
+  if (shift < 0.01 || shift > 0.99) return;
+  await appPage.evaluate(
+    ([sel, px]) => {
+      const el = document.querySelector<HTMLElement>(sel);
+      if (!el) return;
+      el.style.marginTop = `${String(parseFloat(getComputedStyle(el).marginTop) + px)}px`;
+      el.setAttribute("data-subpixel-shift", "");
+    },
+    [first, shift] as const,
+  );
+}
+
 type Row = {
   width: number;
   section: string;
@@ -186,6 +226,7 @@ async function compareSections(
   mkdirSync(OUT_DIR, { recursive: true });
   const rows: Row[] = [];
   for (const section of sections) {
+    await alignSubpixel(refPage, appPage, section);
     const ref = await capture(refPage, section.ref, MASKS.ref);
     const app = await capture(appPage, section.app, MASKS.app);
     const base = path.join(OUT_DIR, `${String(width)}-${section.name}`);
