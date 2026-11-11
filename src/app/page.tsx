@@ -7,6 +7,7 @@ import { LeadCapture } from "@/features/lead-capture";
 import { Library } from "@/features/library";
 import { MentorProfile } from "@/features/mentor-profile";
 import { MottoBand } from "@/features/motto-band";
+import { PremiumIndicator } from "@/features/premium-indicator";
 import { SiteFooter } from "@/features/site-footer";
 import { SiteHeader } from "@/features/site-header";
 import { Testimonials } from "@/features/testimonials";
@@ -37,6 +38,7 @@ export default function HomePage() {
         <MentorProfile />
         <Training />
         <Library />
+        <PremiumIndicator />
         <Testimonials />
         <TopicsRibbon />
         <Faq />

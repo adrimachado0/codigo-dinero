@@ -10,7 +10,9 @@ const isDev = process.env.NODE_ENV === "development";
 // React needs 'unsafe-eval' only in development.
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
+  // TradingView widgets: the embed script comes from s3, the widget runs in its iframe.
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://s3.tradingview.com`,
+  "frame-src https://www.tradingview-widget.com https://s.tradingview.com",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' blob: data:",
   "font-src 'self'",
