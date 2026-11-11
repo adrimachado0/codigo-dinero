@@ -176,7 +176,9 @@ test("WhatsApp buttons open a chat with the design's message", async ({ page }) 
   expect(await message('#contacto a[data-link="whatsapp-ib"]')).toBe(
     "Hola Ángel, lidero una comunidad y quiero coordinar una sesión como IB.",
   );
-  await expect(page.locator('#biblioteca a[data-link="whatsapp-biblioteca"]')).toHaveCount(6);
+  // The library grid is hidden for now (only the book).
+  await expect(page.locator('#biblioteca a[data-link="whatsapp-biblioteca"]')).toHaveCount(0);
+  await expect(page.locator('#biblioteca a[data-link="whatsapp-libro"]')).toHaveCount(2);
   await expect(page.locator("#contacto")).toContainText(
     "Se abre WhatsApp con tu consulta lista para enviar.",
   );

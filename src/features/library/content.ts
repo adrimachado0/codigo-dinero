@@ -29,6 +29,8 @@ export const libraryContent = defineContent(
     /** Alt text of the cover photo, and the accessible name of the link around it. */
     cover: z.object({ alt: z.string().min(1), linkLabel: z.string().min(1) }),
     library: z.object({
+      /** Shows the library grid under the book. */
+      visible: z.boolean(),
       title: z.string().min(1),
       note: z.string().min(1),
       requestCta: z.string().min(1),
@@ -48,6 +50,8 @@ export const libraryContent = defineContent(
       linkLabel: "Pedir el libro Domina la estructura del mercado por WhatsApp",
     },
     library: {
+      // Hidden until there are more books (decision of the site owner).
+      visible: false,
       title: "Biblioteca",
       note: "Portadas de ejemplo: se reemplazan por las reales.",
       requestCta: "Solicitar por WhatsApp",

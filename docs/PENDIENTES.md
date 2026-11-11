@@ -18,8 +18,8 @@ Todo lo que falta definir o implementar. Los marcadores se mantienen tal cual en
 
 ## Contenido (marcadores del diseño)
 
-- [x] **Portada del libro** "Domina la estructura del mercado": la foto real (`src/features/library/book-cover.jpg`) reemplaza a la portada dibujada, con la misma inclinación. Al tocarla se abre WhatsApp para pedirlo, igual que el botón "Comprar el libro por WhatsApp".
-- [ ] **Portadas reales de la biblioteca**: las 6 tarjetas son portadas de ejemplo con `[Título del recurso]` y la nota "Portadas de ejemplo: se reemplazan por las reales." (`src/features/library/content.ts`). El mensaje de WhatsApp de cada una toma su título.
+- [x] **Portada del libro** "Domina la estructura del mercado": la foto real (`src/features/library/book-cover.jpg`) reemplaza a la portada dibujada, más grande, inclinada y sin el fondo gris ni el círculo. Al tocarla se abre WhatsApp para pedirlo, igual que el botón "Comprar el libro por WhatsApp".
+- [ ] **Biblioteca**: está oculta hasta que haya más libros (`library.visible` en `src/features/library/content.ts`). Para mostrarla hacen falta los recursos reales: hoy son 6 portadas de ejemplo con `[Título del recurso]` y la nota "Portadas de ejemplo: se reemplazan por las reales." (`src/features/library/content.ts`). El mensaje de WhatsApp de cada una toma su título.
 - [ ] **Precio**: `[PRECIO] [por mes / pago único]` (FAQ 01). Archivo: `src/features/faq/content.ts`.
 - [ ] **Plataforma** de la formación: `[PLATAFORMA]` (FAQ 03).
 - [x] **Soporte, plazo de acreditación y cancelación** (antes FAQ 04 y 05): se quitaron las preguntas "¿Qué pasa si no se acredita mi pago?" y "¿Puedo cancelar cuando quiera?" (decisión del dueño). La FAQ queda con 4 preguntas.
