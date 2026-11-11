@@ -33,6 +33,7 @@ const twMerge = extendTailwindMerge({
         "wine-fg",
         "wine-silhouette",
         "cream",
+        "gold",
       ],
       font: ["sans", "display"],
       text: [

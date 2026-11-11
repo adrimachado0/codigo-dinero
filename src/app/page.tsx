@@ -4,6 +4,7 @@ import { PartnerStats } from "@/features/broker-partner";
 import { Faq, faqContent } from "@/features/faq";
 import { Hero } from "@/features/hero";
 import { LeadCapture } from "@/features/lead-capture";
+import { Library } from "@/features/library";
 import { MentorProfile } from "@/features/mentor-profile";
 import { MottoBand } from "@/features/motto-band";
 import { SiteFooter } from "@/features/site-footer";
@@ -35,6 +36,7 @@ export default function HomePage() {
         <MottoBand />
         <MentorProfile />
         <Training />
+        <Library />
         <Testimonials />
         <TopicsRibbon />
         <Faq />

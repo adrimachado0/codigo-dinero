@@ -38,6 +38,8 @@
   --color-wine-fg: #ebcfd1;
   --color-wine-silhouette: #1e0609;
   --color-cream: #f4f4f0;
+  /* Gold details of the book and library covers. */
+  --color-gold: #d9a94a;
 
   /* Font families (next/font variables, see src/shared/ui/fonts.ts). */
   --font-*: initial;
