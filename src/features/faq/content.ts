@@ -6,8 +6,6 @@ const FaqItemSchema = z.object({
   number: z.string().regex(/^\d{2}$/),
   question: z.string().min(1),
   answer: z.string().min(1),
-  /** A word of the answer that opens WhatsApp with this message (support questions). */
-  whatsapp: z.object({ label: z.string().min(1), message: z.enum(["support"]) }).optional(),
 });
 
 export type FaqItem = z.infer<typeof FaqItemSchema>;
@@ -50,19 +48,6 @@ export const faqContent = defineContent(
       },
       {
         number: "04",
-        question: "¿Qué pasa si no se acredita mi pago?",
-        answer:
-          "Escríbenos por WhatsApp con el comprobante de pago y lo revisamos. Algunos medios de pago pueden tardar [PLAZO] en acreditarse.",
-        whatsapp: { label: "WhatsApp", message: "support" },
-      },
-      {
-        number: "05",
-        question: "¿Puedo cancelar cuando quiera?",
-        answer:
-          "[CONFIRMAR POLÍTICA] Sí. Puedes cancelar cuando quieras desde [DÓNDE SE CANCELA] y mantienes el acceso hasta el final del período ya pagado.",
-      },
-      {
-        number: "06",
         question: "¿Las operaciones que compartimos son recomendaciones?",
         answer:
           "No. Las operaciones y los análisis que compartimos tienen fines exclusivamente educativos y no constituyen asesoramiento financiero ni una recomendación de inversión. Cada persona decide y es responsable de sus operaciones. Operar CFDs, divisas y criptomonedas con apalancamiento conlleva un alto riesgo de perder dinero.",

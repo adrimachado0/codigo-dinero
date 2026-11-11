@@ -62,10 +62,6 @@ export const whatsappMessages = {
     dataLink: "whatsapp-ib",
     text: "Hola Ángel, lidero una comunidad y quiero coordinar una sesión como IB.",
   },
-  support: {
-    dataLink: "whatsapp-soporte",
-    text: "Hola Ángel, no se acreditó mi pago y te envío el comprobante.",
-  },
   general: {
     dataLink: "whatsapp-general",
     text: "Hola Ángel, quiero más información sobre Código Dinero.",

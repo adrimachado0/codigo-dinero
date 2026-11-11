@@ -21,9 +21,7 @@ Todo lo que falta definir o implementar. Los marcadores se mantienen tal cual en
 - [ ] **Portadas reales de la biblioteca**: las 6 tarjetas son portadas de ejemplo con `[Título del recurso]` y la nota "Portadas de ejemplo: se reemplazan por las reales." (`src/features/library/content.ts`). El mensaje de WhatsApp de cada una toma su título.
 - [ ] **Precio**: `[PRECIO] [por mes / pago único]` (FAQ 01). Archivo: `src/features/faq/content.ts`.
 - [ ] **Plataforma** de la formación: `[PLATAFORMA]` (FAQ 03).
-- [x] **Soporte** (FAQ 04): "Escríbenos por WhatsApp…", con "WhatsApp" enlazado a un chat con el mensaje "Hola Ángel, no se acreditó mi pago y te envío el comprobante." (`data-link="whatsapp-soporte"`).
-- [ ] **Plazo de acreditación**: `[PLAZO]` (FAQ 04).
-- [ ] **Política de cancelación**: `[CONFIRMAR POLÍTICA]` y `[DÓNDE SE CANCELA]` (FAQ 05).
+- [x] **Soporte, plazo de acreditación y cancelación** (antes FAQ 04 y 05): se quitaron las preguntas "¿Qué pasa si no se acredita mi pago?" y "¿Puedo cancelar cuando quiera?" (decisión del dueño). La FAQ queda con 4 preguntas.
 - [x] **Textos legales**: Términos y condiciones, Política de privacidad y Aviso de riesgo se descargan en PDF desde el footer (`public/legal/`). Son textos genéricos armados con lo que dice el sitio (formación, partner de EC MARKETS, contacto por WhatsApp, sin formularios ni cookies propias, Ley 24.240 y Ley 25.326, tribunales de Rosario). Se editan en `scripts/legal/*.html` y se regeneran con `pnpm legal`. Conviene que los revise un abogado antes de publicar el sitio.
 
 ## Assets
@@ -70,7 +68,7 @@ Todo lo que falta definir o implementar. Los marcadores se mantienen tal cual en
   - axe excluye el contenido de los iframes de TradingView (de terceros).
 - **Cambios de diseño posteriores a la referencia** (pedidos por el dueño; la regresión visual los reporta como "cambio intencional" sin fallar):
   - cintas de temas con un ícono de Lucide por tema (`src/features/topics-ribbon/content.ts`);
-  - "Equipo" pasó a "Nosotros" y el footer no tiene Telegram ni X;
+  - "Equipo" pasó a "Nosotros", el footer no tiene Telegram ni X y la FAQ no tiene las preguntas de acreditación y cancelación;
   - el bloque vino del header y del hero ocupa todo el ancho (`max-w-full`), y por eso a 1440 px difiere de la referencia;
   - por debajo de 768 px los márgenes y el espaciado son más compactos que en la referencia: secciones abiertas a 16 px (en lugar de 24), cajas (header/hero, Recursos, Indicador, Mercado, FAQ, footer) a 12 px del borde con padding interno compacto, tarjetas a 20 px, respuestas de la FAQ a todo el ancho y 72 px entre secciones (en lugar de 100–110). Desde 768 px no cambia nada. Por eso la regresión visual a 390 px solo reporta (no falla);
   - hovers: pastilla deslizante en el nav, botones que suben y pasan a blanco, bloques de formación y redes del footer que invierten colores; la esfera del hero reacciona al cursor.

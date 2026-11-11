@@ -2,29 +2,9 @@
 
 import { useId, useState } from "react";
 
-import { linkAttributes, whatsappLink } from "@/shared/config/links";
 import { cn } from "@/shared/lib/cn";
 
 import type { FaqItem } from "../content";
-
-/** Answer text; its `whatsapp.label` word (first match) becomes a WhatsApp link. */
-function Answer({ item }: { item: FaqItem }) {
-  const at = item.whatsapp ? item.answer.indexOf(item.whatsapp.label) : -1;
-  if (!item.whatsapp || at < 0) return item.answer;
-  const { label, message } = item.whatsapp;
-  return (
-    <>
-      {item.answer.slice(0, at)}
-      <a
-        {...linkAttributes(whatsappLink(message))}
-        className="font-medium text-accent-raised underline underline-offset-2"
-      >
-        {label}
-      </a>
-      {item.answer.slice(at + label.length)}
-    </>
-  );
-}
 
 /**
  * Accordion (WAI-ARIA pattern): heading > button with aria-expanded/aria-controls, panel as
@@ -97,7 +77,7 @@ export function FaqAccordion({ items, initialOpen }: { items: FaqItem[]; initial
             >
               <div className="min-h-0 overflow-hidden">
                 <p className="m-0 px-4 pt-0 pb-5.5 text-15 leading-loose text-fg-soft md:pr-6 md:pl-15.5">
-                  <Answer item={item} />
+                  {item.answer}
                 </p>
               </div>
             </div>

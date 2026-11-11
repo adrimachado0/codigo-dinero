@@ -30,6 +30,8 @@ const INTENTIONAL: Record<string, { reason: string; widths?: number[] }> = {
   biblioteca: { reason: "enlaces de la biblioteca de 44px" },
   // The client has no Telegram or X: the footer keeps YouTube, Instagram, TikTok and WhatsApp.
   footer: { reason: "footer sin Telegram ni X" },
+  // The owner removed the payment and cancellation questions (04 and 05).
+  faq: { reason: "FAQ sin las preguntas de acreditación y cancelación" },
 };
 
 /** Below 768px the page uses tighter gutters and section spacing than the reference. */
