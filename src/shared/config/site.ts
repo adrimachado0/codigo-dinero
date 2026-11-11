@@ -1,9 +1,18 @@
 import { env } from "@/shared/config/env";
+import { links } from "@/shared/config/links";
 
-export type NavLink = { label: string; href: string };
+export type NavLink = {
+  label: string;
+  href: string;
+  /** Opens in a new tab and shows the ↗ arrow. */
+  external?: boolean;
+  /** `data-link` id of the destination (analytics hook of the design). */
+  dataLink?: string;
+};
 
 /**
- * Site-wide data. Links that are still "#" have no destination yet (docs/PENDIENTES.md).
+ * Site-wide data. Destinations live in ./links.ts; "#" ones are not defined yet
+ * (docs/PENDIENTES.md).
  */
 export const site = {
   name: "Código Dinero",
@@ -19,12 +28,27 @@ export const site = {
   nav: {
     links: [
       { label: "Inicio", href: "#inicio" },
-      { label: "Escuela", href: "#" },
-      { label: "Calendario", href: "#" },
-      { label: "Mercado", href: "#" },
+      {
+        label: "Formación",
+        href: links.training,
+        external: true,
+        dataLink: "ec-markets-formacion",
+      },
+      {
+        label: "Calendario",
+        href: links.economicCalendar,
+        external: true,
+        dataLink: "ec-markets-calendario",
+      },
+      { label: "Mercado", href: "#mercado" },
       { label: "Equipo", href: "#" },
-    ],
-    cta: { label: "Empezar", href: "#" },
+    ] satisfies NavLink[],
+    cta: {
+      label: "Empezar",
+      href: links.partnerRegistration,
+      external: true,
+      dataLink: "partner-ib-registro",
+    } satisfies NavLink,
   },
   social: [
     { name: "YouTube", href: "#" },

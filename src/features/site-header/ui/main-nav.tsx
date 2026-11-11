@@ -3,9 +3,11 @@
 import gsap from "gsap";
 import { useRef, useState, type KeyboardEvent } from "react";
 
+import { linkAttributes } from "@/shared/config/links";
 import type { NavLink } from "@/shared/config/site";
+import { cn } from "@/shared/lib/cn";
 import { LinkButton } from "@/shared/ui/button";
-import { CloseIcon, MenuIcon } from "@/shared/ui/icons";
+import { ArrowUpRightIcon, CloseIcon, MenuIcon } from "@/shared/ui/icons";
 import { Logo } from "@/shared/ui/logo";
 
 export const MOBILE_MENU_ID = "cod-mobile-menu";
@@ -19,6 +21,18 @@ type MainNavProps = {
 
 // `relative` keeps the text above the sliding highlight.
 const linkClass = "relative py-3 text-white no-underline";
+// External destinations carry a small ↗ after the label.
+const externalClass = "inline-flex items-center gap-1.25";
+
+/** Label plus the ↗ of external links (12px, as in the design). */
+function LinkLabel({ link }: { link: NavLink }) {
+  return (
+    <>
+      {link.label}
+      {link.external && <ArrowUpRightIcon size={12} strokeWidth={2.2} />}
+    </>
+  );
+}
 
 /** Horizontal room (px) the highlight pill adds around the link text. */
 const PILL_PAD_X = 14;
@@ -102,8 +116,13 @@ export function MainNav({ links, cta, homeLabel, labels }: MainNavProps) {
         />
         <div className="hidden flex-[1_1_260px] flex-wrap gap-x-6.5 gap-y-1 text-14 md:flex">
           {left.map((link) => (
-            <a key={link.label} href={link.href} className={linkClass} {...linkHandlers}>
-              {link.label}
+            <a
+              key={link.label}
+              {...linkAttributes(link)}
+              className={cn(linkClass, link.external && externalClass)}
+              {...linkHandlers}
+            >
+              <LinkLabel link={link} />
             </a>
           ))}
         </div>
@@ -118,14 +137,15 @@ export function MainNav({ links, cta, homeLabel, labels }: MainNavProps) {
           {right.map((link) => (
             <a
               key={link.label}
-              href={link.href}
-              className={`${linkClass} hidden md:inline`}
+              {...linkAttributes(link)}
+              className={cn(linkClass, "hidden", link.external ? "md:inline-flex" : "md:inline")}
               {...linkHandlers}
             >
-              {link.label}
+              <LinkLabel link={link} />
             </a>
           ))}
-          <LinkButton href={cta.href} size="nav">
+          {/* The design's pill has no arrow even though it opens a new tab. */}
+          <LinkButton {...linkAttributes(cta)} size="nav">
             {cta.label}
           </LinkButton>
           <button
@@ -152,17 +172,17 @@ export function MainNav({ links, cta, homeLabel, labels }: MainNavProps) {
           {links.map((link, index) => (
             <a
               key={link.label}
-              href={link.href}
+              {...linkAttributes(link)}
               onClick={() => {
                 close(false);
               }}
-              className={
-                index < links.length - 1
-                  ? "border-b border-white/8 py-3.5 text-17 text-white no-underline"
-                  : "py-3.5 text-17 text-white no-underline"
-              }
+              className={cn(
+                "py-3.5 text-17 text-white no-underline",
+                index < links.length - 1 && "border-b border-white/8",
+                link.external && "flex items-center gap-1.5",
+              )}
             >
-              {link.label}
+              <LinkLabel link={link} />
             </a>
           ))}
         </div>
