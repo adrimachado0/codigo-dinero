@@ -71,7 +71,7 @@ export function QuotesTabs({
         id={`${id}-panel`}
         aria-labelledby={`${id}-tab-${String(active)}`}
         data-quotes-panel
-        className="relative mt-3.5 h-[305px]"
+        className="relative mt-3.5 h-80"
       >
         {group && (
           <MarketQuotesWidget

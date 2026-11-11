@@ -23,11 +23,8 @@ export default defineConfig({
     restoreMocks: true,
     coverage: {
       provider: "v8",
-      // The files with business logic (prices, formatting, lead validation and capture).
-      include: [
-        "src/features/market-ticker/{quotes,simulated-market}.ts",
-        "src/features/lead-capture/{lead,capture-lead}.ts",
-      ],
+      // The files with logic: outbound links and WhatsApp URLs.
+      include: ["src/shared/config/links.ts"],
       thresholds: { lines: 90, functions: 90, branches: 90, statements: 90 },
     },
   },

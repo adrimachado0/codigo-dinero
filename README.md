@@ -1,9 +1,9 @@
 # Código Dinero — landing
 
-Landing de **Código Dinero** (academia de trading, partner oficial de EC Markets) en Next.js 16. Es una réplica pixel perfect de `reference/`: 0,000% de diferencia por sección en 1440, 1024, 768 y 390 px.
+Landing de **Código Dinero** (formación en trading, partner oficial de EC Markets) en Next.js 16. Es una réplica pixel perfect de `reference/` (página "Principal v4" del lienzo de diseño), con la regresión visual por sección en 1440, 1024, 768 y 390 px.
 
-- Stack: Next.js 16.4 (App Router, Turbopack, React Compiler, Cache Components), React 19.3, TypeScript 6 estricto, Tailwind CSS 4, Zod 4, GSAP, Remotion, TanStack Query, next-safe-action.
-- La home está 100% prerenderizada. Lo dinámico son islas cliente (ticker, FAQ, carrusel, menú, formulario, video) y la ruta `/api/quotes`.
+- Stack: Next.js 16.4 (App Router, Turbopack, React Compiler, Cache Components), React 19.3, TypeScript 6 estricto, Tailwind CSS 4, Zod 4, GSAP y los widgets oficiales de TradingView.
+- La home está 100% prerenderizada. Lo dinámico son islas cliente (menú, FAQ, pestañas de mercado, animaciones y widgets de TradingView). Compras y solicitudes abren WhatsApp; los registros van al link Partner/IB.
 - Pendientes de contenido y de integración: [`docs/PENDIENTES.md`](docs/PENDIENTES.md).
 
 ## Cómo correrlo
@@ -18,17 +18,15 @@ docker compose up -d dev                          # next dev en http://localhost
 docker compose run --rm app pnpm build            # build de producción
 ```
 
-| Comando (`docker compose run --rm app …`) | Qué hace                                                                                                          |
-| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `pnpm dev` / `pnpm build` / `pnpm start`  | Desarrollo, build y servidor de producción                                                                        |
-| `pnpm lint`                               | ESLint, incluidas las reglas de arquitectura (`eslint-plugin-boundaries`)                                         |
-| `pnpm format` / `pnpm format:check`       | Prettier                                                                                                          |
-| `pnpm typecheck`                          | `next typegen` + `tsc --noEmit`                                                                                   |
-| `pnpm test` / `pnpm test:coverage`        | Vitest: unitarios y de componentes (cobertura ≥ 90% en los archivos con lógica)                                   |
-| `pnpm test:e2e`                           | Playwright contra el build de producción: smoke, SEO, formulario, menú, axe y CSP                                 |
-| `pnpm test:visual`                        | Regresión visual por sección contra `reference/`. Tabla en consola y diffs en `test-results/visual/`              |
-| `pnpm remotion:studio`                    | Remotion Studio en http://localhost:3002 (usar el servicio `dev`: `docker compose exec dev pnpm remotion:studio`) |
-| `pnpm remotion:render`                    | Renderiza el MP4 a `public/video/promo-codigo-dinero.mp4`                                                         |
+| Comando (`docker compose run --rm app …`) | Qué hace                                                                                             |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `pnpm dev` / `pnpm build` / `pnpm start`  | Desarrollo, build y servidor de producción                                                           |
+| `pnpm lint`                               | ESLint, incluidas las reglas de arquitectura (`eslint-plugin-boundaries`)                            |
+| `pnpm format` / `pnpm format:check`       | Prettier                                                                                             |
+| `pnpm typecheck`                          | `next typegen` + `tsc --noEmit`                                                                      |
+| `pnpm test` / `pnpm test:coverage`        | Vitest: unitarios y de componentes (cobertura ≥ 90% en los archivos con lógica)                      |
+| `pnpm test:e2e`                           | Playwright contra el build de producción: smoke, SEO, links, menú, axe y CSP                         |
+| `pnpm test:visual`                        | Regresión visual por sección contra `reference/`. Tabla en consola y diffs en `test-results/visual/` |
 
 Variables de entorno (validadas con Zod en `src/shared/config/env.ts`; ver `.env.example`):
 
@@ -49,9 +47,9 @@ Los hooks de Git (Husky) corren en el host y delegan en el contenedor: `lint-sta
 
 ```
 src/
-  app/        # Enrutamiento y composición: page, layout, api/quotes, metadata (OG, icon, sitemap, robots, manifest)
+  app/        # Enrutamiento y composición: page, layout, metadata (OG, icon, sitemap, robots, manifest)
   features/   # Una carpeta por sección
-  shared/     # ui/ (primitivas), lib/, config/ (site, env, photos), seo/ (metadata, JSON-LD)
+  shared/     # ui/ (primitivas, widgets de TradingView), lib/, config/ (site, links, markets, env, photos), seo/
 ```
 
 **La página se arma en `src/app/page.tsx`**: es la lista de secciones en orden (`<SiteHeader />`, `<Hero />`, `<About />`, …). Cada sección es una carpeta en `src/features/`:
@@ -64,68 +62,52 @@ flowchart LR
   ui --> shared["shared/<br/>(botones, íconos, colores, config)"]
 ```
 
-Casi todas las secciones son solo `content.ts` (textos) + `ui/<sección>.tsx` (diseño) + `index.ts`. Dos tienen lógica, en archivos planos:
+Las secciones son `content.ts` (textos) + `ui/<sección>.tsx` (diseño) + `index.ts`. Es solo front: no hay backend, CMS ni formularios. La poca lógica vive en archivos planos:
 
-| Sección         | Archivo                  | Qué hace                                                                       |
-| --------------- | ------------------------ | ------------------------------------------------------------------------------ |
-| `market-ticker` | `quotes.ts`              | Qué es una cotización y cómo se muestra (`80,123.5 ▲ +0.15%`)                  |
-|                 | `simulated-market.ts`    | Los precios simulados (random walk de la referencia)                           |
-|                 | `ticker-bar.tsx`         | La barra; pide `/api/quotes` cada 3 s (TanStack Query)                         |
-| `lead-capture`  | `lead.ts`                | Qué es un correo válido (el formulario y el servidor usan la misma regla)      |
-|                 | `capture-lead.ts`        | Qué se hace con el correo: filtra bots (honeypot), límite de envíos y guardado |
-|                 | `capture-lead-action.ts` | El puente formulario → servidor (Server Action con next-safe-action)           |
+| Archivo                                  | Qué hace                                                                                    |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `src/shared/config/links.ts`             | Todos los destinos externos, el número de WhatsApp y `whatsappUrl()` (con los mensajes)     |
+| `src/shared/config/markets.ts`           | Los símbolos de TradingView (cinta del header, mini gráficos y pestañas de mercado)         |
+| `src/shared/ui/tradingview-widget.tsx`   | Un componente por widget oficial de TradingView; carga el script al acercarse a la pantalla |
+| `src/features/about/ui/candle-chart.tsx` | Las velas de "¿Qué es?", que crecen en cascada al entrar en pantalla (GSAP)                 |
 
 Reglas, verificadas por ESLint (`eslint.config.mjs`), que fallan en CI:
 
 - Una sección usa otra solo a través de su `index.ts`. Dentro de una sección, los archivos se importan libremente.
 - `shared` nunca importa de `features`. `app/` solo compone secciones.
 
-## Cómo cambiar el proveedor de cotizaciones
+## Cómo cambiar links, WhatsApp y cotizaciones
 
-Hoy los precios salen de `SimulatedMarket` (`src/features/market-ticker/simulated-market.ts`). Para usar precios reales:
+- **Links y WhatsApp**: `src/shared/config/links.ts`. El número (`WHATSAPP_NUMBER`) y el link de registro Partner/IB (`links.partnerRegistration`) se cambian en un solo lugar para todos los botones. Cada botón lleva su `data-link` (por ejemplo `whatsapp-libro` o `partner-ib-registro`).
+- **Cotizaciones**: los widgets de TradingView traen los datos en vivo. Para cambiar o sumar instrumentos, editar `src/shared/config/markets.ts` (símbolo con el prefijo del mercado, por ejemplo `OANDA:XAUUSD`) y las pestañas en `src/features/market-overview/content.ts`.
 
-1. Escribir una función que pida los precios a la API elegida y devuelva lo mismo que `getLiveQuotes()`: `{ quotes: [{ symbol, price, open, decimals }], simulated: false }`. Puede vivir en un archivo nuevo, por ejemplo `real-market.ts`, al lado. Las credenciales van como variables de servidor en `src/shared/config/env.ts`.
-2. Hacer que `getLiveQuotes()` la use en lugar del mercado simulado. `/api/quotes` y la barra no cambian.
-3. Con `simulated: false`, la etiqueta "Simulado" desaparece sola.
-4. Si la API se llama desde el servidor (lo recomendado, a través de `/api/quotes`), no hay que tocar la CSP. Si se llamara desde el navegador, hay que sumarla a `connect-src` en `next.config.ts`.
+## Cómo reemplazar las fotos
 
-Hay ideas de proveedores en `docs/PENDIENTES.md`.
-
-## Cómo reemplazar las fotos de clientes
-
-Hay tres espacios: hero, mentor (sección "¿Qué es?") y CTA final. Sin foto, se muestra la silueta con la pastilla "Foto", igual que en la referencia.
-
-1. Exportar la foto como **PNG con fondo transparente**, recortada a la persona (proporción aproximada 300 × 340; mínimo 620 px de ancho).
-2. Copiarla a `src/shared/config/photos/` (por ejemplo `hero.png`).
-3. En `src/shared/config/photos.ts`, importarla y asignarla:
-
-   ```ts
-   import heroPhoto from "./photos/hero.png";
-
-   export const photos = {
-     hero: { src: heroPhoto, alt: "Nombre Apellido, mentor de Código Dinero" },
-     mentor: null,
-     cta: null,
-   };
-   ```
-
-`next/image` genera los tamaños y reserva el espacio, así que no hay saltos de layout. Las reseñas aceptan un `avatar` opcional en `src/features/testimonials/content.ts`.
+Las fotos de Ángel están en `src/shared/config/photos/` y se asignan en `src/shared/config/photos.ts`: recortes sin fondo (WebP transparente) para el hero y el cierre, y fotos con fondo para "Quién soy", los eventos y el tutorial. Para cambiar una, copiar el archivo nuevo a esa carpeta e importarlo en `photos.ts`. `next/image` genera los tamaños y reserva el espacio, así que no hay saltos de layout. Si se cambia la foto del hero, correr `pnpm icons` para regenerar la de la imagen Open Graph.
 
 ## Cómo editar los textos
 
 Cada sección tiene su `content.ts` en `src/features/<sección>/content.ts`, validado con Zod al cargar el módulo: un texto mal formado rompe el build en lugar de la página.
 
-| Sección                                   | Archivo                                  |
-| ----------------------------------------- | ---------------------------------------- |
-| Menú, logo, links, redes, partner         | `src/shared/config/site.ts`              |
-| Hero                                      | `src/features/hero/content.ts`           |
-| Cifras y sello de partner                 | `src/features/broker-partner/content.ts` |
-| ¿Qué es?                                  | `src/features/about/content.ts`          |
-| Formación, clases y links de YouTube      | `src/features/training/content.ts`       |
-| Reseñas                                   | `src/features/testimonials/content.ts`   |
-| Cintas de temas                           | `src/features/topics-ribbon/content.ts`  |
-| FAQ (también genera el JSON-LD `FAQPage`) | `src/features/faq/content.ts`            |
-| Formulario de correo                      | `src/features/lead-capture/content.ts`   |
-| Footer y aviso de riesgo                  | `src/features/site-footer/content.ts`    |
+| Sección                                   | Archivo                                     |
+| ----------------------------------------- | ------------------------------------------- |
+| Menú, logo, redes, partner                | `src/shared/config/site.ts`                 |
+| Links externos y mensajes de WhatsApp     | `src/shared/config/links.ts`                |
+| Hero                                      | `src/features/hero/content.ts`              |
+| Cifras y sello de partner                 | `src/features/broker-partner/content.ts`    |
+| ¿Qué es?                                  | `src/features/about/content.ts`             |
+| Quién soy                                 | `src/features/mentor-profile/content.ts`    |
+| Recursos                                  | `src/features/training/content.ts`          |
+| Libro y biblioteca                        | `src/features/library/content.ts`           |
+| Indicador Institucional Premium           | `src/features/premium-indicator/content.ts` |
+| Cotizaciones en tiempo real               | `src/features/market-overview/content.ts`   |
+| Cintas de temas                           | `src/features/topics-ribbon/content.ts`     |
+| FAQ (también genera el JSON-LD `FAQPage`) | `src/features/faq/content.ts`               |
+| Contacto                                  | `src/features/contact/content.ts`           |
+| Footer y aviso de riesgo                  | `src/features/site-footer/content.ts`       |
 
-Los marcadores (`[PRECIO]`, `[PLATAFORMA]`, `[Nombre del alumno]`, …) se reemplazan ahí mismo. La lista completa está en `docs/PENDIENTES.md`. Después de editar, `pnpm test:visual` muestra qué secciones cambiaron respecto de la referencia (es esperable que cambien si cambia el texto).
+Los marcadores (`[PRECIO]`, `[PLATAFORMA]`, `[Título del recurso]`, …) se reemplazan ahí mismo. La lista completa está en `docs/PENDIENTES.md`. Después de editar, `pnpm test:visual` muestra qué secciones cambiaron respecto de la referencia (es esperable que cambien si cambia el texto).
+
+## Referencia de diseño
+
+`reference/index.html` es el render de la página "Principal v4" del lienzo de diseño (`reference/design-source.dc.html`). Si el diseño cambia, reemplazar ese archivo, copiar a `reference/` las imágenes nuevas, mapearlas en `scripts/build-reference.mjs` y correr `docker compose run --rm app node scripts/build-reference.mjs`.

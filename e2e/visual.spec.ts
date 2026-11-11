@@ -26,6 +26,8 @@ const INTENTIONAL: Record<string, { reason: string; widths?: number[] }> = {
   temas: { reason: "cintas con íconos de Lucide" },
   // Above 1432px the wine block now spans the full width instead of stopping at 1400px.
   inicio: { reason: "bloque del hero a todo el ancho", widths: [1440] },
+  // "Solicitar por WhatsApp" keeps the 44px touch target (the design draws it at 40px).
+  biblioteca: { reason: "enlaces de la biblioteca de 44px" },
 };
 
 /** Below 768px the page uses tighter gutters and section spacing than the reference. */
@@ -49,7 +51,9 @@ const SECTIONS: Section[] = [
     'section[aria-label="Aprende, analiza, opera"]',
     "#quien-soy",
     "#formacion",
-    "#comunidad",
+    "#biblioteca",
+    "#indicador",
+    "#mercado",
     'section[aria-label="Temas"]',
     "#faq",
     "#contacto",
@@ -63,11 +67,23 @@ const MENU_SECTION: Section = {
   app: ['nav[aria-label="Principal"]', "#cod-mobile-menu"],
 };
 
-// Non-deterministic content: particle canvases and the simulated price lane of the ticker.
-// The video card is masked too: its caption was changed on purpose ("Academia de trading").
+// Non-deterministic content: particle canvases and live market data. In the app the
+// TradingView widgets (ticker lane, XAUUSD chart, market cards) don't load while motion is
+// frozen; the design draws mockups in their place. They are masked whole (same boxes in both).
 const MASKS = {
-  ref: ["canvas", '[aria-label="Cotizaciones"] > :nth-child(2)', "#que-es .cod-video"],
-  app: ["canvas", '[aria-label="Cotizaciones"] > :nth-child(2)', "[data-video-card]"],
+  ref: [
+    "canvas",
+    '[aria-label="Cotizaciones"] > :nth-child(2)',
+    '[aria-label="Cotizaciones"] > :nth-child(3)',
+    "#indicador .cod-ind-frame",
+    '#mercado div[style*="flex: 1 1 320px"]',
+  ],
+  app: [
+    "canvas",
+    "[data-ticker-lane]",
+    "#indicador [data-chart-frame]",
+    "#mercado [data-market-card]",
+  ],
 };
 
 function sectionName(selector: string): string {

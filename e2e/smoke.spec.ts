@@ -18,7 +18,7 @@ test.describe("home", () => {
     await page.goto("/");
 
     await expect(page.locator("html")).toHaveAttribute("lang", "es");
-    await expect(page).toHaveTitle("Código Dinero · Academia de trading");
+    await expect(page).toHaveTitle("Código Dinero · Formación en trading");
     const description = await page.locator('meta[name="description"]').getAttribute("content");
     expect(description?.length).toBeGreaterThanOrEqual(150);
     expect(description?.length).toBeLessThanOrEqual(160);
@@ -57,13 +57,29 @@ test.describe("home", () => {
       "que-es",
       "quien-soy",
       "formacion",
-      "indicadores",
-      "comunidad",
+      "biblioteca",
+      "indicador",
+      "mercado",
       "faq",
       "contacto",
     ]) {
       await expect(page.locator(`#${id}`)).toHaveCount(1);
     }
+    await expect(page.locator("#comunidad")).toHaveCount(0);
+    await expect(page.locator("form")).toHaveCount(0);
+  });
+
+  test("uses formación, never academia or Escuela", async ({ page }) => {
+    await page.goto("/");
+
+    const text = await page.evaluate(
+      () =>
+        document.body.innerText +
+        [...document.querySelectorAll("title, meta[content], script[type='application/ld+json']")]
+          .map((el) => el.getAttribute("content") ?? el.textContent)
+          .join(" "),
+    );
+    expect(text).not.toMatch(/academia|escuela/i);
   });
 
   test("publishes JSON-LD generated from the FAQ content", async ({ page }) => {
@@ -98,7 +114,7 @@ test.describe("home", () => {
   });
 });
 
-test("loads and plays without CSP violations or console errors", async ({ page }) => {
+test("loads the TradingView widgets without CSP violations or console errors", async ({ page }) => {
   const errors: string[] = [];
   page.on("console", (message) => {
     if (message.type() === "error") errors.push(message.text());
@@ -110,80 +126,76 @@ test("loads and plays without CSP violations or console errors", async ({ page }
   });
 
   await page.goto("/");
-  await page.waitForLoadState("networkidle");
-  await page.getByRole("button", { name: "Reproducir video de presentación" }).click();
-  await expect(page.getByLabel("Video de presentación de Código Dinero")).toBeVisible();
-  await page.waitForTimeout(500);
+  // Scroll through the page so every lazy widget (chart, mini charts, quotes) loads.
+  for (const id of ["indicador", "mercado"]) {
+    await page.locator(`#${id}`).scrollIntoViewIfNeeded();
+    await expect(page.locator(`#${id} [data-tv-widget] iframe`).first()).toBeAttached({
+      timeout: 15_000,
+    });
+  }
+  await expect(page.locator("[data-ticker-lane] iframe")).toBeAttached();
+  await page.waitForTimeout(1000);
 
   expect(errors).toEqual([]);
 });
 
-test("quotes API returns a validated simulated snapshot", async ({ request }) => {
-  const response = await request.get("/api/quotes");
-  expect(response.status()).toBe(200);
-  expect(response.headers()["cache-control"]).toContain("no-store");
-
-  const body = (await response.json()) as { simulated: boolean; quotes: { symbol: string }[] };
-  expect(body.simulated).toBe(true);
-  expect(body.quotes.map((q) => q.symbol)).toEqual([
-    "XAUUSD",
-    "XAGUSD",
-    "BTCUSD",
-    "ETHUSD",
-    "EURUSD",
-    "GBPUSD",
-    "USDARS",
-  ]);
-});
-
-test("ticker keeps the 'Simulado' label visible", async ({ page }) => {
+test("registration buttons share one destination and open in a new tab", async ({ page }) => {
   await page.goto("/");
-  await expect(
-    page.getByRole("region", { name: "Cotizaciones" }).getByText("Simulado"),
-  ).toBeVisible();
-});
+  const buttons = page.locator('a[data-link="partner-ib-registro"]');
 
-test("lead form validates and reports success accessibly", async ({ page }) => {
-  await page.goto("/");
-  const name = page.getByLabel("Tu nombre");
-  const email = page.getByLabel("Tu correo electrónico");
-  const profile = page.getByLabel("Tu perfil");
-  const submit = page.getByRole("button", { name: "Coordinar sesión" });
-  const status = page.locator("#cod-lead-status");
-
-  await submit.click();
-  await expect(status).toHaveText("Escribe tu nombre.");
-  await expect(name).toHaveAttribute("aria-invalid", "true");
-
-  await name.fill("Ana Pérez");
-  await email.fill("no-es-un-correo");
-  await submit.click();
-  await expect(status).toHaveText("Revisa el formato de tu correo electrónico.");
-  await expect(email).toHaveAttribute("aria-invalid", "true");
-  await expect(name).not.toHaveAttribute("aria-invalid");
-
-  await email.fill("ana@example.com");
-  await profile.selectOption({ label: "Lidero una comunidad / soy IB" });
-  await submit.click();
-  await expect(status).toHaveText("¡Gracias! Te escribiremos a tu correo.");
-  await expect(status).toHaveAttribute("role", "status");
-});
-
-test("profile CTAs lead to the contact form and the indicators block", async ({ page }) => {
-  await page.goto("/");
-  const audience = page.locator("#para-quien");
-
-  await expect(audience.getByRole("article")).toHaveCount(3);
-  await expect(audience.getByRole("link", { name: "Ver planes de indicadores" })).toHaveAttribute(
-    "href",
-    "#indicadores",
+  // Header "Empezar", hero, "Traders novatos", "Quién soy" and the footer.
+  await expect(buttons).toHaveCount(5);
+  const hrefs = new Set(
+    await buttons.evaluateAll((links) => links.map((a) => a.getAttribute("href"))),
   );
-  for (const label of ["Quiero aprender desde cero", "Sumarme como Partner / IB"]) {
-    await expect(page.locator("#hero").getByRole("link", { name: label })).toHaveAttribute(
-      "href",
-      "#contacto",
-    );
+  expect(hrefs.size).toBe(1);
+  for (const button of await buttons.all()) {
+    await expect(button).toHaveAttribute("target", "_blank");
+    await expect(button).toHaveAttribute("rel", "noopener noreferrer");
   }
+});
+
+test("WhatsApp buttons open a chat with the design's message", async ({ page }) => {
+  await page.goto("/");
+  const message = async (selector: string) => {
+    const href = (await page.locator(selector).first().getAttribute("href")) ?? "";
+    return new URL(href).searchParams.get("text");
+  };
+
+  expect(await message('#hero a[data-link="whatsapp-partner"]')).toBe(
+    "Hola Ángel, quiero sumarme como Partner / IB.",
+  );
+  expect(await message('#contacto a[data-link="whatsapp-novato"]')).toBe(
+    "Hola Ángel, estoy empezando desde cero y quiero coordinar una sesión.",
+  );
+  expect(await message('#contacto a[data-link="whatsapp-ib"]')).toBe(
+    "Hola Ángel, lidero una comunidad y quiero coordinar una sesión como IB.",
+  );
+  await expect(page.locator('#biblioteca a[data-link="whatsapp-biblioteca"]')).toHaveCount(6);
+  await expect(page.locator("#contacto")).toContainText(
+    "Se abre WhatsApp con tu consulta lista para enviar.",
+  );
+  for (const link of await page.locator('a[href^="https://wa.me/"]').all()) {
+    await expect(link).toHaveAttribute("target", "_blank");
+    await expect(link).toHaveAttribute("rel", "noopener noreferrer");
+  }
+});
+
+test("profile and resource links point to the right places", async ({ page }) => {
+  await page.goto("/");
+
+  await expect(
+    page.locator("#para-quien").getByRole("link", { name: "Conocer el indicador" }),
+  ).toHaveAttribute("href", "#indicador");
+  const nav = page.getByRole("navigation", { name: "Principal" });
+  await expect(nav.getByRole("link", { name: "Formación" })).toHaveAttribute(
+    "href",
+    "https://www.ecmarkets.com/ec-academy/",
+  );
+  await expect(nav.getByRole("link", { name: "Mercado" })).toHaveAttribute("href", "#mercado");
+  await expect(
+    page.locator("#formacion").getByRole("link", { name: /Síguenos en TikTok/ }),
+  ).toHaveAttribute("href", "https://www.tiktok.com/@gonzalezbrothers.xau");
 });
 
 test.describe("mobile", () => {
@@ -221,9 +233,8 @@ for (const width of [1440, 390]) {
     await page.waitForLoadState("networkidle");
 
     const results = await new AxeBuilder({ page })
-      // Dimmed (non-current) reviews: the reference's 45% opacity is kept on purpose. They are
-      // aria-hidden and fall under WCAG 1.4.3's inactive-component exception.
-      .exclude('#testimonials-track > [aria-hidden="true"]')
+      // Third-party TradingView iframes: their content isn't ours to fix.
+      .exclude("[data-tv-widget]")
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
       .analyze();
     const blocking = results.violations.filter(

@@ -37,7 +37,7 @@ export function MarketOverview() {
 
         <div className="mt-9 flex flex-wrap items-stretch gap-4.5">
           {content.featured.map((item) => (
-            <div key={item.symbol.proName} data-reveal className={`${card} p-6`}>
+            <div key={item.symbol.proName} data-reveal data-market-card className={`${card} p-6`}>
               <div data-mini-chart className="relative min-h-[239px] flex-auto">
                 <MiniChartWidget
                   symbol={item.symbol.proName}
@@ -47,7 +47,7 @@ export function MarketOverview() {
               </div>
             </div>
           ))}
-          <div data-reveal className={`${card} p-5.5`}>
+          <div data-reveal data-market-card className={`${card} p-5.5`}>
             <QuotesTabs
               groups={content.groups}
               label={content.tabsLabel}

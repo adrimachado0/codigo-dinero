@@ -19,7 +19,7 @@ export function MarketTicker() {
         <PulseDot />
         <span>{labels.title}</span>
       </div>
-      <div data-ticker-lane className="relative h-[38px] min-w-0 flex-auto overflow-hidden">
+      <div data-ticker-lane className="relative h-10 min-w-0 flex-auto overflow-hidden">
         <TickerTapeWidget
           symbols={tickerSymbols}
           title={labels.widgetTitle}

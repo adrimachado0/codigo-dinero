@@ -53,7 +53,10 @@ export function PremiumIndicator() {
 
         <figure data-reveal className="mx-0 mt-10 mb-0">
           {/* Height follows the design's chart at each breakpoint; the widget fills it. */}
-          <div className="relative overflow-hidden rounded-[16px] border border-white/10 bg-canvas md:rounded-tile">
+          <div
+            data-chart-frame
+            className="relative overflow-hidden rounded-[16px] border border-white/10 bg-canvas md:rounded-tile"
+          >
             <div aria-hidden="true" className="h-[43px]" />
             <div
               aria-hidden="true"
