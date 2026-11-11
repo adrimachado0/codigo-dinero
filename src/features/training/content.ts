@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { links } from "@/shared/config/links";
+import { links, whatsappLink } from "@/shared/config/links";
 import { defineContent } from "@/shared/lib/content";
 
 const ResourceSchema = z.object({
@@ -47,7 +47,8 @@ export const trainingContent = defineContent(
         href: links.instagram,
         dataLink: "instagram",
       },
-      { number: "04", label: "Indicadores exclusivos", href: "#indicador" },
+      // Opens WhatsApp with the indicator access request.
+      { number: "04", label: "Indicadores exclusivos", ...whatsappLink("indicator") },
     ],
     featured: {
       eyebrow: "Tutorial",
