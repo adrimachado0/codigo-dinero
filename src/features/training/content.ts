@@ -1,13 +1,14 @@
 import { z } from "zod";
 
+import { links } from "@/shared/config/links";
 import { defineContent } from "@/shared/lib/content";
 
-const LinkSchema = z.object({ label: z.string().min(1), href: z.string().min(1) });
-
-const TileSchema = z.object({
-  text: z.string().min(1),
-  labelLines: z.tuple([z.string().min(1), z.string().min(1)]),
+const ResourceSchema = z.object({
+  number: z.string().regex(/^\d{2}$/),
+  label: z.string().min(1),
   href: z.string().min(1),
+  /** `data-link` id; resources with one open in a new tab. */
+  dataLink: z.string().min(1).optional(),
 });
 
 export const trainingContent = defineContent(
@@ -16,15 +17,20 @@ export const trainingContent = defineContent(
     titleLead: z.string().min(1),
     titleHighlight: z.string().min(1),
     intro: z.string().min(1),
-    resources: z.array(LinkSchema.extend({ number: z.string().regex(/^\d{2}$/) })).length(4),
+    resources: z.array(ResourceSchema).length(4),
     featured: z.object({
       eyebrow: z.string().min(1),
       title: z.string().min(1),
-      href: z.string().min(1),
       circularText: z.string().min(1),
     }),
-    recordings: TileSchema,
-    library: TileSchema,
+    recordings: z.object({
+      text: z.string().min(1),
+      labelLines: z.tuple([z.string().min(1), z.string().min(1)]),
+    }),
+    course: z.object({
+      tag: z.string().min(1),
+      labelLines: z.tuple([z.string().min(1), z.string().min(1), z.string().min(1)]),
+    }),
   }),
   {
     tab: "Recursos",
@@ -33,26 +39,28 @@ export const trainingContent = defineContent(
     intro:
       "Formación, clases, biblioteca e indicadores propios para que aprendas y operes con criterio.",
     resources: [
-      { number: "01", label: "Videos en YouTube", href: "#" },
-      { number: "02", label: "Clases grabadas de operaciones reales", href: "#" },
-      { number: "03", label: "Biblioteca y estrategias", href: "#" },
-      { number: "04", label: "Indicadores exclusivos", href: "#indicadores" },
+      { number: "01", label: "Videos en YouTube", href: links.youtube, dataLink: "youtube-canal" },
+      { number: "02", label: "Síguenos en TikTok", href: links.tiktok, dataLink: "tiktok" },
+      {
+        number: "03",
+        label: "Síguenos en Instagram",
+        href: links.instagram,
+        dataLink: "instagram",
+      },
+      { number: "04", label: "Indicadores exclusivos", href: "#indicador" },
     ],
     featured: {
-      eyebrow: "Formación y clases",
+      eyebrow: "Tutorial",
       title: "Cómo leer velas japonesas desde cero",
-      href: "#",
       circularText: "CÓDIGO DINERO ✦ CLASES EN YOUTUBE ✦ GRATIS ✦",
     },
     recordings: {
       text: "Clases grabadas de operaciones reales y análisis paso a paso.",
       labelLines: ["Ver clases", "grabadas"],
-      href: "#",
     },
-    library: {
-      text: "Biblioteca y estrategias: libros de trading y metodologías de análisis técnico.",
-      labelLines: ["Ir a la", "biblioteca"],
-      href: "#",
+    course: {
+      tag: "Básico e Intermedio",
+      labelLines: ["Ver el Curso Básico", "e Intermedio", "en YouTube"],
     },
   },
 );

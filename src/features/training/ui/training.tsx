@@ -1,60 +1,15 @@
-import { IndicatorsPromo } from "@/features/indicators";
-import { ArrowRightIcon, ArrowUpRightIcon, PlayIcon } from "@/shared/ui/icons";
+import Image from "next/image";
+
+import { externalLinkProps, linkAttributes, links } from "@/shared/config/links";
+import { photos } from "@/shared/config/photos";
+import { ArrowRightIcon, ArrowUpRightIcon, PlayIcon, YouTubeIcon } from "@/shared/ui/icons";
 import { Reveal } from "@/shared/ui/reveal";
 import { SectionTitle } from "@/shared/ui/section-title";
 
 import { trainingContent as content } from "../content";
 import { CircularText } from "./circular-badge";
 
-// Candles of the featured class: [x, wickTop, wickBottom, bodyTop, bodyHeight, bullish]
-const CANDLES: [number, number, number, number, number, boolean][] = [
-  [50, 250, 330, 268, 45, false],
-  [90, 235, 300, 245, 42, true],
-  [130, 205, 280, 215, 52, true],
-  [170, 215, 285, 225, 44, false],
-  [210, 180, 255, 190, 55, true],
-  [250, 150, 225, 160, 52, true],
-  [290, 160, 230, 168, 45, false],
-  [330, 120, 195, 130, 55, true],
-  [370, 95, 165, 103, 52, true],
-];
-
-function CandleChart() {
-  return (
-    <svg
-      viewBox="0 0 400 420"
-      preserveAspectRatio="xMidYMid slice"
-      aria-hidden="true"
-      focusable="false"
-      className="absolute top-0 left-0 size-full"
-    >
-      <path
-        d="M0 70H400M0 140H400M0 210H400M0 280H400M0 350H400M80 0V420M160 0V420M240 0V420M320 0V420"
-        stroke="#FFFFFF"
-        strokeOpacity="0.05"
-      />
-      <g strokeWidth="2">
-        {CANDLES.map(([x, y1, y2, top, height, bullish]) => {
-          const color = bullish ? "#FF2B2B" : "#FFFFFF";
-          const opacity = bullish ? undefined : 0.55;
-          return (
-            <g key={x}>
-              <line x1={x} y1={y1} x2={x} y2={y2} stroke={color} strokeOpacity={opacity} />
-              <rect
-                x={x - 9}
-                y={top}
-                width="18"
-                height={height}
-                fill={color}
-                fillOpacity={opacity}
-              />
-            </g>
-          );
-        })}
-      </g>
-    </svg>
-  );
-}
+const tutorialPhoto = photos.tutorial;
 
 export function Training() {
   return (
@@ -84,7 +39,7 @@ export function Training() {
               {content.resources.map((resource) => (
                 <a
                   key={resource.number}
-                  href={resource.href}
+                  {...linkAttributes({ ...resource, external: Boolean(resource.dataLink) })}
                   className="group flex min-h-[54px] items-center gap-4 rounded-full border border-white/32 pr-4.5 pl-5.5 text-15 text-white no-underline transition-[background-color,color,border-color] duration-300 hover:border-white hover:bg-white hover:text-ink"
                 >
                   <span className="font-display text-14 font-semibold text-accent">
@@ -98,15 +53,34 @@ export function Training() {
           </div>
 
           <a
-            href={content.featured.href}
+            href={links.youtubeTutorial}
+            data-link="youtube-tutorial"
+            {...externalLinkProps}
             data-reveal
             className="group relative block min-h-[420px] min-w-0 flex-[1.1_1_300px] overflow-hidden rounded-card-lg border border-white/8 bg-canvas text-white no-underline"
           >
-            <CandleChart />
-            <div className="absolute top-[42%] left-1/2 -mt-[95px] -ml-[95px] size-[190px]">
+            {tutorialPhoto && (
+              <Image
+                src={tutorialPhoto.src}
+                alt={tutorialPhoto.alt}
+                fill
+                sizes="(max-width: 767px) 100vw, 420px"
+                className="object-cover object-[55%_30%] [filter:grayscale(1)_contrast(1.1)_brightness(0.8)] transition-transform duration-500 group-hover:scale-105"
+              />
+            )}
+            {/* Red tint over the black-and-white photo, then a dark fade for the text. */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-accent opacity-55 mix-blend-color"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-0 bottom-0 h-[55%] bg-linear-to-t from-[rgba(10,10,10,0.94)] to-[rgba(10,10,10,0)]"
+            />
+            <div className="absolute top-3.5 right-3.5 size-31">
               <CircularText text={content.featured.circularText} />
-              <span className="absolute top-1/2 left-1/2 -mt-[38px] -ml-[38px] flex size-[76px] items-center justify-center rounded-full bg-accent text-ink transition-[scale,background-color] duration-300 group-hover:scale-110 group-hover:bg-white">
-                <PlayIcon size={24} />
+              <span className="absolute top-1/2 left-1/2 -mt-7 -ml-7 flex size-14 items-center justify-center rounded-full bg-accent text-ink transition-[scale,background-color] duration-300 group-hover:scale-110 group-hover:bg-white">
+                <PlayIcon size={20} />
               </span>
             </div>
             <div className="absolute right-5.5 bottom-5.5 left-5.5">
@@ -121,7 +95,7 @@ export function Training() {
 
           <div data-reveal className="flex min-w-0 flex-[0.8_1_220px] flex-col gap-4">
             <a
-              href={content.recordings.href}
+              href={links.recordedClasses}
               className="group flex min-h-[190px] flex-auto flex-col justify-between gap-8 rounded-tile bg-surface-600 p-5.5 text-white no-underline transition-colors duration-300 hover:bg-white hover:text-ink"
             >
               <span className="text-14 leading-normal text-fg-soft transition-colors duration-300 group-hover:text-ink-soft">
@@ -137,30 +111,30 @@ export function Training() {
               </span>
             </a>
             <a
-              href={content.library.href}
+              href={links.youtubeCourse}
+              data-link="youtube-curso-basico-intermedio"
+              {...externalLinkProps}
               className="group flex min-h-[190px] flex-auto flex-col justify-between gap-8 rounded-tile bg-accent p-5.5 text-ink no-underline transition-colors duration-300 hover:bg-ink hover:text-white"
             >
-              <span className="text-14 leading-normal text-ink-soft transition-colors duration-300 group-hover:text-fg-soft">
-                {content.library.text}
+              <span className="inline-flex items-center gap-2 text-12 font-bold tracking-caps-md uppercase">
+                <YouTubeIcon />
+                {content.course.tag}
               </span>
               <span className="flex items-end justify-between gap-3">
-                <span className="text-18 leading-tight font-semibold">
-                  {content.library.labelLines[0]}
+                <span className="text-18 leading-tight font-bold">
+                  {content.course.labelLines[0]}
                   <br />
-                  {content.library.labelLines[1]}
+                  {content.course.labelLines[1]}
+                  <br />
+                  {content.course.labelLines[2]}
                 </span>
-                <span className="flex size-10.5 items-center justify-center rounded-full bg-white text-ink transition-colors duration-300 group-hover:bg-accent">
-                  <ArrowUpRightIcon
-                    size={20}
-                    className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                  />
+                <span className="flex size-10.5 flex-none items-center justify-center rounded-full bg-white text-accent transition-transform duration-300 group-hover:scale-110">
+                  <PlayIcon size={18} />
                 </span>
               </span>
             </a>
           </div>
         </div>
-
-        <IndicatorsPromo />
       </Reveal>
     </section>
   );

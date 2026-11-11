@@ -4,11 +4,12 @@ import closingPhoto from "./photos/angel-cierre.webp";
 import mentorPhoto from "./photos/angel-ec-rojo.jpg";
 import standPhoto from "./photos/angel-ec-stand.jpg";
 import heroPhoto from "./photos/angel-hero.webp";
+import tutorialPhoto from "./photos/angel-holograma.jpg";
 import moneyExpoPhoto from "./photos/angel-money-expo.jpg";
 
 export type PhotoSlot = { src: StaticImageData; alt: string } | null;
 
-export type PhotoKey = "hero" | "mentor" | "stand" | "moneyExpo" | "cta";
+export type PhotoKey = "hero" | "mentor" | "stand" | "moneyExpo" | "tutorial" | "cta";
 
 /**
  * Photos of Ángel. Cut-outs (hero, contact) are transparent WebP; `null` shows the reference
@@ -22,6 +23,8 @@ export const photos: Readonly<Record<PhotoKey, PhotoSlot>> = {
   /** "Quién soy", event cards (cover). */
   stand: { src: standPhoto, alt: "Ángel Jesús González en el stand de EC Markets" },
   moneyExpo: { src: moneyExpoPhoto, alt: "Ángel Jesús González en Money Expo Argentina" },
+  /** "Tutorial" card of Recursos, tinted red (decorative: the card has its own title). */
+  tutorial: { src: tutorialPhoto, alt: "" },
   /** Contact section (cut-out). */
   cta: { src: closingPhoto, alt: "Ángel Jesús González" },
 };
