@@ -28,13 +28,6 @@ const keywords = [
   "Código Dinero",
 ];
 
-const verification: NonNullable<Metadata["verification"]> = {
-  ...(env.GOOGLE_SITE_VERIFICATION && { google: env.GOOGLE_SITE_VERIFICATION }),
-  ...(env.BING_SITE_VERIFICATION && {
-    other: { "msvalidate.01": env.BING_SITE_VERIFICATION },
-  }),
-};
-
 export function buildRootMetadata(): Metadata {
   return {
     metadataBase: new URL(site.url),
@@ -75,7 +68,6 @@ export function buildRootMetadata(): Metadata {
           },
         }
       : { index: false, follow: false, googleBot: { index: false, follow: false } },
-    ...(Object.keys(verification).length > 0 && { verification }),
     appleWebApp: { title: site.name, statusBarStyle: "black-translucent" },
     formatDetection: { telephone: false, email: false, address: false },
   };

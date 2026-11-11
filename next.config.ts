@@ -1,9 +1,12 @@
 import type { NextConfig } from "next";
 
 // Validates the environment at config load, so `next build` fails fast on bad env.
-import "./src/shared/config/env";
+import { env } from "./src/shared/config/env";
 
 const isDev = process.env.NODE_ENV === "development";
+// Production is served over HTTPS only. Tests and local builds run on plain HTTP, so the
+// HTTPS-only rules are left out there.
+const isProduction = env.SITE_ENV === "production";
 
 // No nonces: the home is fully prerendered, and nonces require dynamic rendering
 // (see node_modules/next/dist/docs/01-app/02-guides/content-security-policy.md).
@@ -23,6 +26,7 @@ const contentSecurityPolicy = [
   "base-uri 'self'",
   "form-action 'self'",
   "frame-ancestors 'none'",
+  ...(isProduction ? ["upgrade-insecure-requests"] : []),
 ].join("; ");
 
 const securityHeaders = [
@@ -34,6 +38,10 @@ const securityHeaders = [
     value: "camera=(), microphone=(), geolocation=(), browsing-topics=()",
   },
   { key: "X-Frame-Options", value: "DENY" },
+  // Browsers remember for two years to use HTTPS only (no preload list: that is hard to undo).
+  ...(isProduction
+    ? [{ key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" }]
+    : []),
 ];
 
 const nextConfig: NextConfig = {

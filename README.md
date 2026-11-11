@@ -30,12 +30,10 @@ docker compose run --rm app pnpm build            # build de producción
 
 Variables de entorno (validadas con Zod en `src/shared/config/env.ts`; ver `.env.example`):
 
-| Variable                   | Por defecto                                                                   | Uso                                                                       |
-| -------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`     | En Vercel, `https://` + dominio de producción; si no, `http://localhost:3000` | `metadataBase`, canonical, sitemap, JSON-LD y URLs de las imágenes OG     |
-| `SITE_ENV`                 | En Vercel, `VERCEL_ENV`; si no, `development`                                 | Solo `production` es indexable; el resto sale con `noindex`               |
-| `GOOGLE_SITE_VERIFICATION` | —                                                                             | Token de Google Search Console (`<meta name="google-site-verification">`) |
-| `BING_SITE_VERIFICATION`   | —                                                                             | Token de Bing Webmaster Tools (`<meta name="msvalidate.01">`)             |
+| Variable               | Por defecto                                                                   | Uso                                                                   |
+| ---------------------- | ----------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL` | En Vercel, `https://` + dominio de producción; si no, `http://localhost:3000` | `metadataBase`, canonical, sitemap, JSON-LD y URLs de las imágenes OG |
+| `SITE_ENV`             | En Vercel, `VERCEL_ENV`; si no, `development`                                 | Solo `production` es indexable; el resto sale con `noindex`           |
 
 **Deploy en Vercel**: no hace falta configurar variables. Producción toma el dominio del proyecto y queda indexable; los previews salen con `noindex` y su canonical apunta a producción. Si se usa un dominio propio, conviene definir `NEXT_PUBLIC_SITE_URL` con ese dominio (Vercel toma como "producción" el dominio que marques como principal).
 

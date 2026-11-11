@@ -10,9 +10,6 @@ export const env = createEnv({
   server: {
     /** Only "production" is indexable: everything else gets noindex (metadata + robots.txt). */
     SITE_ENV: z.enum(["development", "preview", "production"]).default("development"),
-    /** Search Console and Bing Webmaster Tools ownership tokens (optional). */
-    GOOGLE_SITE_VERIFICATION: z.string().optional(),
-    BING_SITE_VERIFICATION: z.string().optional(),
   },
   client: {
     // localhost keeps dev and CI builds working.
@@ -21,8 +18,6 @@ export const env = createEnv({
   runtimeEnv: {
     // `||`, not `??`: an empty value set in the dashboard also falls back.
     SITE_ENV: process.env.SITE_ENV || process.env.VERCEL_ENV,
-    GOOGLE_SITE_VERIFICATION: process.env.GOOGLE_SITE_VERIFICATION,
-    BING_SITE_VERIFICATION: process.env.BING_SITE_VERIFICATION,
     NEXT_PUBLIC_SITE_URL:
       process.env.NEXT_PUBLIC_SITE_URL ||
       (vercelProductionUrl ? `https://${vercelProductionUrl}` : undefined),
