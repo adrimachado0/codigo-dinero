@@ -44,7 +44,7 @@ export const faqContent = defineContent(
         number: "03",
         question: "¿Cómo accedo a los videos?",
         answer:
-          "Las clases abiertas están en nuestro canal de YouTube. El contenido de la Escuela se habilita en [PLATAFORMA] cuando se acredita tu pago.",
+          "Las clases abiertas están en nuestro canal de YouTube. El contenido de formación se habilita en [PLATAFORMA] cuando se acredita tu pago.",
       },
       {
         number: "04",
@@ -60,7 +60,7 @@ export const faqContent = defineContent(
       },
       {
         number: "06",
-        question: "¿Las operaciones de la academia son recomendaciones?",
+        question: "¿Las operaciones que compartimos son recomendaciones?",
         answer:
           "No. Las operaciones y los análisis que compartimos tienen fines exclusivamente educativos y no constituyen asesoramiento financiero ni una recomendación de inversión. Cada persona decide y es responsable de sus operaciones. Operar CFDs, divisas y criptomonedas con apalancamiento conlleva un alto riesgo de perder dinero.",
       },
