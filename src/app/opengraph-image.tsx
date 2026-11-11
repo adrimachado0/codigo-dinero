@@ -8,7 +8,7 @@ import { heroTitle } from "@/features/hero";
 import { site } from "@/shared/config/site";
 import { dataUri, loadBrandFonts, qrBackground } from "@/shared/seo/brand-image";
 
-export const alt = `${site.name}, academia de trading: «${heroTitle.lead} ${heroTitle.highlight}». ${partnerContent.badge} de ${site.partner.name}.`;
+export const alt = `${site.name}, formación en trading con ${site.founder.name}: «${heroTitle.lead} ${heroTitle.highlight}». ${partnerContent.badge} de ${site.partner.name}.`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -22,8 +22,8 @@ const [fonts, logo, mentor, partnerLogo] = await Promise.all([
 ]);
 const qr = qrBackground(size);
 
-/** Mentor photo (420 × 684) over the wine circle, as in the hero. */
-const PHOTO = { width: 340, height: 554 };
+/** Cut-out of Ángel (420 × 464) over the wine circle, as in the hero. */
+const PHOTO = { width: 400, height: 442 };
 const CIRCLE = 500;
 const CENTER_X = 880;
 
@@ -84,7 +84,7 @@ export default function OpengraphImage() {
           <div style={{ fontSize: 52, lineHeight: 1.06, letterSpacing: -1, color: "#FF2B2B" }}>
             {heroTitle.highlight}
           </div>
-          <div style={{ marginTop: 22, fontSize: 28, color: "#EBCFD1" }}>Academia de trading</div>
+          <div style={{ marginTop: 22, fontSize: 28, color: "#EBCFD1" }}>Formación en trading</div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
           <div

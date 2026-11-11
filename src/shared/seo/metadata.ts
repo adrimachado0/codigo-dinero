@@ -7,7 +7,7 @@ export const isIndexable = env.SITE_ENV === "production";
 
 /** Search terms the page is about (Bing still reads `keywords`; Google ignores it). */
 const keywords = [
-  "academia de trading",
+  "formación en trading",
   "curso de trading",
   "aprender trading",
   "trading desde cero",
@@ -16,7 +16,10 @@ const keywords = [
   "plan de trading",
   "gestión del riesgo",
   "cuentas demo",
-  "indicadores de trading",
+  "indicador de trading",
+  "Smart Money Concepts",
+  "XAUUSD",
+  "libro de trading",
   "forex",
   "clases de trading gratis",
   "partner EC Markets",

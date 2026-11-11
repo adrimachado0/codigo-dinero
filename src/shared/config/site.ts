@@ -21,10 +21,12 @@ export const site = {
   /** Home URL exactly as Next renders the canonical (origin, no trailing slash). */
   homeUrl: new URL(env.NEXT_PUBLIC_SITE_URL).origin,
   locale: "es_AR",
-  title: "Código Dinero · Academia de trading",
+  title: "Código Dinero · Formación en trading",
   description:
     "De cero a tu propio plan de trading: formación, análisis y una comunidad que opera con método. Para quien empieza, traders con experiencia e IBs de EC Markets.",
   homeLabel: "Código Dinero, ir al inicio",
+  /** Founder and mentor (JSON-LD `founder`). */
+  founder: { name: "Ángel Jesús González", jobTitle: "BDM en EC Markets" },
   nav: {
     links: [
       { label: "Inicio", href: "#inicio" },
