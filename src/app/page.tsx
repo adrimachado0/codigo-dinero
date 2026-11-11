@@ -3,7 +3,7 @@ import { Audience } from "@/features/audience";
 import { PartnerStats } from "@/features/broker-partner";
 import { Faq, faqContent } from "@/features/faq";
 import { Hero } from "@/features/hero";
-import { LeadCapture } from "@/features/lead-capture";
+import { Contact } from "@/features/contact";
 import { Library } from "@/features/library";
 import { MarketOverview } from "@/features/market-overview";
 import { MentorProfile } from "@/features/mentor-profile";
@@ -42,7 +42,7 @@ export default function HomePage() {
         <MarketOverview />
         <TopicsRibbon />
         <Faq />
-        <LeadCapture />
+        <Contact />
       </main>
       <SiteFooter />
     </>

@@ -79,14 +79,6 @@ export function CloseIcon({ size = 18, strokeWidth = 2, ...props }: IconProps) {
   );
 }
 
-export function ChevronDownIcon({ size = 16, strokeWidth = 2, ...props }: IconProps) {
-  return (
-    <StrokeIcon size={size} strokeWidth={strokeWidth} {...props}>
-      <path d="M6 9l6 6 6-6" />
-    </StrokeIcon>
-  );
-}
-
 /** Audience cards ("¿A quién está dirigido?"): steps up for beginners. */
 export function StepsUpIcon({ size = 52, strokeWidth = 2.4, ...props }: IconProps) {
   return (
