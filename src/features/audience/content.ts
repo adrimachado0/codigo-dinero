@@ -3,7 +3,19 @@ import { z } from "zod";
 import { defineContent } from "@/shared/lib/content";
 import { RichTextSchema } from "@/shared/lib/rich-text";
 
-const LinkSchema = z.object({ label: z.string().min(1), href: z.string().min(1) });
+/**
+ * CTA of a card: `registration` goes to the Partner/IB sign-up, `whatsapp` opens the partner
+ * chat and `section` jumps to `href` on the page.
+ */
+const CtaSchema = z.discriminatedUnion("kind", [
+  z.object({ kind: z.literal("registration"), label: z.string().min(1) }),
+  z.object({ kind: z.literal("whatsapp"), label: z.string().min(1) }),
+  z.object({
+    kind: z.literal("section"),
+    label: z.string().min(1),
+    href: z.string().startsWith("#"),
+  }),
+]);
 
 export const audienceContent = defineContent(
   z.object({
@@ -19,7 +31,7 @@ export const audienceContent = defineContent(
           tag: z.string().min(1),
           title: z.string().min(1),
           body: RichTextSchema,
-          cta: LinkSchema,
+          cta: CtaSchema,
         }),
       )
       .length(3),
@@ -37,7 +49,7 @@ export const audienceContent = defineContent(
         body: [
           "Aprende una habilidad real desde cero. Te enseñamos a leer el mercado, gestionar el riesgo y te ofrecemos cuentas demo para practicar sin riesgo antes de dar el salto al mercado real.",
         ],
-        cta: { label: "Quiero aprender desde cero", href: "#contacto" },
+        cta: { kind: "registration", label: "Quiero aprender desde cero" },
       },
       {
         number: "02",
@@ -48,7 +60,7 @@ export const audienceContent = defineContent(
         body: [
           "Accede a herramientas avanzadas, estrategias probadas, indicadores exclusivos por suscripción y análisis de mercado profesionales.",
         ],
-        cta: { label: "Ver planes de indicadores", href: "#indicadores" },
+        cta: { kind: "section", label: "Conocer el indicador", href: "#indicador" },
       },
       {
         number: "03",
@@ -61,7 +73,7 @@ export const audienceContent = defineContent(
           { strong: "EC Markets" },
           ".",
         ],
-        cta: { label: "Sumarme como Partner / IB", href: "#contacto" },
+        cta: { kind: "whatsapp", label: "Sumarme como Partner / IB" },
       },
     ],
   },

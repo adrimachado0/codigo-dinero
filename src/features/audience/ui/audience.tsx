@@ -1,7 +1,15 @@
 import { cva } from "class-variance-authority";
 
+import { linkAttributes, partnerRegistrationLink, whatsappLink } from "@/shared/config/links";
 import { LinkButton } from "@/shared/ui/button";
-import { ArrowRightIcon, CommunityIcon, StepsUpIcon, TrendUpIcon } from "@/shared/ui/icons";
+import {
+  ArrowRightIcon,
+  ArrowUpRightIcon,
+  CommunityIcon,
+  StepsUpIcon,
+  TrendUpIcon,
+  WhatsAppIcon,
+} from "@/shared/ui/icons";
 import { Pill } from "@/shared/ui/pill";
 import { Reveal } from "@/shared/ui/reveal";
 import { RichText } from "@/shared/ui/rich-text";
@@ -67,23 +75,33 @@ export function Audience() {
                 >
                   <RichText value={card.body} />
                 </p>
-                {onAccent ? (
+                {card.cta.kind === "whatsapp" ? (
                   <LinkButton
-                    href={card.cta.href}
+                    {...linkAttributes(whatsappLink("partner"))}
                     tone="ink"
                     size="lg"
-                    className="group mt-5 gap-2.5 self-start md:mt-auto"
+                    className="mt-5 gap-2.5 self-start md:mt-auto"
                   >
+                    <WhatsAppIcon size={18} />
                     {card.cta.label}
-                    <ArrowRightIcon className="transition-transform duration-300 group-hover:translate-x-1" />
                   </LinkButton>
                 ) : (
                   <a
-                    href={card.cta.href}
+                    {...(card.cta.kind === "registration"
+                      ? linkAttributes(partnerRegistrationLink)
+                      : { href: card.cta.href })}
                     className="group mt-auto inline-flex min-h-11 items-center gap-2.5 pt-5 text-15 font-medium text-white no-underline transition-colors duration-300 hover:text-accent md:pt-7"
                   >
                     {card.cta.label}
-                    <ArrowRightIcon className="transition-transform duration-300 group-hover:translate-x-1" />
+                    {card.cta.kind === "registration" ? (
+                      <ArrowUpRightIcon
+                        size={12}
+                        strokeWidth={2.2}
+                        className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                      />
+                    ) : (
+                      <ArrowRightIcon className="transition-transform duration-300 group-hover:translate-x-1" />
+                    )}
                   </a>
                 )}
               </article>
