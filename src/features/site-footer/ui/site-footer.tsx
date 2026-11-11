@@ -1,11 +1,15 @@
 import type { ComponentType } from "react";
 
 import { FooterPartner } from "@/features/broker-partner";
+import { linkAttributes } from "@/shared/config/links";
 import { site, type SocialNetwork } from "@/shared/config/site";
+import { cn } from "@/shared/lib/cn";
 import {
+  ArrowUpRightIcon,
   InstagramIcon,
   TelegramIcon,
   TikTokIcon,
+  WhatsAppIcon,
   XIcon,
   YouTubeIcon,
   type IconProps,
@@ -21,6 +25,7 @@ const socialIcons: Record<SocialNetwork, ComponentType<IconProps>> = {
   TikTok: TikTokIcon,
   Telegram: TelegramIcon,
   X: XIcon,
+  WhatsApp: WhatsAppIcon,
 };
 
 export function SiteFooter() {
@@ -57,10 +62,14 @@ export function SiteFooter() {
                 {column.links.map((link) => (
                   <a
                     key={link.label}
-                    href={link.href}
-                    className="py-1.25 text-ink no-underline decoration-2 underline-offset-4 hover:underline"
+                    {...linkAttributes(link)}
+                    className={cn(
+                      "py-1.25 text-ink no-underline decoration-2 underline-offset-4 hover:underline",
+                      link.external && "inline-flex items-center gap-1.25",
+                    )}
                   >
                     {link.label}
+                    {link.external && <ArrowUpRightIcon size={12} strokeWidth={2.2} />}
                   </a>
                 ))}
               </div>
@@ -72,13 +81,13 @@ export function SiteFooter() {
         </p>
         <div className="mt-5.5 flex flex-wrap items-center justify-between gap-4">
           <p className="m-0 text-13 text-ink-soft">{content.copyright}</p>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             {site.social.map((network) => {
               const Icon = socialIcons[network.name];
               return (
                 <a
                   key={network.name}
-                  href={network.href}
+                  {...linkAttributes({ ...network, external: network.href !== "#" })}
                   aria-label={network.name}
                   className="flex size-11 items-center justify-center rounded-full bg-ink text-accent transition-[background-color,color,box-shadow] duration-300 hover:bg-accent hover:text-ink hover:shadow-[inset_0_0_0_2px_#111111]"
                 >

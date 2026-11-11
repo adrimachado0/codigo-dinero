@@ -1,5 +1,5 @@
 import { env } from "@/shared/config/env";
-import { links, partnerRegistrationLink } from "@/shared/config/links";
+import { links, partnerRegistrationLink, whatsappLink } from "@/shared/config/links";
 
 export type NavLink = {
   label: string;
@@ -45,12 +45,14 @@ export const site = {
     ] satisfies NavLink[],
     cta: { label: "Empezar", ...partnerRegistrationLink } satisfies NavLink,
   },
+  /** Footer icons, in order. `profile`: an account page, listed as `sameAs` in the JSON-LD. */
   social: [
-    { name: "YouTube", href: "#" },
-    { name: "Instagram", href: "#" },
-    { name: "TikTok", href: "#" },
-    { name: "Telegram", href: "#" },
-    { name: "X", href: "#" },
+    { name: "YouTube", href: links.youtube, dataLink: "youtube-canal", profile: true },
+    { name: "Instagram", href: links.instagram, dataLink: "instagram", profile: true },
+    { name: "TikTok", href: links.tiktok, dataLink: "tiktok", profile: true },
+    { name: "Telegram", href: "#", profile: true },
+    { name: "X", href: "#", profile: true },
+    { name: "WhatsApp", ...whatsappLink("general"), profile: false },
   ],
   partner: {
     name: "EC Markets",

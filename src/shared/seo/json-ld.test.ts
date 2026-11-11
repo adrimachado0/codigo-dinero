@@ -29,11 +29,17 @@ describe("JSON-LD", () => {
     });
   });
 
-  it("links WebSite to the organization and omits placeholder social links", () => {
+  it("links WebSite to the organization and lists only real profiles as sameAs", () => {
     const org = organizationLd();
 
     expect(org).toMatchObject({ "@type": "EducationalOrganization", name: "Código Dinero" });
-    expect(org).not.toHaveProperty("sameAs");
+    expect(org).toMatchObject({
+      sameAs: [
+        "https://www.youtube.com/@tradersdexau",
+        "https://www.instagram.com/gonzalezbrothers.xau",
+        "https://www.tiktok.com/@gonzalezbrothers.xau",
+      ],
+    });
     expect(org).toMatchObject({ "@id": "http://localhost:3000/#organization" });
     expect(websiteLd()).toMatchObject({
       publisher: { "@id": "http://localhost:3000/#organization" },
