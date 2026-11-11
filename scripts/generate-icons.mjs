@@ -1,6 +1,6 @@
 // Generates the favicon, app icons and the OG photo from the brand assets.
 // Run in the container: docker compose run --rm app pnpm icons
-// Rerun it when the logo or the mentor photo change (or a higher-resolution emblem arrives).
+// Rerun it when the logo or the hero photo change (or a higher-resolution emblem arrives).
 import { mkdirSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 
@@ -9,7 +9,7 @@ const require = createRequire(import.meta.url);
 const sharp = require(require.resolve("sharp", { paths: [require.resolve("next")] }));
 
 const LOGO = "src/shared/ui/brand/codigo-dinero-logo.png";
-const MENTOR = "src/shared/config/photos/mentor.webp";
+const MENTOR = "src/shared/config/photos/angel-hero.webp";
 /** The round emblem is the left square of the logo (the lettering starts at x = 160). */
 const EMBLEM = { left: 0, top: 0, width: 160, height: 160 };
 const BACKGROUND = "#0F0F0F";

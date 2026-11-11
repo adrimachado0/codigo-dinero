@@ -1,7 +1,9 @@
-import { photos } from "@/shared/config/photos";
+import Image from "next/image";
+
+import { linkAttributes, partnerRegistrationLink, whatsappLink } from "@/shared/config/links";
+import { photos, type PhotoSlot } from "@/shared/config/photos";
 import { LinkButton } from "@/shared/ui/button";
-import { CandlesIcon } from "@/shared/ui/icons";
-import { PersonPhoto } from "@/shared/ui/person-photo";
+import { ArrowUpRightIcon, WhatsAppIcon } from "@/shared/ui/icons";
 import { Pill } from "@/shared/ui/pill";
 import { Reveal } from "@/shared/ui/reveal";
 import { RichText } from "@/shared/ui/rich-text";
@@ -9,15 +11,52 @@ import { SectionTitle } from "@/shared/ui/section-title";
 
 import { mentorContent as content } from "../content";
 
-const photo = photos.mentor;
-
 const captionBars = [
   { width: "w-2.25", opacity: "" },
   { width: "w-1.25", opacity: "opacity-80" },
   { width: "w-0.75", opacity: "opacity-60" },
 ];
 
+// Focal points of the design (object-position).
+const events = [
+  { photo: photos.stand, caption: content.events.stand, position: "object-[50%_14%]" },
+  { photo: photos.moneyExpo, caption: content.events.moneyExpo, position: "object-[50%_36%]" },
+];
+
+/** Event photo with the black caption and the red bar (stand, Money Expo). */
+function EventCard({
+  photo,
+  caption,
+  position,
+}: {
+  photo: PhotoSlot;
+  caption: string;
+  position: string;
+}) {
+  return (
+    <figure
+      data-reveal
+      className="relative m-0 h-60 min-w-0 flex-[1_1_320px] overflow-hidden rounded-card bg-surface-600 md:h-80"
+    >
+      {photo && (
+        <Image
+          src={photo.src}
+          alt={photo.alt}
+          fill
+          sizes="(max-width: 1023px) 100vw, 541px"
+          className={`object-cover ${position}`}
+        />
+      )}
+      <figcaption className="absolute bottom-4 left-4 flex items-stretch gap-1">
+        <span className="bg-ink px-3.5 py-[9px] text-13 font-semibold text-white">{caption}</span>
+        <span className="w-1.5 bg-accent" />
+      </figcaption>
+    </figure>
+  );
+}
+
 export function MentorProfile() {
+  const photo = photos.mentor;
   return (
     <section
       id="quien-soy"
@@ -32,21 +71,15 @@ export function MentorProfile() {
           data-reveal
           className="relative h-[440px] max-w-[440px] min-w-0 flex-[1_1_320px] overflow-hidden rounded-card-lg bg-surface-600 md:h-[540px]"
         >
-          <PersonPhoto
-            tone="graphite"
-            photo={photo}
-            label={null}
-            // Rendered at most 405px wide (92% of the 440px card).
-            sizes="405px"
-            className={
-              photo
-                ? "absolute top-8 left-1/2 w-[92%] -translate-x-1/2"
-                : "absolute bottom-0 left-1/2 w-[82%] -translate-x-1/2"
-            }
-            imageClassName="[filter:grayscale(1)_contrast(1.05)]"
-          />
-          <CandlesIcon className="absolute top-6.5 right-6.5 text-accent" />
-          {!photo && <Pill className="absolute top-6.5 left-5.5">{content.photoLabel}</Pill>}
+          {photo && (
+            <Image
+              src={photo.src}
+              alt={photo.alt}
+              fill
+              sizes="(max-width: 767px) 100vw, 440px"
+              className="object-cover object-[100%_30%]"
+            />
+          )}
           <div className="absolute right-5 bottom-5 left-5 flex items-stretch gap-1.25">
             <div className="bg-accent py-3 pr-5 pl-5.5 leading-caps text-ink">
               <span className="block text-16 font-bold">{content.name}</span>
@@ -85,21 +118,29 @@ export function MentorProfile() {
           </div>
           <div className="mt-7.5 flex flex-wrap gap-3">
             <LinkButton
-              href={content.primaryCta.href}
+              {...linkAttributes(partnerRegistrationLink)}
               size="lg"
               className="box-border justify-center gap-2.5"
             >
-              {content.primaryCta.label}
+              {content.primaryCta}
+              <ArrowUpRightIcon size={12} strokeWidth={2.2} />
             </LinkButton>
             <LinkButton
-              href={content.partnerCta.href}
+              {...linkAttributes(whatsappLink("partner"))}
               tone="outline"
               size="lg"
               className="box-border justify-center gap-2.5"
             >
-              {content.partnerCta.label}
+              <WhatsAppIcon size={17} />
+              {content.partnerCta}
             </LinkButton>
           </div>
+        </div>
+
+        <div className="flex flex-[1_1_100%] flex-wrap gap-4.5">
+          {events.map((event) => (
+            <EventCard key={event.caption} {...event} />
+          ))}
         </div>
       </Reveal>
     </section>

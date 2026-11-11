@@ -96,18 +96,6 @@ export function UserIcon({ size = 22, strokeWidth = 1.8, ...props }: IconProps) 
   );
 }
 
-/** Candlestick bars of the mentor card. */
-export function CandlesIcon({ size = 64, strokeWidth = 2.4, ...props }: IconProps) {
-  return (
-    <StrokeIcon size={size} viewBox="0 0 64 64" strokeWidth={strokeWidth} {...props}>
-      <path d="M14 18v8M14 46v6M32 10v10M32 40v12M50 22v6M50 44v8" />
-      <rect x="9" y="26" width="10" height="20" rx="2" />
-      <rect x="27" y="20" width="10" height="20" rx="2" />
-      <rect x="45" y="28" width="10" height="16" rx="2" />
-    </StrokeIcon>
-  );
-}
-
 export function ChevronDownIcon({ size = 16, strokeWidth = 2, ...props }: IconProps) {
   return (
     <StrokeIcon size={size} strokeWidth={strokeWidth} {...props}>
