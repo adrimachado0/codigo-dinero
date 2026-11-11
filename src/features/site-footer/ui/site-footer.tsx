@@ -59,6 +59,7 @@ export function SiteFooter() {
                   <a
                     key={link.label}
                     {...linkAttributes(link)}
+                    download={link.download}
                     className={cn(
                       "py-1.25 text-ink no-underline decoration-2 underline-offset-4 hover:underline",
                       link.external && "inline-flex items-center gap-1.25",

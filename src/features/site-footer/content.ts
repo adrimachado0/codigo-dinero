@@ -8,6 +8,8 @@ const LinkSchema = z.object({
   href: z.string().min(1),
   external: z.boolean().optional(),
   dataLink: z.string().min(1).optional(),
+  /** Downloads the file (the legal PDFs) instead of navigating. */
+  download: z.boolean().optional(),
 });
 
 export const footerContent = defineContent(
@@ -39,9 +41,17 @@ export const footerContent = defineContent(
       {
         title: "Legal",
         links: [
-          { label: "Términos y condiciones", href: "#" },
-          { label: "Política de privacidad", href: "#" },
-          { label: "Aviso de riesgo", href: "#" },
+          {
+            label: "Términos y condiciones",
+            href: "/legal/terminos-y-condiciones.pdf",
+            download: true,
+          },
+          {
+            label: "Política de privacidad",
+            href: "/legal/politica-de-privacidad.pdf",
+            download: true,
+          },
+          { label: "Aviso de riesgo", href: "/legal/aviso-de-riesgo.pdf", download: true },
         ],
       },
     ],

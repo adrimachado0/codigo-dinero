@@ -17,6 +17,7 @@
     "test:e2e": "playwright test --project=e2e",
     "test:visual": "playwright test --project=visual",
     "icons": "node scripts/generate-icons.mjs",
+    "legal": "node scripts/build-legal-pdfs.mjs",
     "prepare": "husky"
   },
   "dependencies": {
