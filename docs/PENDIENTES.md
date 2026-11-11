@@ -1,12 +1,13 @@
 # Pendientes
 
-Todo lo que falta definir o implementar. Los marcadores se mantienen tal cual en la UI hasta tener el dato real; no se inventa contenido. Lo resuelto queda tachado con `[x]` y cómo se resolvió.
+Todo lo que falta definir o implementar. Los marcadores se mantienen tal cual en la UI hasta tener el dato real; no se inventa contenido. Lo resuelto queda marcado con `[x]` junto con cómo se resolvió; lo que sigue sin marcar espera una respuesta del cliente.
 
 ## Links (todos en `src/shared/config/links.ts`)
 
 - [x] **Número de WhatsApp**: `WHATSAPP_NUMBER = "5493412649713"` (+54 9 341 264-9713). Todos los botones lo toman de ahí.
 - [ ] **Registro Partner/IB de EC Markets**: `links.partnerRegistration` (hoy `#`). Lo usan los 5 botones con `data-link="partner-ib-registro"`: "Empezar" (header y footer) y "Quiero aprender desde cero" (hero, "Traders novatos" y "Quién soy").
 - [x] **"Ver clases grabadas"** (Recursos): abre el canal de YouTube (`links.recordedClasses`).
+- [x] **"Indicadores exclusivos"** (Recursos, 04): abre WhatsApp con el mismo mensaje que el botón de la sección del indicador (`data-link="whatsapp-indicador"`).
 - [x] **Lista de reproducción del Curso Básico e Intermedio**: `links.youtubeCourse` apunta a la lista "Curso intermedio Traders de Xau".
 - [ ] **Video del tutorial** "Cómo leer velas japonesas desde cero": `links.youtubeTutorial` (hoy el canal). Con la URL del video se puede sumar el JSON-LD `VideoObject` en `src/shared/seo/json-ld.tsx`.
 - [x] **Redes sin URL**: el cliente no tiene Telegram ni X; se quitaron del footer. Quedan YouTube, Instagram, TikTok y WhatsApp.
