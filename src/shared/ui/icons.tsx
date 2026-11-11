@@ -166,6 +166,16 @@ export function QuoteIcon({ size = 28, ...props }: IconProps) {
   );
 }
 
+/** Chat bubble with a handset: every button that opens WhatsApp. */
+export function WhatsAppIcon({ size = 20, strokeWidth = 1.7, ...props }: IconProps) {
+  return (
+    <StrokeIcon size={size} strokeWidth={strokeWidth} {...props}>
+      <path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" />
+      <path d="M9.3 8.3c.3-.4.7-.4 1 0l.8 1.3c.2.3.1.7-.1.9l-.5.5c.6 1.3 1.6 2.3 2.9 2.9l.5-.5c.2-.2.6-.3.9-.1l1.3.8c.4.3.4.7 0 1-.8.8-2 1.1-3 .7a8.3 8.3 0 0 1-4.5-4.5c-.4-1-.1-2.2.7-3z" />
+    </StrokeIcon>
+  );
+}
+
 export function YouTubeIcon({ size = 20, strokeWidth = 1.7, ...props }: IconProps) {
   return (
     <StrokeIcon size={size} strokeWidth={strokeWidth} {...props}>

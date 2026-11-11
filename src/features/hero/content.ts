@@ -3,15 +3,15 @@ import { z } from "zod";
 import { defineContent } from "@/shared/lib/content";
 import { RichTextSchema } from "@/shared/lib/rich-text";
 
-const LinkSchema = z.object({ label: z.string().min(1), href: z.string().min(1) });
-
 export const heroContent = defineContent(
   z.object({
     /** First line in white; the second on its own line in the accent red. */
     title: z.object({ lead: z.string().min(1), highlight: z.string().min(1) }),
     intro: RichTextSchema,
-    primaryCta: LinkSchema,
-    partnerCta: LinkSchema,
+    /** Goes to the Partner/IB sign-up (src/shared/config/links.ts). */
+    primaryCta: z.string().min(1),
+    /** Opens WhatsApp with the partner message. */
+    partnerCta: z.string().min(1),
   }),
   {
     title: {
@@ -23,7 +23,7 @@ export const heroContent = defineContent(
       { strong: "EC Markets" },
       ".",
     ],
-    primaryCta: { label: "Quiero aprender desde cero", href: "#contacto" },
-    partnerCta: { label: "Sumarme como Partner / IB", href: "#contacto" },
+    primaryCta: "Quiero aprender desde cero",
+    partnerCta: "Sumarme como Partner / IB",
   },
 );

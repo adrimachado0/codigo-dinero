@@ -21,6 +21,8 @@ export type PersonPhotoProps = {
   labelClassName?: string;
   /** Extra classes of the photo itself (filters, masks); not applied to the silhouette. */
   imageClassName?: string;
+  /** Above the fold: preload the photo in <head> instead of lazy-loading it. */
+  preload?: boolean;
 };
 
 /**
@@ -35,6 +37,7 @@ export function PersonPhoto({
   label = "Foto",
   labelClassName,
   imageClassName,
+  preload = false,
 }: PersonPhotoProps) {
   return (
     <div className={cn("relative", className)}>
@@ -43,6 +46,7 @@ export function PersonPhoto({
           src={photo.src}
           alt={photo.alt}
           sizes={sizes}
+          preload={preload}
           className={cn("block h-auto w-full", imageClassName)}
         />
       ) : (

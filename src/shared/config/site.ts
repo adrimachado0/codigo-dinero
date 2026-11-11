@@ -1,5 +1,5 @@
 import { env } from "@/shared/config/env";
-import { links } from "@/shared/config/links";
+import { links, partnerRegistrationLink } from "@/shared/config/links";
 
 export type NavLink = {
   label: string;
@@ -43,12 +43,7 @@ export const site = {
       { label: "Mercado", href: "#mercado" },
       { label: "Equipo", href: "#" },
     ] satisfies NavLink[],
-    cta: {
-      label: "Empezar",
-      href: links.partnerRegistration,
-      external: true,
-      dataLink: "partner-ib-registro",
-    } satisfies NavLink,
+    cta: { label: "Empezar", ...partnerRegistrationLink } satisfies NavLink,
   },
   social: [
     { name: "YouTube", href: "#" },

@@ -36,16 +36,39 @@ export function linkAttributes(link: { href: string; external?: boolean; dataLin
 /** International format without "+" or spaces (pending: docs/PENDIENTES.md). */
 export const WHATSAPP_NUMBER = "549XXXXXXXXXX";
 
-/** Pre-filled WhatsApp messages of the design, one per button. */
+/** Pre-filled WhatsApp messages of the design, one per button, with its `data-link` id. */
 export const whatsappMessages = {
-  partner: "Hola Ángel, quiero sumarme como Partner / IB.",
-  book: 'Hola Ángel, quiero comprar el libro "Domina la estructura del mercado".',
-  indicator: "Hola Ángel, quiero solicitar acceso al indicador Institucional Premium.",
-  beginner: "Hola Ángel, estoy empezando desde cero y quiero coordinar una sesión.",
-  experienced: "Hola Ángel, soy trader con experiencia y quiero coordinar una sesión.",
-  communityLeader: "Hola Ángel, lidero una comunidad y quiero coordinar una sesión como IB.",
-  general: "Hola Ángel, quiero más información sobre Código Dinero.",
+  partner: {
+    dataLink: "whatsapp-partner",
+    text: "Hola Ángel, quiero sumarme como Partner / IB.",
+  },
+  book: {
+    dataLink: "whatsapp-libro",
+    text: 'Hola Ángel, quiero comprar el libro "Domina la estructura del mercado".',
+  },
+  indicator: {
+    dataLink: "whatsapp-indicador",
+    text: "Hola Ángel, quiero solicitar acceso al indicador Institucional Premium.",
+  },
+  beginner: {
+    dataLink: "whatsapp-novato",
+    text: "Hola Ángel, estoy empezando desde cero y quiero coordinar una sesión.",
+  },
+  experienced: {
+    dataLink: "whatsapp-experiencia",
+    text: "Hola Ángel, soy trader con experiencia y quiero coordinar una sesión.",
+  },
+  communityLeader: {
+    dataLink: "whatsapp-ib",
+    text: "Hola Ángel, lidero una comunidad y quiero coordinar una sesión como IB.",
+  },
+  general: {
+    dataLink: "whatsapp-general",
+    text: "Hola Ángel, quiero más información sobre Código Dinero.",
+  },
 } as const;
+
+export type WhatsAppMessage = keyof typeof whatsappMessages;
 
 /** Message of a library item ("Solicitar por WhatsApp"). */
 export function libraryRequestMessage(title: string): string {
@@ -56,3 +79,16 @@ export function libraryRequestMessage(title: string): string {
 export function whatsappUrl(message: string): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
+
+/** Link (for `linkAttributes`) that opens WhatsApp with one of the design's messages. */
+export function whatsappLink(message: WhatsAppMessage) {
+  const { dataLink, text } = whatsappMessages[message];
+  return { href: whatsappUrl(text), external: true, dataLink };
+}
+
+/** Every "Empezar" / "Quiero aprender desde cero" button. */
+export const partnerRegistrationLink = {
+  href: links.partnerRegistration,
+  external: true,
+  dataLink: "partner-ib-registro",
+} as const;

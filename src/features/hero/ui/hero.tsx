@@ -1,6 +1,8 @@
 import { HeroPartner } from "@/features/broker-partner";
+import { linkAttributes, partnerRegistrationLink, whatsappLink } from "@/shared/config/links";
 import { photos } from "@/shared/config/photos";
 import { LinkButton } from "@/shared/ui/button";
+import { ArrowUpRightIcon, WhatsAppIcon } from "@/shared/ui/icons";
 import { ParticleSphere } from "@/shared/ui/particle-sphere";
 import { PersonPhoto } from "@/shared/ui/person-photo";
 import { QrPattern } from "@/shared/ui/qr-pattern";
@@ -83,26 +85,28 @@ export function Hero() {
               <PersonPhoto
                 tone="wine"
                 photo={photo}
-                sizes="(max-width: 767px) 270px, 300px"
-                className={
-                  photo
-                    ? "absolute bottom-0 left-1/2 -ml-[135px] w-[270px] md:-ml-[150px] md:w-[300px]"
-                    : "absolute bottom-0 left-1/2 -ml-[135px] w-[270px] md:-ml-[155px] md:w-[310px]"
-                }
+                preload
+                sizes="(max-width: 767px) 320px, 420px"
+                className="absolute bottom-0 left-1/2 -ml-40 w-80 md:-ml-[210px] md:w-[420px]"
                 labelClassName="top-1/2 md:top-[66%]"
                 imageClassName="max-lg:[mask-image:linear-gradient(to_bottom,#000_78%,transparent_100%)]"
               />
               {/* Below 768px the capsule stacks in a column (reference: .cod-hero-cta). */}
               <div className="absolute bottom-6.5 left-1/2 z-2 flex w-[min(300px,calc(100%-24px))] -translate-x-1/2 flex-col gap-1.5 rounded-accordion bg-ink/86 p-1.5 md:w-auto md:flex-row md:rounded-full md:whitespace-nowrap">
-                <LinkButton href={heroContent.primaryCta.href} className="max-md:justify-center">
-                  {heroContent.primaryCta.label}
+                <LinkButton
+                  {...linkAttributes(partnerRegistrationLink)}
+                  className="gap-1.75 max-md:justify-center"
+                >
+                  {heroContent.primaryCta}
+                  <ArrowUpRightIcon size={12} strokeWidth={2.2} />
                 </LinkButton>
                 <LinkButton
-                  href={heroContent.partnerCta.href}
+                  {...linkAttributes(whatsappLink("partner"))}
                   tone="outline-soft"
-                  className="max-md:justify-center"
+                  className="gap-2 max-md:justify-center"
                 >
-                  {heroContent.partnerCta.label}
+                  <WhatsAppIcon size={16} />
+                  {heroContent.partnerCta}
                 </LinkButton>
               </div>
             </div>

@@ -1,10 +1,17 @@
 import { describe, expect, it } from "vitest";
 
-import { libraryRequestMessage, WHATSAPP_NUMBER, whatsappMessages, whatsappUrl } from "./links";
+import {
+  libraryRequestMessage,
+  linkAttributes,
+  WHATSAPP_NUMBER,
+  whatsappLink,
+  whatsappMessages,
+  whatsappUrl,
+} from "./links";
 
 describe("whatsappUrl", () => {
   it("opens a chat with the number and the encoded message", () => {
-    const url = new URL(whatsappUrl(whatsappMessages.book));
+    const url = new URL(whatsappUrl(whatsappMessages.book.text));
 
     expect(url.origin).toBe("https://wa.me");
     expect(url.pathname).toBe(`/${WHATSAPP_NUMBER}`);
@@ -18,6 +25,15 @@ describe("whatsappUrl", () => {
 
     expect(url).not.toContain(" ");
     expect(new URL(url).searchParams.get("text")).toBe("A & B? 100% #1");
+  });
+
+  it("gives each button its data-link id and opens in a new tab", () => {
+    expect(linkAttributes(whatsappLink("partner"))).toEqual({
+      href: whatsappUrl("Hola Ángel, quiero sumarme como Partner / IB."),
+      "data-link": "whatsapp-partner",
+      target: "_blank",
+      rel: "noopener noreferrer",
+    });
   });
 
   it("builds the library request with the item title", () => {
