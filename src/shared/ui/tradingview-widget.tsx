@@ -144,7 +144,7 @@ export function MiniChartWidget({
         symbol,
         width: "100%",
         height: "100%",
-        dateRange: "1D",
+        dateRange: "1M",
         isTransparent: true,
         autosize: true,
         trendLineColor: "rgba(255, 43, 43, 1)",
@@ -209,7 +209,7 @@ export function TickerTapeWidget({
         symbols: symbols.map((s) => ({ proName: s.proName, title: s.title })),
         showSymbolLogo: false,
         isTransparent: true,
-        displayMode: "compact",
+        displayMode: "regular",
       }}
     />
   );

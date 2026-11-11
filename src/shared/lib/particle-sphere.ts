@@ -1,4 +1,4 @@
-import type { RandomFn } from "@/shared/lib/random";
+type RandomFn = () => number;
 
 /**
  * Particle sphere of the hero, ported 1:1 from the reference (makeSphere, makeDust,

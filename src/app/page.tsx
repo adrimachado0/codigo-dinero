@@ -5,6 +5,7 @@ import { Faq, faqContent } from "@/features/faq";
 import { Hero } from "@/features/hero";
 import { LeadCapture } from "@/features/lead-capture";
 import { Library } from "@/features/library";
+import { MarketOverview } from "@/features/market-overview";
 import { MentorProfile } from "@/features/mentor-profile";
 import { MottoBand } from "@/features/motto-band";
 import { PremiumIndicator } from "@/features/premium-indicator";
@@ -39,6 +40,7 @@ export default function HomePage() {
         <Training />
         <Library />
         <PremiumIndicator />
+        <MarketOverview />
         <Testimonials />
         <TopicsRibbon />
         <Faq />
