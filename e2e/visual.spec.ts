@@ -28,6 +28,8 @@ const INTENTIONAL: Record<string, { reason: string; widths?: number[] }> = {
   inicio: { reason: "bloque del hero a todo el ancho", widths: [1440] },
   // "Solicitar por WhatsApp" keeps the 44px touch target (the design draws it at 40px).
   biblioteca: { reason: "enlaces de la biblioteca de 44px" },
+  // The client has no Telegram or X: the footer keeps YouTube, Instagram, TikTok and WhatsApp.
+  footer: { reason: "footer sin Telegram ni X" },
 };
 
 /** Below 768px the page uses tighter gutters and section spacing than the reference. */

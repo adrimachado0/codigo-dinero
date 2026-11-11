@@ -3,7 +3,7 @@
 Landing de **Código Dinero** (formación en trading, partner oficial de EC Markets) en Next.js 16. Es una réplica pixel perfect de `reference/` (página "Principal v4" del lienzo de diseño), con la regresión visual por sección en 1440, 1024, 768 y 390 px.
 
 - Stack: Next.js 16.4 (App Router, Turbopack, React Compiler, Cache Components), React 19.3, TypeScript 6 estricto, Tailwind CSS 4, Zod 4, GSAP y los widgets oficiales de TradingView.
-- La home está 100% prerenderizada. Lo dinámico son islas cliente (menú, FAQ, pestañas de mercado, animaciones y widgets de TradingView). Compras y solicitudes abren WhatsApp; los registros van al link Partner/IB.
+- La home está 100% prerenderizada. Lo dinámico son islas cliente (menú, FAQ, cinta de cotizaciones, pestañas de mercado, animaciones y widgets de TradingView) y la ruta `/api/quotes`. Compras y solicitudes abren WhatsApp; los registros van al link Partner/IB.
 - Pendientes de contenido y de integración: [`docs/PENDIENTES.md`](docs/PENDIENTES.md).
 
 ## Cómo correrlo
@@ -60,14 +60,16 @@ flowchart LR
   ui --> shared["shared/<br/>(botones, íconos, colores, config)"]
 ```
 
-Las secciones son `content.ts` (textos) + `ui/<sección>.tsx` (diseño) + `index.ts`. Es solo front: no hay backend, CMS ni formularios. La poca lógica vive en archivos planos:
+Las secciones son `content.ts` (textos) + `ui/<sección>.tsx` (diseño) + `index.ts`. No hay backend propio, CMS ni formularios: la única ruta de servidor es `/api/quotes`, que reenvía cotizaciones públicas. La poca lógica vive en archivos planos:
 
-| Archivo                                  | Qué hace                                                                                    |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `src/shared/config/links.ts`             | Todos los destinos externos, el número de WhatsApp y `whatsappUrl()` (con los mensajes)     |
-| `src/shared/config/markets.ts`           | Los símbolos de TradingView (cinta del header, mini gráficos y pestañas de mercado)         |
-| `src/shared/ui/tradingview-widget.tsx`   | Un componente por widget oficial de TradingView; carga el script al acercarse a la pantalla |
-| `src/features/about/ui/candle-chart.tsx` | Las velas de "¿Qué es?", que crecen en cascada al entrar en pantalla (GSAP)                 |
+| Archivo                                     | Qué hace                                                                                     |
+| ------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `src/shared/config/links.ts`                | Todos los destinos externos, el número de WhatsApp y `whatsappUrl()` (con los mensajes)      |
+| `src/shared/config/markets.ts`              | Los símbolos de TradingView (cinta del header, mini gráficos y pestañas de mercado)          |
+| `src/features/market-ticker/live-quotes.ts` | Cotizaciones del header desde Yahoo Finance (servidor, caché de 1 minuto) para `/api/quotes` |
+| `scripts/build-legal-pdfs.mjs`              | Genera los PDF legales de `public/legal/` desde `scripts/legal/*.html` (`pnpm legal`)        |
+| `src/shared/ui/tradingview-widget.tsx`      | Un componente por widget oficial de TradingView; carga el script al acercarse a la pantalla  |
+| `src/features/about/ui/candle-chart.tsx`    | Las velas de "¿Qué es?", que crecen en cascada al entrar en pantalla (GSAP)                  |
 
 Reglas, verificadas por ESLint (`eslint.config.mjs`), que fallan en CI:
 
@@ -77,7 +79,9 @@ Reglas, verificadas por ESLint (`eslint.config.mjs`), que fallan en CI:
 ## Cómo cambiar links, WhatsApp y cotizaciones
 
 - **Links y WhatsApp**: `src/shared/config/links.ts`. El número (`WHATSAPP_NUMBER`) y el link de registro Partner/IB (`links.partnerRegistration`) se cambian en un solo lugar para todos los botones. Cada botón lleva su `data-link` (por ejemplo `whatsapp-libro` o `partner-ib-registro`).
-- **Cotizaciones**: los widgets de TradingView traen los datos en vivo. Para cambiar o sumar instrumentos, editar `src/shared/config/markets.ts` (símbolo con el prefijo del mercado, por ejemplo `OANDA:XAUUSD`) y las pestañas en `src/features/market-overview/content.ts`.
+- **Cinta del header**: instrumentos y símbolos de Yahoo Finance en `src/features/market-ticker/quotes.ts`; el proveedor, en `live-quotes.ts`.
+- **Textos legales**: editar `scripts/legal/*.html` y correr `docker compose run --rm app pnpm legal` para regenerar los PDF.
+- **Gráficos de TradingView**: traen los datos en vivo. Para cambiar o sumar instrumentos, editar `src/shared/config/markets.ts` (símbolo con el prefijo del mercado, por ejemplo `OANDA:XAUUSD`) y las pestañas en `src/features/market-overview/content.ts`.
 
 ## Cómo reemplazar las fotos
 

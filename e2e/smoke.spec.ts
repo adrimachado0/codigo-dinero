@@ -114,7 +114,9 @@ test.describe("home", () => {
   });
 });
 
-test("loads the TradingView widgets without CSP violations or console errors", async ({ page }) => {
+test("loads live quotes and TradingView widgets without CSP violations or console errors", async ({
+  page,
+}) => {
   const errors: string[] = [];
   page.on("console", (message) => {
     if (message.type() === "error") errors.push(message.text());
@@ -133,7 +135,10 @@ test("loads the TradingView widgets without CSP violations or console errors", a
       timeout: 15_000,
     });
   }
-  await expect(page.locator("[data-ticker-lane] iframe")).toBeAttached();
+  // The header strip fills with live prices from /api/quotes.
+  await expect(page.locator("[data-ticker-lane]").first()).toContainText(/\d+[.,]\d+/, {
+    timeout: 15_000,
+  });
   await page.waitForTimeout(1000);
 
   expect(errors).toEqual([]);
@@ -196,6 +201,36 @@ test("profile and resource links point to the right places", async ({ page }) =>
   await expect(
     page.locator("#formacion").getByRole("link", { name: /Síguenos en TikTok/ }),
   ).toHaveAttribute("href", "https://www.tiktok.com/@gonzalezbrothers.xau");
+  await expect(nav.getByRole("link", { name: "Nosotros" })).toHaveAttribute("href", "#quien-soy");
+  const footer = page.getByRole("contentinfo");
+  await expect(footer.getByRole("link", { name: "Telegram" })).toHaveCount(0);
+  await expect(footer.getByRole("link", { name: "X", exact: true })).toHaveCount(0);
+});
+
+test("legal links download the PDFs", async ({ page, request }) => {
+  await page.goto("/");
+  const legal = page.getByRole("navigation", { name: "Legal" }).getByRole("link");
+
+  await expect(legal).toHaveCount(3);
+  for (const link of await legal.all()) {
+    await expect(link).toHaveAttribute("download", "");
+    const href = (await link.getAttribute("href")) ?? "";
+    const response = await request.get(href);
+    expect(response.status(), href).toBe(200);
+    expect(response.headers()["content-type"], href).toContain("application/pdf");
+  }
+});
+
+test("quotes API answers with validated quotes", async ({ request }) => {
+  const response = await request.get("/api/quotes");
+  expect(response.status()).toBe(200);
+
+  // Live data: some instruments may be missing if the provider is down, never malformed.
+  const body = (await response.json()) as { quotes: { symbol: string; price: number }[] };
+  for (const quote of body.quotes) {
+    expect(quote.symbol).toMatch(/^[A-Z]{6}$/);
+    expect(quote.price).toBeGreaterThan(0);
+  }
 });
 
 test.describe("mobile", () => {
