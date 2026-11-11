@@ -96,6 +96,8 @@ export function Training() {
           <div data-reveal className="flex min-w-0 flex-[0.8_1_220px] flex-col gap-4">
             <a
               href={links.recordedClasses}
+              data-link="youtube-clases-grabadas"
+              {...externalLinkProps}
               className="group flex min-h-[190px] flex-auto flex-col justify-between gap-8 rounded-tile bg-surface-600 p-5.5 text-white no-underline transition-colors duration-300 hover:bg-white hover:text-ink"
             >
               <span className="text-14 leading-normal text-fg-soft transition-colors duration-300 group-hover:text-ink-soft">

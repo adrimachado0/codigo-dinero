@@ -6,8 +6,8 @@ export const links = {
   youtube: "https://www.youtube.com/@tradersdexau",
   /** "Cómo leer velas japonesas desde cero": the channel until the video exists. */
   youtubeTutorial: "https://www.youtube.com/@tradersdexau",
-  /** Basic and intermediate course: the channel until the playlist exists. */
-  youtubeCourse: "https://www.youtube.com/@tradersdexau",
+  /** Basic and intermediate course playlist. */
+  youtubeCourse: "https://www.youtube.com/watch?v=tPtMM8FjbUE&list=PLcxBN_CpiwBY&index=6",
   tiktok: "https://www.tiktok.com/@gonzalezbrothers.xau",
   instagram: "https://www.instagram.com/gonzalezbrothers.xau",
   /** EC Markets training ("Formación" in the menu). */
@@ -15,8 +15,8 @@ export const links = {
   economicCalendar: "https://www.ecmarkets.com/economic-calendar/",
   /** Partner/IB sign-up of EC Markets: every "Empezar" and "Quiero aprender desde cero". */
   partnerRegistration: "#",
-  /** "Ver clases grabadas". */
-  recordedClasses: "#",
+  /** "Ver clases grabadas": the YouTube channel. */
+  recordedClasses: "https://www.youtube.com/@tradersdexau",
   /** Attribution under the XAUUSD chart. */
   tradingViewGold: "https://es.tradingview.com/symbols/XAUUSD/",
 } as const;
@@ -33,8 +33,8 @@ export function linkAttributes(link: { href: string; external?: boolean; dataLin
   };
 }
 
-/** International format without "+" or spaces (pending: docs/PENDIENTES.md). */
-export const WHATSAPP_NUMBER = "549XXXXXXXXXX";
+/** International format without "+" or spaces: +54 9 341 264-9713. */
+export const WHATSAPP_NUMBER = "5493412649713";
 
 /** Pre-filled WhatsApp messages of the design, one per button, with its `data-link` id. */
 export const whatsappMessages = {
@@ -61,6 +61,10 @@ export const whatsappMessages = {
   communityLeader: {
     dataLink: "whatsapp-ib",
     text: "Hola Ángel, lidero una comunidad y quiero coordinar una sesión como IB.",
+  },
+  support: {
+    dataLink: "whatsapp-soporte",
+    text: "Hola Ángel, no se acreditó mi pago y te envío el comprobante.",
   },
   general: {
     dataLink: "whatsapp-general",

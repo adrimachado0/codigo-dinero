@@ -7,10 +7,8 @@ import { cn } from "@/shared/lib/cn";
 import {
   ArrowUpRightIcon,
   InstagramIcon,
-  TelegramIcon,
   TikTokIcon,
   WhatsAppIcon,
-  XIcon,
   YouTubeIcon,
   type IconProps,
 } from "@/shared/ui/icons";
@@ -23,8 +21,6 @@ const socialIcons: Record<SocialNetwork, ComponentType<IconProps>> = {
   YouTube: YouTubeIcon,
   Instagram: InstagramIcon,
   TikTok: TikTokIcon,
-  Telegram: TelegramIcon,
-  X: XIcon,
   WhatsApp: WhatsAppIcon,
 };
 
@@ -87,7 +83,7 @@ export function SiteFooter() {
               return (
                 <a
                   key={network.name}
-                  {...linkAttributes({ ...network, external: network.href !== "#" })}
+                  {...linkAttributes({ ...network, external: true })}
                   aria-label={network.name}
                   className="flex size-11 items-center justify-center rounded-full bg-ink text-accent transition-[background-color,color,box-shadow] duration-300 hover:bg-accent hover:text-ink hover:shadow-[inset_0_0_0_2px_#111111]"
                 >

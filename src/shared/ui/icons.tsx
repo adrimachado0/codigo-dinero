@@ -158,21 +158,3 @@ export function TikTokIcon({ size = 20, strokeWidth = 1.7, ...props }: IconProps
     </StrokeIcon>
   );
 }
-
-export function TelegramIcon({ size = 20, strokeWidth = 1.7, ...props }: IconProps) {
-  return (
-    <StrokeIcon size={size} strokeWidth={strokeWidth} {...props}>
-      <path d="M21.5 4L2.5 11.3l6.5 2.3 2.4 6.4 3.4-4.3 4.9 3.7z" />
-      <path d="M9 13.6L21.5 4" />
-    </StrokeIcon>
-  );
-}
-
-export function XIcon({ size = 18, strokeWidth = 1.7, ...props }: IconProps) {
-  return (
-    <StrokeIcon size={size} strokeWidth={strokeWidth} {...props}>
-      <path d="M4 4h4.5L20 20h-4.5z" />
-      <path d="M20 4l-6.6 7.3M10.6 12.7L4 20" />
-    </StrokeIcon>
-  );
-}

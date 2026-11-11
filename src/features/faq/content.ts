@@ -6,6 +6,8 @@ const FaqItemSchema = z.object({
   number: z.string().regex(/^\d{2}$/),
   question: z.string().min(1),
   answer: z.string().min(1),
+  /** A word of the answer that opens WhatsApp with this message (support questions). */
+  whatsapp: z.object({ label: z.string().min(1), message: z.enum(["support"]) }).optional(),
 });
 
 export type FaqItem = z.infer<typeof FaqItemSchema>;
@@ -50,7 +52,8 @@ export const faqContent = defineContent(
         number: "04",
         question: "¿Qué pasa si no se acredita mi pago?",
         answer:
-          "Escríbenos a [CORREO o WHATSAPP DE SOPORTE] con el comprobante de pago y lo revisamos. Algunos medios de pago pueden tardar [PLAZO] en acreditarse.",
+          "Escríbenos por WhatsApp con el comprobante de pago y lo revisamos. Algunos medios de pago pueden tardar [PLAZO] en acreditarse.",
+        whatsapp: { label: "WhatsApp", message: "support" },
       },
       {
         number: "05",
