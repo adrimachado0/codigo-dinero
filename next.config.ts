@@ -14,8 +14,7 @@ const contentSecurityPolicy = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' blob: data:",
   "font-src 'self'",
-  // data: — Remotion's Player primes autoplay with a silent data: audio clip.
-  "media-src 'self' blob: data:",
+  "media-src 'self'",
   "connect-src 'self'",
   "worker-src 'self' blob:",
   "object-src 'none'",

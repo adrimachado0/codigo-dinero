@@ -3,10 +3,9 @@
 import { useEffect, useRef, type ComponentProps } from "react";
 
 import { isMotionFrozen } from "@/shared/lib/motion";
-import { createScene, drawScene, type SceneKind } from "@/shared/lib/particle-sphere";
+import { createScene, drawScene } from "@/shared/lib/particle-sphere";
 
 export type ParticleSphereProps = Omit<ComponentProps<"canvas">, "ref" | "children"> & {
-  kind: SceneKind;
   /** The sphere turns toward the cursor and nearby dots move away from it. */
   interactive?: boolean;
 };
@@ -18,15 +17,10 @@ const STATIC_TIME = 6;
 const POINTER_MARGIN = 40;
 
 /**
- * Canvas port of the reference particle sphere ("hero") and sphere + price chart ("video").
+ * Canvas port of the reference particle sphere of the hero.
  * Animates with requestAnimationFrame only while on screen.
  */
-export function ParticleSphere({
-  kind,
-  interactive = false,
-  className,
-  ...props
-}: ParticleSphereProps) {
+export function ParticleSphere({ interactive = false, className, ...props }: ParticleSphereProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -34,7 +28,7 @@ export function ParticleSphere({
     const ctx = canvas?.getContext("2d");
     if (!canvas || !ctx) return;
 
-    const scene = createScene(kind, Math.random);
+    const scene = createScene(Math.random);
     const frozen = isMotionFrozen();
     let raf = 0;
     let visible = false;
@@ -77,7 +71,6 @@ export function ParticleSphere({
       }
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       drawScene(ctx, scene, {
-        kind,
         t,
         width: w,
         height: h,
@@ -129,7 +122,7 @@ export function ParticleSphere({
       window.removeEventListener("pointermove", onPointerMove);
       document.documentElement.removeEventListener("pointerleave", onPointerLeave);
     };
-  }, [kind, interactive]);
+  }, [interactive]);
 
   return <canvas ref={canvasRef} className={className} {...props} />;
 }

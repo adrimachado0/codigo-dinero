@@ -29,6 +29,8 @@
   --color-placeholder: #8a8a8a;
   --color-accent: #ff2b2b;
   --color-accent-hover: #ff8a8a;
+  /* Buy side (bull) of "¿Qué es Código Dinero?". */
+  --color-bull: #20c46b;
   /* Accent text on #202020 (open FAQ item): #FF2B2B gives 4.37:1, this gives 4.53:1 (AA). */
   --color-accent-raised: #ff3636;
   --color-wine: #3a0c11;

@@ -13,5 +13,4 @@ build/
 coverage/
 test-results/
 playwright-report/
-public/video/
 next-env.d.ts

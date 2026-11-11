@@ -19,8 +19,6 @@ blob-report/
 playwright/.cache/
 .lighthouseci/
 
-# remotion
-public/video/*.mp4
 
 # env
 .env*

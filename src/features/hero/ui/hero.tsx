@@ -77,7 +77,6 @@ export function Hero() {
             <div className="relative h-[420px] w-full min-w-0 flex-none md:h-[480px] lg:h-[500px] lg:w-auto lg:flex-[1.6_1_380px]">
               <div className="absolute bottom-0 left-1/2 -ml-[190px] size-[380px] rounded-full bg-wine-circle shadow-glow md:-ml-[230px] md:size-[460px] lg:-bottom-10" />
               <ParticleSphere
-                kind="hero"
                 interactive
                 aria-hidden="true"
                 className="absolute inset-0 block size-full"
