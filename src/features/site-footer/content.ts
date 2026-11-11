@@ -34,7 +34,6 @@ export const footerContent = defineContent(
           { label: "Quién soy", href: "#quien-soy" },
           { label: "Recursos", href: "#formacion" },
           { label: "Indicadores", href: "#indicadores" },
-          { label: "Comunidad", href: "#comunidad" },
           { label: "Preguntas frecuentes", href: "#faq" },
         ],
       },

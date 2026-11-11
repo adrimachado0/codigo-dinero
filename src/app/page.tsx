@@ -11,7 +11,6 @@ import { MottoBand } from "@/features/motto-band";
 import { PremiumIndicator } from "@/features/premium-indicator";
 import { SiteFooter } from "@/features/site-footer";
 import { SiteHeader } from "@/features/site-header";
-import { Testimonials } from "@/features/testimonials";
 import { topicLabels, TopicsRibbon } from "@/features/topics-ribbon";
 import { Training } from "@/features/training";
 import { faqPageLd, graph, JsonLd, organizationLd, websiteLd } from "@/shared/seo/json-ld";
@@ -41,7 +40,6 @@ export default function HomePage() {
         <Library />
         <PremiumIndicator />
         <MarketOverview />
-        <Testimonials />
         <TopicsRibbon />
         <Faq />
         <LeadCapture />

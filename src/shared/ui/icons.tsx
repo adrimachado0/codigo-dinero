@@ -55,14 +55,6 @@ export function ArrowRightIcon({ size = 18, strokeWidth = 1.8, ...props }: IconP
   );
 }
 
-export function ArrowLeftIcon({ size = 18, strokeWidth = 1.8, ...props }: IconProps) {
-  return (
-    <StrokeIcon size={size} strokeWidth={strokeWidth} {...props}>
-      <path d="M19 12H5M11 6l-6 6 6 6" />
-    </StrokeIcon>
-  );
-}
-
 export function ArrowUpRightIcon({ size = 22, strokeWidth = 1.8, ...props }: IconProps) {
   return (
     <StrokeIcon size={size} strokeWidth={strokeWidth} {...props}>
@@ -83,15 +75,6 @@ export function CloseIcon({ size = 18, strokeWidth = 2, ...props }: IconProps) {
   return (
     <StrokeIcon size={size} strokeWidth={strokeWidth} {...props}>
       <path d="M6 6l12 12M18 6L6 18" />
-    </StrokeIcon>
-  );
-}
-
-export function UserIcon({ size = 22, strokeWidth = 1.8, ...props }: IconProps) {
-  return (
-    <StrokeIcon size={size} strokeWidth={strokeWidth} {...props}>
-      <circle cx="12" cy="8.5" r="3.8" />
-      <path d="M4.5 20.5c.9-3.9 3.9-6 7.5-6s6.6 2.1 7.5 6" />
     </StrokeIcon>
   );
 }
@@ -142,14 +125,6 @@ export function PlayIcon({ size = 22, ...props }: IconProps) {
   return (
     <FillIcon size={size} {...props}>
       <path d="M8 5.5v13l11-6.5z" />
-    </FillIcon>
-  );
-}
-
-export function QuoteIcon({ size = 28, ...props }: IconProps) {
-  return (
-    <FillIcon size={size} {...props}>
-      <path d="M4 7h6v6c0 3.5-2 5.5-5 6.5l-.8-1.6c1.7-.8 2.6-2 2.8-3.9H4zM14 7h6v6c0 3.5-2 5.5-5 6.5l-.8-1.6c1.7-.8 2.6-2 2.8-3.9H14z" />
     </FillIcon>
   );
 }
