@@ -32,7 +32,7 @@ export const faqContent = defineContent(
         number: "01",
         question: "¿Cuánto cuesta?",
         answer:
-          "La membresía cuesta [PRECIO] [por mes / pago único]. Las clases de nuestro canal de YouTube son gratuitas.",
+          "En noviembre, diciembre y enero la formación no tiene costo: solo tienes que crear tu cuenta en EC Markets. Las clases de nuestro canal de YouTube son gratuitas.",
       },
       {
         number: "02",
@@ -43,8 +43,7 @@ export const faqContent = defineContent(
       {
         number: "03",
         question: "¿Cómo accedo a los videos?",
-        answer:
-          "Las clases abiertas están en nuestro canal de YouTube. El contenido de formación se habilita en [PLATAFORMA] cuando se acredita tu pago.",
+        answer: "Las clases están en nuestro canal de YouTube.",
       },
       {
         number: "04",

@@ -20,7 +20,9 @@ describe("FaqAccordion", () => {
 
     expect(first).toHaveAttribute("aria-expanded", "true");
     expect(second).toHaveAttribute("aria-expanded", "false");
-    expect(screen.getByRole("region", { name: /Cuánto cuesta/ })).toHaveTextContent("[PRECIO]");
+    expect(screen.getByRole("region", { name: /Cuánto cuesta/ })).toHaveTextContent(
+      "no tiene costo",
+    );
   });
 
   it("links each button to its panel and keeps closed answers in the DOM", () => {
