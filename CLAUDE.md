@@ -47,7 +47,7 @@ Estructura de una feature (sección). **Simple a propósito: sin capas, puertos 
 - Tailwind v4 con tokens en `@theme`; variantes con `cva`; clases combinadas con `cn` (`clsx` + `tailwind-merge`). Responsive con `md:`/`lg:`, sin `!important`.
 - Sin preflight de Tailwind (la referencia usa los estilos por defecto del navegador): **no usar `border-solid`**, porque pone bordes de 3 px en los cuatro lados; `border-*` ya fija el estilo. Un token nuevo en `@theme` también se registra en `src/shared/lib/cn.ts`.
 - Fuentes: los binarios exactos de la referencia en `public/fonts/` vía `next/font/local`. No cambiar a `next/font/google` (otra revisión, otros anchos).
-- Las animaciones decorativas **no** respetan `prefers-reduced-motion` (decisión del dueño del sitio; única excepción pedida: la entrada de las velas de "¿Qué es?"): siempre se mueven, se pausan fuera de pantalla y se limpian al desmontar (`useGSAP`). Usar `useLoopAnimation` / `isMotionFrozen()` (`src/shared/lib/motion.ts`): los tests congelan el movimiento con `window.__FREEZE_MOTION__`.
+- Las animaciones decorativas **no** respetan `prefers-reduced-motion` (decisión del dueño del sitio): siempre se mueven, se pausan fuera de pantalla y se limpian al desmontar (`useGSAP`). Usar `useLoopAnimation` / `isMotionFrozen()` (`src/shared/lib/motion.ts`): los tests congelan el movimiento con `window.__FREEZE_MOTION__`.
 - El `h1` del hero es el LCP: no se anima su entrada.
 - Commits con Conventional Commits (commitlint).
 
@@ -66,6 +66,8 @@ Todos se corren en el contenedor: `docker compose run --rm app <comando>` (o `ex
 | `pnpm test:coverage`                | Vitest con cobertura (umbral 90% en los archivos con lógica)                 |
 | `pnpm test:e2e`                     | Playwright e2e + axe                                                         |
 | `pnpm test:visual`                  | Regresión visual contra `reference/` (pixelmatch, umbral ≤ 0.5% por sección) |
+| `pnpm remotion:studio`              | Remotion Studio del video de velas (puerto 3002)                             |
+| `pnpm remotion:render`              | Render MP4 del video a `out/`                                                |
 
 ## Skills del proyecto
 

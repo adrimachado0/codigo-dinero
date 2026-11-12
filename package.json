@@ -18,10 +18,14 @@
     "test:visual": "playwright test --project=visual",
     "icons": "node scripts/generate-icons.mjs",
     "legal": "node scripts/build-legal-pdfs.mjs",
+    "remotion:studio": "remotion studio src/features/about/video/index.ts --port 3002 --no-open",
+    "remotion:render": "remotion render src/features/about/video/index.ts VelasJaponesas out/velas-japonesas.mp4",
     "prepare": "husky"
   },
   "dependencies": {
     "@gsap/react": "2.1.2",
+    "@remotion/fonts": "4.0.540",
+    "@remotion/player": "4.0.540",
     "@t3-oss/env-nextjs": "0.13.11",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
@@ -30,6 +34,7 @@
     "next": "16.4.5",
     "react": "19.3.0",
     "react-dom": "19.3.0",
+    "remotion": "4.0.540",
     "tailwind-merge": "3.7.0",
     "zod": "4.6.7"
   },
@@ -39,6 +44,7 @@
     "@commitlint/config-conventional": "21.2.4",
     "@eslint/js": "9.39.5",
     "@playwright/test": "1.64.1",
+    "@remotion/cli": "4.0.540",
     "@tailwindcss/turbopack": "4.3.4",
     "@testing-library/dom": "10.4.2",
     "@testing-library/jest-dom": "7.0.1",

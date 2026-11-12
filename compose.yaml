@@ -22,6 +22,7 @@ services:
     ports:
       - "3000:3000" # next dev
       - "3001:3001" # reference/ static server (visual tests)
+      - "3002:3002" # Remotion Studio (pnpm remotion:studio)
 
 volumes:
   pnpm-store:

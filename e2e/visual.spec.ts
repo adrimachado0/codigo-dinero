@@ -83,12 +83,15 @@ const MASKS = {
     '[aria-label="Cotizaciones"] > :nth-child(2)',
     '[aria-label="Cotizaciones"] > :nth-child(3)',
     "#indicador .cod-ind-frame",
+    // The design's static candle chart; the app plays the Remotion video in the same frame.
+    "#que-es .cod-video",
     '#mercado div[style*="flex: 1 1 320px"]',
   ],
   app: [
     "canvas",
     "[data-ticker-lane]",
     "#indicador [data-chart-frame]",
+    "#que-es [data-video-card]",
     "#mercado [data-market-card]",
   ],
 };

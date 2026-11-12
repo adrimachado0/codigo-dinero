@@ -7,7 +7,7 @@ import { Sparkle } from "@/shared/ui/sparkle";
 import { aboutContent } from "../content";
 import { BearIcon } from "./bear-icon";
 import { BullIcon } from "./bull-icon";
-import { CandleChart } from "./candle-chart";
+import { CandlesVideo } from "./candles-video";
 
 /** Bull or bear with its label, outside the chart (below 1024px both go under it). */
 function Animal({
@@ -74,8 +74,11 @@ export function About() {
             className="relative min-w-0 flex-auto max-lg:order-first max-lg:flex-[1_1_100%]"
           >
             <Sparkle size={34} className="absolute -top-4 -left-3.5 z-2" />
-            <div className="relative aspect-[800/480] overflow-hidden rounded-card border border-white/8 bg-surface-100">
-              <CandleChart label={aboutContent.chartLabel} />
+            <div
+              data-video-card
+              className="relative aspect-[800/480] overflow-hidden rounded-card border border-white/8 bg-surface-100"
+            >
+              <CandlesVideo labels={aboutContent.video} />
             </div>
           </div>
           <Animal label={aboutContent.sellLabel} tone="sell">

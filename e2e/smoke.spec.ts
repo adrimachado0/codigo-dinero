@@ -144,6 +144,31 @@ test("loads live quotes and TradingView widgets without CSP violations or consol
   expect(errors).toEqual([]);
 });
 
+test("the candlestick video plays with the site's controls, without CSP errors", async ({
+  page,
+}) => {
+  const errors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") errors.push(message.text());
+  });
+  await page.addInitScript(() => {
+    document.addEventListener("securitypolicyviolation", (event) => {
+      console.error(`CSP ${event.violatedDirective} ${event.blockedURI}`);
+    });
+  });
+  await page.goto("/");
+  // The Player loads when its frame nears the viewport.
+  await page.locator("#que-es [data-video-card]").scrollIntoViewIfNeeded();
+  const video = page.getByRole("region", { name: "Video: cómo leer velas japonesas" });
+
+  await video.getByRole("button", { name: "Reproducir video" }).click();
+  await expect(video.getByRole("button", { name: "Pausar video" })).toBeVisible();
+  await expect
+    .poll(async () => Number(await video.getByRole("slider").inputValue()), { timeout: 10_000 })
+    .toBeGreaterThan(30);
+  expect(errors).toEqual([]);
+});
+
 test("sign-up buttons go to EC Markets in a new tab", async ({ page }) => {
   await page.goto("/");
 

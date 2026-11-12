@@ -62,14 +62,15 @@ flowchart LR
 
 Las secciones son `content.ts` (textos) + `ui/<sección>.tsx` (diseño) + `index.ts`. No hay backend propio, CMS ni formularios: la única ruta de servidor es `/api/quotes`, que reenvía cotizaciones públicas. La poca lógica vive en archivos planos:
 
-| Archivo                                     | Qué hace                                                                                     |
-| ------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `src/shared/config/links.ts`                | Todos los destinos externos, el número de WhatsApp y `whatsappUrl()` (con los mensajes)      |
-| `src/shared/config/markets.ts`              | Los símbolos de TradingView (cinta del header, mini gráficos y pestañas de mercado)          |
-| `src/features/market-ticker/live-quotes.ts` | Cotizaciones del header desde Yahoo Finance (servidor, caché de 1 minuto) para `/api/quotes` |
-| `scripts/build-legal-pdfs.mjs`              | Genera los PDF legales de `public/legal/` desde `scripts/legal/*.html` (`pnpm legal`)        |
-| `src/shared/ui/tradingview-widget.tsx`      | Un componente por widget oficial de TradingView; carga el script al acercarse a la pantalla  |
-| `src/features/about/ui/candle-chart.tsx`    | Las velas de "¿Qué es?", que crecen en cascada al entrar en pantalla (GSAP)                  |
+| Archivo                                     | Qué hace                                                                                              |
+| ------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `src/shared/config/links.ts`                | Todos los destinos externos, el número de WhatsApp y `whatsappUrl()` (con los mensajes)               |
+| `src/shared/config/markets.ts`              | Los símbolos de TradingView (cinta del header, mini gráficos y pestañas de mercado)                   |
+| `src/features/market-ticker/live-quotes.ts` | Cotizaciones del header desde Yahoo Finance (servidor, caché de 1 minuto) para `/api/quotes`          |
+| `scripts/build-legal-pdfs.mjs`              | Genera los PDF legales de `public/legal/` desde `scripts/legal/*.html` (`pnpm legal`)                 |
+| `src/shared/ui/tradingview-widget.tsx`      | Un componente por widget oficial de TradingView; carga el script al acercarse a la pantalla           |
+| `src/features/about/video/`                 | Video "Velas japonesas" (Remotion): composición, escenas y entrada de Studio                          |
+| `src/features/about/ui/candles-player.tsx`  | Reproductor del video (`@remotion/player`) con controles propios; se carga al acercarse a la pantalla |
 
 Reglas, verificadas por ESLint (`eslint.config.mjs`), que fallan en CI:
 
