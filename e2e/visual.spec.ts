@@ -33,6 +33,8 @@ const INTENTIONAL: Record<string, { reason: string; widths?: number[] }> = {
   footer: { reason: "footer sin Telegram ni X" },
   // The owner removed the payment and cancellation questions (04 and 05).
   faq: { reason: "FAQ sin las preguntas de acreditación y cancelación" },
+  // "Sumarme como Partner / IB" now goes to the EC Markets sign-up: ↗ instead of the WhatsApp icon.
+  "quien-soy": { reason: "botón Partner / IB al registro de EC Markets" },
 };
 
 /** Below 768px the page uses tighter gutters and section spacing than the reference. */

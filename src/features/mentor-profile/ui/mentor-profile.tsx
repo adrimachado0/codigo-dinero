@@ -1,9 +1,9 @@
 import Image from "next/image";
 
-import { linkAttributes, partnerRegistrationLink, whatsappLink } from "@/shared/config/links";
+import { accountSignupLink, linkAttributes, partnerSignupLink } from "@/shared/config/links";
 import { photos, type PhotoSlot } from "@/shared/config/photos";
 import { LinkButton } from "@/shared/ui/button";
-import { ArrowUpRightIcon, WhatsAppIcon } from "@/shared/ui/icons";
+import { ArrowUpRightIcon } from "@/shared/ui/icons";
 import { Pill } from "@/shared/ui/pill";
 import { Reveal } from "@/shared/ui/reveal";
 import { RichText } from "@/shared/ui/rich-text";
@@ -118,7 +118,7 @@ export function MentorProfile() {
           </div>
           <div className="mt-7.5 flex flex-wrap gap-3">
             <LinkButton
-              {...linkAttributes(partnerRegistrationLink)}
+              {...linkAttributes(accountSignupLink)}
               size="lg"
               className="box-border justify-center gap-2.5"
             >
@@ -126,13 +126,13 @@ export function MentorProfile() {
               <ArrowUpRightIcon size={12} strokeWidth={2.2} />
             </LinkButton>
             <LinkButton
-              {...linkAttributes(whatsappLink("partner"))}
+              {...linkAttributes(partnerSignupLink)}
               tone="outline"
               size="lg"
               className="box-border justify-center gap-2.5"
             >
-              <WhatsAppIcon size={17} />
               {content.partnerCta}
+              <ArrowUpRightIcon size={12} strokeWidth={2.2} />
             </LinkButton>
           </div>
         </div>

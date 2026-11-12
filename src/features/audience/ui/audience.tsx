@@ -1,6 +1,6 @@
 import { cva } from "class-variance-authority";
 
-import { linkAttributes, partnerRegistrationLink, whatsappLink } from "@/shared/config/links";
+import { accountSignupLink, linkAttributes, partnerSignupLink } from "@/shared/config/links";
 import { LinkButton } from "@/shared/ui/button";
 import {
   ArrowRightIcon,
@@ -8,7 +8,6 @@ import {
   CommunityIcon,
   StepsUpIcon,
   TrendUpIcon,
-  WhatsAppIcon,
 } from "@/shared/ui/icons";
 import { Pill } from "@/shared/ui/pill";
 import { Reveal } from "@/shared/ui/reveal";
@@ -75,20 +74,20 @@ export function Audience() {
                 >
                   <RichText value={card.body} />
                 </p>
-                {card.cta.kind === "whatsapp" ? (
+                {card.cta.kind === "partner" ? (
                   <LinkButton
-                    {...linkAttributes(whatsappLink("partner"))}
+                    {...linkAttributes(partnerSignupLink)}
                     tone="ink"
                     size="lg"
                     className="mt-5 gap-2.5 self-start md:mt-auto"
                   >
-                    <WhatsAppIcon size={18} />
                     {card.cta.label}
+                    <ArrowUpRightIcon size={12} strokeWidth={2.2} />
                   </LinkButton>
                 ) : (
                   <a
                     {...(card.cta.kind === "registration"
-                      ? linkAttributes(partnerRegistrationLink)
+                      ? linkAttributes(accountSignupLink)
                       : { href: card.cta.href })}
                     className="group mt-auto inline-flex min-h-11 items-center gap-2.5 pt-5 text-15 font-medium text-white no-underline transition-colors duration-300 hover:text-accent md:pt-7"
                   >

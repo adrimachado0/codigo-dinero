@@ -4,12 +4,12 @@ import { defineContent } from "@/shared/lib/content";
 import { RichTextSchema } from "@/shared/lib/rich-text";
 
 /**
- * CTA of a card: `registration` goes to the Partner/IB sign-up, `whatsapp` opens the partner
- * chat and `section` jumps to `href` on the page.
+ * CTA of a card: `registration` opens an EC Markets account, `partner` goes to the Partner / IB
+ * sign-up and `section` jumps to `href` on the page.
  */
 const CtaSchema = z.discriminatedUnion("kind", [
   z.object({ kind: z.literal("registration"), label: z.string().min(1) }),
-  z.object({ kind: z.literal("whatsapp"), label: z.string().min(1) }),
+  z.object({ kind: z.literal("partner"), label: z.string().min(1) }),
   z.object({
     kind: z.literal("section"),
     label: z.string().min(1),
@@ -73,7 +73,7 @@ export const audienceContent = defineContent(
           { strong: "EC Markets" },
           ".",
         ],
-        cta: { kind: "whatsapp", label: "Sumarme como Partner / IB" },
+        cta: { kind: "partner", label: "Sumarme como Partner / IB" },
       },
     ],
   },

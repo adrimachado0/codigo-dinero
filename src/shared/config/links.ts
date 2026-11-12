@@ -13,8 +13,10 @@ export const links = {
   /** EC Markets training ("Formación" in the menu). */
   training: "https://www.ecmarkets.com/ec-academy/",
   economicCalendar: "https://www.ecmarkets.com/economic-calendar/",
-  /** Partner/IB sign-up of EC Markets: every "Empezar" and "Quiero aprender desde cero". */
-  partnerRegistration: "#",
+  /** EC Markets account sign-up: every "Quiero aprender desde cero". */
+  accountSignup: "https://sales.ecmarkets.com/PL/2/VUHHE",
+  /** EC Markets Partner / IB sign-up: every "Sumarme como Partner / IB". */
+  partnerSignup: "https://ib.ecmarkets.com/PL/2/JQER5",
   /** "Ver clases grabadas": the YouTube channel. */
   recordedClasses: "https://www.youtube.com/@tradersdexau",
   /** Attribution under the XAUUSD chart. */
@@ -38,9 +40,9 @@ export const WHATSAPP_NUMBER = "5493412649713";
 
 /** Pre-filled WhatsApp messages of the design, one per button, with its `data-link` id. */
 export const whatsappMessages = {
-  partner: {
-    dataLink: "whatsapp-partner",
-    text: "Hola Ángel, quiero sumarme como Partner / IB.",
+  start: {
+    dataLink: "whatsapp-empezar",
+    text: "Hola Ángel, quiero empezar con Código Dinero.",
   },
   book: {
     dataLink: "whatsapp-libro",
@@ -86,9 +88,16 @@ export function whatsappLink(message: WhatsAppMessage) {
   return { href: whatsappUrl(text), external: true, dataLink };
 }
 
-/** Every "Empezar" / "Quiero aprender desde cero" button. */
-export const partnerRegistrationLink = {
-  href: links.partnerRegistration,
+/** Every "Quiero aprender desde cero" button: opens an EC Markets account. */
+export const accountSignupLink = {
+  href: links.accountSignup,
   external: true,
-  dataLink: "partner-ib-registro",
+  dataLink: "ec-markets-cuenta",
+} as const;
+
+/** Every "Sumarme como Partner / IB" button: the EC Markets Partner / IB sign-up. */
+export const partnerSignupLink = {
+  href: links.partnerSignup,
+  external: true,
+  dataLink: "ec-markets-ib",
 } as const;

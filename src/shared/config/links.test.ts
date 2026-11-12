@@ -28,9 +28,9 @@ describe("whatsappUrl", () => {
   });
 
   it("gives each button its data-link id and opens in a new tab", () => {
-    expect(linkAttributes(whatsappLink("partner"))).toEqual({
-      href: whatsappUrl("Hola Ángel, quiero sumarme como Partner / IB."),
-      "data-link": "whatsapp-partner",
+    expect(linkAttributes(whatsappLink("start"))).toEqual({
+      href: whatsappUrl("Hola Ángel, quiero empezar con Código Dinero."),
+      "data-link": "whatsapp-empezar",
       target: "_blank",
       rel: "noopener noreferrer",
     });

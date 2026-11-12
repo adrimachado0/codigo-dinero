@@ -144,19 +144,21 @@ test("loads live quotes and TradingView widgets without CSP violations or consol
   expect(errors).toEqual([]);
 });
 
-test("registration buttons share one destination and open in a new tab", async ({ page }) => {
+test("sign-up buttons go to EC Markets in a new tab", async ({ page }) => {
   await page.goto("/");
-  const buttons = page.locator('a[data-link="partner-ib-registro"]');
 
-  // Header "Empezar", hero, "Traders novatos", "Quién soy" and the footer.
-  await expect(buttons).toHaveCount(5);
-  const hrefs = new Set(
-    await buttons.evaluateAll((links) => links.map((a) => a.getAttribute("href"))),
-  );
-  expect(hrefs.size).toBe(1);
-  for (const button of await buttons.all()) {
-    await expect(button).toHaveAttribute("target", "_blank");
-    await expect(button).toHaveAttribute("rel", "noopener noreferrer");
+  // Hero, a profile card and "Quién soy" each have both buttons.
+  for (const [dataLink, href] of [
+    ["ec-markets-cuenta", "https://sales.ecmarkets.com/PL/2/VUHHE"],
+    ["ec-markets-ib", "https://ib.ecmarkets.com/PL/2/JQER5"],
+  ] as const) {
+    const buttons = page.locator(`a[data-link="${dataLink}"]`);
+    await expect(buttons).toHaveCount(3);
+    for (const button of await buttons.all()) {
+      await expect(button).toHaveAttribute("href", href);
+      await expect(button).toHaveAttribute("target", "_blank");
+      await expect(button).toHaveAttribute("rel", "noopener noreferrer");
+    }
   }
 });
 
@@ -167,8 +169,10 @@ test("WhatsApp buttons open a chat with the design's message", async ({ page }) 
     return new URL(href).searchParams.get("text");
   };
 
-  expect(await message('#hero a[data-link="whatsapp-partner"]')).toBe(
-    "Hola Ángel, quiero sumarme como Partner / IB.",
+  // "Empezar" (header and footer).
+  await expect(page.locator('a[data-link="whatsapp-empezar"]')).toHaveCount(2);
+  expect(await message('header a[data-link="whatsapp-empezar"]')).toBe(
+    "Hola Ángel, quiero empezar con Código Dinero.",
   );
   expect(await message('#contacto a[data-link="whatsapp-novato"]')).toBe(
     "Hola Ángel, estoy empezando desde cero y quiero coordinar una sesión.",

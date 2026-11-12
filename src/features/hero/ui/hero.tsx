@@ -1,8 +1,8 @@
 import { HeroPartner } from "@/features/broker-partner";
-import { linkAttributes, partnerRegistrationLink, whatsappLink } from "@/shared/config/links";
+import { accountSignupLink, linkAttributes, partnerSignupLink } from "@/shared/config/links";
 import { photos } from "@/shared/config/photos";
 import { LinkButton } from "@/shared/ui/button";
-import { ArrowUpRightIcon, WhatsAppIcon } from "@/shared/ui/icons";
+import { ArrowUpRightIcon } from "@/shared/ui/icons";
 import { ParticleSphere } from "@/shared/ui/particle-sphere";
 import { PersonPhoto } from "@/shared/ui/person-photo";
 import { QrPattern } from "@/shared/ui/qr-pattern";
@@ -93,19 +93,19 @@ export function Hero() {
               {/* Below 768px the capsule stacks in a column (reference: .cod-hero-cta). */}
               <div className="absolute bottom-6.5 left-1/2 z-2 flex w-[min(300px,calc(100%-24px))] -translate-x-1/2 flex-col gap-1.5 rounded-accordion bg-ink/86 p-1.5 md:w-auto md:flex-row md:rounded-full md:whitespace-nowrap">
                 <LinkButton
-                  {...linkAttributes(partnerRegistrationLink)}
+                  {...linkAttributes(accountSignupLink)}
                   className="gap-1.75 max-md:justify-center"
                 >
                   {heroContent.primaryCta}
                   <ArrowUpRightIcon size={12} strokeWidth={2.2} />
                 </LinkButton>
                 <LinkButton
-                  {...linkAttributes(whatsappLink("partner"))}
+                  {...linkAttributes(partnerSignupLink)}
                   tone="outline-soft"
-                  className="gap-2 max-md:justify-center"
+                  className="gap-1.75 max-md:justify-center"
                 >
-                  <WhatsAppIcon size={16} />
                   {heroContent.partnerCta}
+                  <ArrowUpRightIcon size={12} strokeWidth={2.2} />
                 </LinkButton>
               </div>
             </div>

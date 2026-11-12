@@ -1,5 +1,5 @@
 import { env } from "@/shared/config/env";
-import { links, partnerRegistrationLink, whatsappLink } from "@/shared/config/links";
+import { links, whatsappLink } from "@/shared/config/links";
 
 export type NavLink = {
   label: string;
@@ -45,7 +45,8 @@ export const site = {
       { label: "Mercado", href: "#mercado" },
       { label: "Nosotros", href: "#quien-soy" },
     ] satisfies NavLink[],
-    cta: { label: "Empezar", ...partnerRegistrationLink } satisfies NavLink,
+    // Opens WhatsApp ("Hola Ángel, quiero empezar con Código Dinero.").
+    cta: { label: "Empezar", ...whatsappLink("start") } satisfies NavLink,
   },
   /** Footer icons, in order. `profile`: an account page, listed as `sameAs` in the JSON-LD. */
   social: [

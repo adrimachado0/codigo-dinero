@@ -8,9 +8,9 @@ export const heroContent = defineContent(
     /** First line in white; the second on its own line in the accent red. */
     title: z.object({ lead: z.string().min(1), highlight: z.string().min(1) }),
     intro: RichTextSchema,
-    /** Goes to the Partner/IB sign-up (src/shared/config/links.ts). */
+    /** Opens an EC Markets account (src/shared/config/links.ts). */
     primaryCta: z.string().min(1),
-    /** Opens WhatsApp with the partner message. */
+    /** Goes to the EC Markets Partner / IB sign-up. */
     partnerCta: z.string().min(1),
   }),
   {

@@ -14,9 +14,9 @@ export const mentorContent = defineContent(
     intro: RichTextSchema,
     body: RichTextSchema,
     facts: z.array(z.object({ label: z.string().min(1), highlight: z.boolean() })).min(1),
-    /** Goes to the Partner/IB sign-up. */
+    /** Opens an EC Markets account. */
     primaryCta: z.string().min(1),
-    /** Opens WhatsApp with the partner message. */
+    /** Goes to the EC Markets Partner / IB sign-up. */
     partnerCta: z.string().min(1),
     /** Captions of the event photos (src/shared/config/photos.ts), in order. */
     events: z.object({ stand: z.string().min(1), moneyExpo: z.string().min(1) }),
