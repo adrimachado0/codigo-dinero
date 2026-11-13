@@ -9,7 +9,8 @@ Todo lo que falta definir o implementar. Los marcadores se mantienen tal cual en
 - [x] **"Ver clases grabadas"** (Recursos): abre el canal de YouTube (`links.recordedClasses`).
 - [x] **"Indicadores exclusivos"** (Recursos, 04): abre WhatsApp con el mismo mensaje que el botón de la sección del indicador (`data-link="whatsapp-indicador"`).
 - [x] **Lista de reproducción del Curso Básico e Intermedio**: `links.youtubeCourse` apunta a la lista "Curso intermedio Traders de Xau".
-- [ ] **Video del tutorial** "Cómo leer velas japonesas desde cero": `links.youtubeTutorial` (hoy el canal). Con la URL del video se puede sumar el JSON-LD `VideoObject` en `src/shared/seo/json-ld.tsx`.
+- [x] **Video del tutorial** "Cómo leer velas japonesas desde cero": `links.youtubeTutorial` apunta a https://www.youtube.com/watch?v=pjMAm6kWzxA.
+- [ ] **JSON-LD `VideoObject` del tutorial** (opcional, `src/shared/seo/json-ld.tsx`): necesita la fecha de publicación y la descripción del video.
 - [x] **Redes sin URL**: el cliente no tiene Telegram ni X; se quitaron del footer. Quedan YouTube, Instagram, TikTok y WhatsApp.
 - [x] **Menú**: "Equipo" pasó a "Nosotros" y lleva a "¿Quién soy?" (`#quien-soy`), en el header, el menú móvil y el footer.
 - [x] **Logo de EC Markets**: el logo ya está; el diseño no lo enlaza, así que se quitó el link vacío (`site.partner.href`) que quedaba en la configuración.

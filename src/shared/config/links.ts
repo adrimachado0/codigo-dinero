@@ -4,8 +4,8 @@
  */
 export const links = {
   youtube: "https://www.youtube.com/@tradersdexau",
-  /** "Cómo leer velas japonesas desde cero": the channel until the video exists. */
-  youtubeTutorial: "https://www.youtube.com/@tradersdexau",
+  /** "Cómo leer velas japonesas desde cero" tutorial (Recursos). */
+  youtubeTutorial: "https://www.youtube.com/watch?v=pjMAm6kWzxA",
   /** Basic and intermediate course playlist. */
   youtubeCourse: "https://www.youtube.com/watch?v=tPtMM8FjbUE&list=PLcxBN_CpiwBY&index=6",
   tiktok: "https://www.tiktok.com/@gonzalezbrothers.xau",
